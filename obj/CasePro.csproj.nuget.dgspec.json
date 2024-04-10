@@ -1,28 +1,165 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Omschrift\\Projects\\CasePro\\CasePro\\CasePro.csproj": {}
+    "C:\\Projects\\CaseProNew\\CaseProNew\\CasePro\\CasePro.csproj": {}
   },
   "projects": {
-    "D:\\Omschrift\\Projects\\CasePro\\CasePro\\CasePro.csproj": {
+    "C:\\Projects\\CaseProNew\\CaseProNew\\CasePro\\CasePro.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Omschrift\\Projects\\CasePro\\CasePro\\CasePro.csproj",
+        "projectUniqueName": "C:\\Projects\\CaseProNew\\CaseProNew\\CasePro\\CasePro.csproj",
         "projectName": "CasePro",
-        "projectPath": "D:\\Omschrift\\Projects\\CasePro\\CasePro\\CasePro.csproj",
-        "packagesPath": "C:\\Users\\shiva\\.nuget\\packages\\",
-        "outputPath": "D:\\Omschrift\\Projects\\CasePro\\CasePro\\obj\\",
+        "projectPath": "C:\\Projects\\CaseProNew\\CaseProNew\\CasePro\\CasePro.csproj",
+        "packagesPath": "C:\\Users\\Indiawin\\.nuget\\packages\\",
+        "outputPath": "C:\\Projects\\CaseProNew\\CaseProNew\\CasePro\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\shiva\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Indiawin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "C:\\Projects\\CaseProNew\\CaseProNew\\Domaincasepro\\Domaincasepro.csproj": {
+                "projectPath": "C:\\Projects\\CaseProNew\\CaseProNew\\Domaincasepro\\Domaincasepro.csproj"
+              },
+              "C:\\Projects\\CaseProNew\\CaseProNew\\Modelcasepro\\Modelcasepro.csproj": {
+                "projectPath": "C:\\Projects\\CaseProNew\\CaseProNew\\Modelcasepro\\Modelcasepro.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[7.0.12, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Projects\\CaseProNew\\CaseProNew\\Domaincasepro\\Domaincasepro.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Projects\\CaseProNew\\CaseProNew\\Domaincasepro\\Domaincasepro.csproj",
+        "projectName": "Domaincasepro",
+        "projectPath": "C:\\Projects\\CaseProNew\\CaseProNew\\Domaincasepro\\Domaincasepro.csproj",
+        "packagesPath": "C:\\Users\\Indiawin\\.nuget\\packages\\",
+        "outputPath": "C:\\Projects\\CaseProNew\\CaseProNew\\Domaincasepro\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Indiawin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "C:\\Projects\\CaseProNew\\CaseProNew\\Modelcasepro\\Modelcasepro.csproj": {
+                "projectPath": "C:\\Projects\\CaseProNew\\CaseProNew\\Modelcasepro\\Modelcasepro.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Projects\\CaseProNew\\CaseProNew\\Modelcasepro\\Modelcasepro.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Projects\\CaseProNew\\CaseProNew\\Modelcasepro\\Modelcasepro.csproj",
+        "projectName": "Modelcasepro",
+        "projectPath": "C:\\Projects\\CaseProNew\\CaseProNew\\Modelcasepro\\Modelcasepro.csproj",
+        "packagesPath": "C:\\Users\\Indiawin\\.nuget\\packages\\",
+        "outputPath": "C:\\Projects\\CaseProNew\\CaseProNew\\Modelcasepro\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Indiawin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -42,14 +179,39 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "default"
         }
       },
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Http.Features": {
+              "target": "Package",
+              "version": "[5.0.17, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "System.Security.Claims": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "toastr": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -61,33 +223,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[7.0.14, 7.0.14]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[7.0.14, 7.0.14]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[7.0.14, 7.0.14]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[7.0.14, 7.0.14]"
-            }
-          ],
           "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }

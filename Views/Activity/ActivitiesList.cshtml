@@ -1,0 +1,117 @@
+﻿@model List<Modelcasepro.RequestModel.ActivityViewModel>
+@{
+    ViewData["Title"] = "ActivitiesList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content">
+	<div class="box">
+		<div class="box-header">
+			<div class="box-tools pull-right">
+				<button type="button" class="btn btn-box-tool" data-widget="collapse">
+					<i class="fa fa-minus"></i>
+				</button>
+				<div class="btn-group">
+					<button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
+						<i class="fa fa-wrench"></i>
+					</button>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="#">Action</a></li>
+						<li><a href="#">Another action</a></li>
+						<li><a href="#">Something else here</a></li>
+						<li class="divider"></li>
+						<li><a href="#">Separated link</a></li>
+					</ul>
+				</div>
+				<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+			</div>
+		</div>
+		<!-- /.box-header -->
+		<div class="box-body">
+			<div class="table-container clearfix">
+				<button class="btn btn-cmn btn-actvt" onclick="editActivity(0)">
+					Add Activity &nbsp;<i class="fa fa-plus"></i>
+				</button>
+				<div id="toolbar1">
+					<select class="form-control">
+						<option value="">Export Basic</option>
+						<option value="all">Export All</option>
+						<option value="selected">Export Selected</option>
+					</select>
+				</div>
+				<table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true"
+					   data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true"
+					   data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId"
+					   data-show-export="true" data-click-to-select="false" data-toolbar="#toolbar1">
+					<thead>
+						<tr>
+							<th data-field="state" data-checkbox="true"></th>
+							<th data-sortable="true" data-field="Activity Date">Activity Date</th>
+							<th data-sortable="true" data-field="Day Or Nigh">Day Or Nigh</th>
+							<th data-sortable="true" data-field="Customer">Customer</th>
+							<th data-sortable="true" data-field="Type of Activity">Type of Activity</th>
+							<th data-sortable="true" data-field="Barrier Type">Barrier Type</th>
+							<th data-sortable="true" data-field="Labour Supplier">Labour Supplier</th>
+							<th data-sortable="true" data-field="Trailer Number">Trailer Number</th>
+							<th data-field="Action">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						@{
+							int index = 0;
+							foreach (var item in Model)
+							{	
+								<tr data-activity-id="@item.Id">
+									<td class="bs-checkbox "><input data-index="@index" name="btSelectItem" type="checkbox"></td>
+									<td style="">@item.DateRaised</td>
+									<td style="">@item.DayNight</td>
+									<td style="">@item.CustomerName TM</td>
+									<td style="">@item.ActivitType</td>
+									<td style="">@item.BarrierType</td>
+									<td style="">@item.LabourSupplier</td>
+									<td style="">@item.TrailerNumber</td>
+									<td style="">
+										<button data-toggle="tooltip" title="Edit" onclick="editActivity(@item.Id)"><i class="fa fa-edit"></i></button>
+										<button data-toggle="tooltip" title="Details"><i class="fa fa-book"></i></button>
+										<button data-toggle="tooltip" title="Clone"><i class="fa fa-clone"></i></button>
+										<button data-toggle="tooltip" title="Delete" onclick="deleteActivity(@item.Id)">
+											<i class="fa fa-trash"></i>
+										</button>
+									</td>
+								</tr>
+								index++;
+							}
+						}
+					</tbody>
+
+				</table>
+			</div>
+		</div>
+	</div>
+	<script>
+		function editActivity(activityId) {
+			// Send an AJAX request to the controller action
+			window.location.href = '/Activity/CreateActivity/' + activityId;
+		}
+				// function editActivity(activityId) {
+				// 	debugger;
+				// 	// Send an AJAX request to the controller action
+				// 	$.ajax({
+				// 		url: '/Activity/EditActivity',
+				// 		type: 'POST',
+				// 		data: { id: activityId },
+				// 		success: function (response) {
+				// 			// Refresh the page or update the table as needed
+				// 			// For example, you can remove the deleted row from the table
+				// 			$('tr[data-index="' + activityId + '"]').remove();
+				// 			alert(response.errorMessage)
+
+				// 		},
+				// 		error: function (xhr, status, error) {
+				// 			console.error(error);
+				// 			// Handle errors if needed
+				// 		}
+				// 	});
+				// }
+	</script>
+</section>
