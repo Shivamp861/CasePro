@@ -1,0 +1,65 @@
+﻿@model Modelcasepro.ViewModel.ProductDetails
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div class="table-responsive clearfix">
+    <table class="table table-bordered" id="myTable1">
+        <thead>
+            <tr>
+                <th style="width:200px;">Shift</th>
+
+                <th style="width:150px;">Date</th>
+
+                <th>Summary of Works</th>
+                <th style="width:70px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <select class="form-control" id="Shift1to8">
+                        <option>
+                            Shift 1
+                        </option>
+                        <option>
+                            Shift 2
+                        </option>
+                        <option>
+                            Shift 3
+                        </option>
+                        <option>
+                            Shift 4
+                        </option>
+                        <option>
+                            Shift 5
+                        </option>
+                        <option>
+                            Shift 6
+                        </option>
+                        <option>
+                            Shift 7
+                        </option>
+                        <option>
+                            Shift 8
+                        </option>
+
+                    </select>
+                    <span id="ShiftError" class="text-danger"></span> <!-- New span for error message -->
+                </td>
+
+                <td>
+                    <input value="" type="date" class="form-control" id="Dateforproduct" style="width: 150px;">
+                    <span id="DateError" class="text-danger"></span>
+                </td>
+
+                <td>
+                    <input value="" type="text" class="form-control" id="Summaryforproduct">
+                    <span id="SummaryError" class="text-danger"></span>
+                </td>
+                <td><input type="button" value="Add New Row" onclick="addRow1(this)" class="btn btn-primary btn-primary" /> </td>
+
+            </tr>
+
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,99 @@
+﻿@model Modelcasepro.ViewModel.ResourseDetails
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div class="clearfix table-responsive">
+    <table class="table table-bordered" id="myTable">
+        <thead>
+            <tr>
+                <th style="width:250px;">Resource Type</th>
+
+                <th style="width:200px;">Shift</th>
+                <th style="width:200px;">Day/Night</th>
+                <th style="width:200px;">Name</th>
+                <th>Comments</th>
+                <th style="width:70px;"></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <select class="form-control" id="type">
+                        <option>
+                            Supervisor
+                        </option>
+                        <option>
+                            Operative
+                        </option>
+                        <option>
+                            Labour Man
+                        </option>
+                        <option>
+                            HGV
+                        </option>
+                        <option>
+                            HGV+Crane
+                        </option>
+                        <option>
+                            Trailer
+                        </option>
+                        <option>
+                            Loader
+                        </option>
+                        <option>
+                            Work Van
+                        </option>
+
+                    </select>
+                </td>
+
+                <td>
+                    <select class="form-control" id="Shift1">
+                        <option>
+                            Shift 1
+                        </option>
+                        <option>
+                            Shift 2
+                        </option>
+                        <option>
+                            Shift 3
+                        </option>
+                        <option>
+                            Shift 4
+                        </option>
+                        <option>
+                            Shift 5
+                        </option>
+                        <option>
+                            Shift 6
+                        </option>
+                        <option>
+                            Shift 7
+                        </option>
+                        <option>
+                            Shift 8
+                        </option>
+
+                    </select>
+                </td>
+                <td>
+                    <select class="form-control" id="daynight">
+                        <option>
+                            Day
+                        </option>
+                        <option>
+                            Night
+                        </option>
+                    </select>
+                </td>
+                <td><input value="" type="text" class="form-control" id="name"></td>
+                <td><input type="text" class="form-control" width="500" id="comment"></td>
+                <td><input type="button" value="Add New Row" onclick="addRow(this)" class="btn btn-primary btn-primary" /> </td>
+
+
+            </tr>
+
+        </tbody>
+    </table>
+</div>

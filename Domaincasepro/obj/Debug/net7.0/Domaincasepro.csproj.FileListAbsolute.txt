@@ -1,0 +1,15 @@
+C:\Projects\CaseProNew\CaseProNew\Domaincasepro\obj\Debug\net7.0\Domaincasepro.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\CaseProNew\CaseProNew\Domaincasepro\obj\Debug\net7.0\Domaincasepro.AssemblyInfoInputs.cache
+C:\Projects\CaseProNew\CaseProNew\Domaincasepro\obj\Debug\net7.0\Domaincasepro.AssemblyInfo.cs
+C:\Projects\CaseProNew\CaseProNew\Domaincasepro\obj\Debug\net7.0\Domaincasepro.csproj.CoreCompileInputs.cache
+C:\Projects\CaseProNew\CaseProNew\Domaincasepro\bin\Debug\net7.0\Domaincasepro.deps.json
+C:\Projects\CaseProNew\CaseProNew\Domaincasepro\bin\Debug\net7.0\Domaincasepro.dll
+C:\Projects\CaseProNew\CaseProNew\Domaincasepro\bin\Debug\net7.0\Domaincasepro.pdb
+C:\Projects\CaseProNew\CaseProNew\Domaincasepro\bin\Debug\net7.0\Modelcasepro.dll
+C:\Projects\CaseProNew\CaseProNew\Domaincasepro\bin\Debug\net7.0\Modelcasepro.pdb
+C:\Projects\CaseProNew\CaseProNew\Domaincasepro\obj\Debug\net7.0\Domaincasepro.csproj.AssemblyReference.cache
+C:\Projects\CaseProNew\CaseProNew\Domaincasepro\obj\Debug\net7.0\Domaincasepro.csproj.CopyComplete
+C:\Projects\CaseProNew\CaseProNew\Domaincasepro\obj\Debug\net7.0\Domaincasepro.dll
+C:\Projects\CaseProNew\CaseProNew\Domaincasepro\obj\Debug\net7.0\refint\Domaincasepro.dll
+C:\Projects\CaseProNew\CaseProNew\Domaincasepro\obj\Debug\net7.0\Domaincasepro.pdb
+C:\Projects\CaseProNew\CaseProNew\Domaincasepro\obj\Debug\net7.0\ref\Domaincasepro.dll
