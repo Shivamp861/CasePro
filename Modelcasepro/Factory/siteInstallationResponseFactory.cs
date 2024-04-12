@@ -9,12 +9,13 @@ namespace Modelcasepro.Factory
 {
     public class siteInstallationResponseFactory
     {
-        public static ActivityDetailResponseModel Create(bool isSuccess, string errorMessage)
+        public static ActivityDetailResponseModel Create(bool isSuccess, string errorMessage,int id)
         {
             return new ActivityDetailResponseModel
             {
                 IsSuccess = isSuccess,
-                Message = errorMessage
+                Message = errorMessage,
+                ActivityId=id
             };
 
         }

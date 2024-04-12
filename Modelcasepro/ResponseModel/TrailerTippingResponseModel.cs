@@ -13,9 +13,6 @@ namespace Modelcasepro.ResponseModel
         public string Message { get; set; }
         public int trid { get; set; }
 
-        public static TrailerTippingResponseModel Create(bool v1, string v2)
-        {
-            throw new NotImplementedException();
-        }
+      
     }
 }

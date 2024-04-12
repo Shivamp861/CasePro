@@ -20,14 +20,7 @@ namespace Domaincasepro.Queries
         {
             _context = context;
         }
-        public static ActivityTable GetId(ActivityRequestModel request, IActivityRepository activityRepository)
-        {
-            ActivityTable activityid = new ActivityTable
-            {
-                Id = request.ActivityId,
-            };
-            return activityRepository.getActivityId(activityid);
-        }
+    
 
 
     }

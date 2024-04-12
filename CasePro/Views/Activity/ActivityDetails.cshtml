@@ -1,0 +1,706 @@
+﻿@model Modelcasepro.ViewModel.Details
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@if (Model.Type == "Site Installation" || Model.Type == "Site Uplift")
+{
+    <div class="panel panel-default siteInstallation">
+        <div class="panel-heading">
+            <h4> Site Installation</h4>
+            <b>
+                (Developer info only - This section will display only if Job Card ->ActivityType selected value will be site installation or Site uplift)
+            </b>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-6 col-md-3">
+                    <div class="form-group clearfix">
+                        @Html.HiddenFor(model => model.Id, new { @class = "form-control", id="id"})
+                        @Html.HiddenFor(model => model.ActivityId, new { @class = "form-control", id="activityid"})
+                        <label for="sitemeetingDate">Meeting site:</label>
+                        @Html.TextBoxFor(x => x.MeetingSite, new { @class = "form-control", id="sitemeetingDate"})
+                        <span id="sitemeetingError" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <div class="form-group clearfix">
+                        <label for="sitelabourSupplier">Labour Supplier:</label>
+                        @Html.TextBoxFor(x => x.LabourSupplier, new { @class = "form-control", id="sitelabourSupplier"})
+                        <span id="sitelabourSupplierError" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <div class="form-group clearfix">
+                        <label for="sitesupplierContact">Supplier Contact:</label>
+                        @Html.TextBoxFor(x => x.SupplierContact, new { @class = "form-control", id="sitesupplierContact"})
+                        <span id="sitesupplierError" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <div class="form-group clearfix">
+                        <label for="Numberofpersons">Number or persons supplied:</label>
+                        @Html.TextBoxFor(x => x.NoOfPersoneSupplied, new { @class = "form-control", id="Numberofpersons"})
+                        <span id="numofpersonserror" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <!--row2-->
+            <div class="row">
+                <div class="col-sm-6 col-md-3">
+                    <div class="form-group clearfix">
+                        <label for="btype">Barrier Type :</label>
+                        @Html.DropDownListFor(x => x.BarrierType,
+                    new List<SelectListItem>
+                    {
+                    new SelectListItem { Text = "Barrier 1", Value = "Barrier1" }, // Default option
+                    new SelectListItem { Text = "Barrier 2", Value = "Barrier2" },
+                    new SelectListItem { Text = "Barrier 3", Value = "Barrier3" }
+                    },
+                    new { @class = "form-control", id = "btype" }
+                    )
+                        <span id="btypeerror " class="text-danger"></span>
+                    </div>
+                    <span id="btypeerror " class="text-danger"></span>
+
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <div class="form-group clearfix">
+                        <label for="quantity">Quantity of installed Barriers:</label>
+                        @Html.TextBoxFor(x => x.BarrierQty, new { @class = "form-control", id="bquantity"})
+                        <span id="qtyBarriersError" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-group clearfix">
+                        <label for="blocations">Barrier start and finish location:</label>
+                        @Html.TextBoxFor(x => x.BarrierStartAndFinishLocation, new { @class = "form-control", id="blocations"})
+                        <span id="blocationError" class="text-danger"></span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 col-md-3">
+                    <div class="form-group clearfix">
+                        <label for="bPerformance">Barrier Performance :</label>
+                        @Html.TextBoxFor(x => x.BarrierPerformance, new { @class = "form-control", id="bPerformance"})
+                        <span id="bperformanceError" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <div class="form-group clearfix">
+                        <label for="blength">Length of runs:</label>
+                        @Html.TextBoxFor(x => x.LengthOfRuns, new { @class = "form-control", id="blength"})
+                        <span id="blengthError" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-group clearfix">
+                        <label for="quantity">Anchoring details:</label>
+                        @Html.TextBoxFor(x => x.AnchoringDetails, new { @class = "form-control", id="anchordetails"})
+                        <span id="anchodetailsError" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <!--end row2-->
+            <!--row3-->
+            <div class="row">
+                <div class="col-sm-6 col-md-3">
+                    <div class="form-group clearfix">
+                        <label for="permitreq">Is a permit to break ground required :</label>
+                        @Html.DropDownListFor(x => x.Isapermittobreakgroundrequired,
+                    new List<SelectListItem>
+                    {
+                    new SelectListItem { Text = "Yes", Value = "Yes" }, // Default option
+                    new SelectListItem { Text = "No", Value = "No" }
+                    },
+                    new { @class = "form-control", id = "bpermitreq" }
+                    )
+                        <span id="permitreqError" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-md-3">
+                    <div class="form-group clearfix">
+                        <label for="permitreq">
+                            Chain / lifting equipment to be used
+                            :
+                        </label>
+                        @Html.DropDownListFor(x => x.ChainLiftingequipmenttobeused,
+                    new List<SelectListItem>
+                    {
+                    new SelectListItem { Text = "Yes", Value = "Yes" }, // Default option
+                    new SelectListItem { Text = "No", Value = "No" }
+                    },
+                    new { @class = "form-control", id = "bpermitreqchain" }
+                    )
+                        <span id="permitreqchainError" class="text-danger"></span>
+                    </div>
+
+
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-group clearfix">
+                        <label for="Incidentreporting">Incident reporting:</label>
+                        @Html.TextBoxFor(x => x.IncidentReporting, new { @class = "form-control", id="Incidentreporting"})
+                        <span id="IncidentreportingError" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <!--end row3-->
+            <!--row4-->
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-group clearfix">
+                        <label for="blocations">Other resources / equipment used:</label>
+                        @Html.TextAreaFor(model => model.OtherResourcesEquipmentUsed, new { @class = "form-control", id = "txtresources", cols = "5", rows = "5" })
+                        <span id="txtresourcesError" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-group clearfix">
+                        <label for="special">
+                            Any special instructions / site restrictions / specific PPE
+                            :
+                        </label>
+                        @Html.TextAreaFor(model => model.AnySpecialInstructions, new { @class = "form-control", id = "txtspecialinstruction", cols = "5", rows = "5" })
+
+                        <span id="txtspecialinstructionError" class="text-danger"></span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-24 col-md-12">
+                    <div class="form-group clearfix">
+                        <label for="blocations">All relevant activity RAMS, lift plans and SSOW:</label>
+                        @Html.TextAreaFor(model => model.AllRelevantActivityRams, new { @class = "form-control", id = "txtrelevantactivity", cols = "5", rows = "5" })
+                        <span id="txtrelevantactivityError" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <!--end row4-->
+            <div class="row">
+                <div class="col-sm-6 col-md-3">
+                    <div class="form-group clearfix">
+                        @Html.Label("permitreq", "Site/Layout drawings/ site images :")
+                        @Html.TextBoxFor(Model => Model.UploadPath, new { @class = "form-control-file", type = "file", id = "fileInput" })                       
+                        <span id="fileInputError" class="text-danger"></span>
+                        @Html.HiddenFor(model => model.Imgid, new { @class = "form-control", id="id"})
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else if (Model.Type == "Yard Loading")
+{
+    <div class="panel panel-default ">
+        <div class="panel-heading">
+            <h4> Yard loading</h4>
+            <b>
+                (Developer info only - This section will display only if Job Card ->ActivityType selected value will be Yard loading )
+            </b>
+        </div>
+        <div class="panel-body yardLoading">
+
+            <div class="row">
+                <div class="col-sm-6 col-md-3">
+                    <div class="form-group clearfix">
+                        @Html.HiddenFor(model => model.Id, new { @class = "form-control", id="id"})
+                        @Html.HiddenFor(model => model.ActivityId, new { @class = "form-control", id="activityid"})
+                        <label for="bstartfinishTime">Start & finish Time:</label>
+                        @Html.TextBoxFor(x => x.Startandfinishtime, new { @class = "form-control", id="bstartfinishTime"})
+                        <span id="starttime" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-group clearfix">
+                        <label for="blifting">Lifting equipment used:</label>
+                        @Html.TextBoxFor(x => x.LiftingEquipmentUsed, new { @class = "form-control", id="blifting"})
+                        <span id="liftingeqp" class="text-danger"></span>
+                    </div>
+                </div>
+
+            </div>
+            <!--end row2-->
+            <!--row3-->
+            <div class="row">
+                <div class="col-sm-6 col-md-3">
+                    <div class="form-group clearfix">
+                        <label for="permitreq">
+                            Chain / lifting equipment to be used
+                            :
+                        </label>
+                        @Html.TextBoxFor(x => x.LiftingEquipmentUsed, new { @class = "form-control", id="chainlifteq"})
+                        <span id="chainliftingL" class="text-danger"></span>
+                    </div>
+
+
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-group clearfix">
+                        <label for="Incidentreporting">Incident reporting:</label>
+                        @Html.TextBoxFor(x => x.IncidentReporting, new { @class = "form-control", id="LIncireporting"})
+                        <span id="increporting" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <!--end row3-->
+            <!--row4-->
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-group clearfix">
+                        <label for="blocations">Any Near Miss / N/C / I/O occurrences:</label>
+                        @Html.TextAreaFor(model => model.AnyNearMissOccurrences, new { @class = "form-control", id = "txtanymissoccure", cols = "5", rows = "5" })
+                        <span id="txtanymissoccureError" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-group clearfix">
+                        <label for="special">
+                            Barrier condition checks / suitability / damage
+                            :
+                        </label>
+                        @Html.TextAreaFor(model => model.BarrierConditionChecks, new { @class = "form-control", id = "conditions", cols = "5", rows = "5" })
+                        <span id="barriercon" class="text-danger"></span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-24 col-md-12">
+                    <div class="form-group clearfix">
+                        <label for="activityrams">All relevant activity RAMS, lift plans and SSOW:</label>
+                        @Html.TextAreaFor(model => model.AllRelevantActivityRams, new { @class = "form-control", id = "Rams", cols = "5", rows = "5" })
+
+                        <span id="allrelavant" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <!--end row4-->
+            <div class="row">
+                <div class="col-sm-6 col-md-3">
+                    <div class="form-group clearfix">
+                        <div class="form-group clearfix">
+                            @Html.Label("permitreq", "Site/Layout drawings/ site images :")
+                            @Html.TextBoxFor(Model => Model.UploadPath, new { @class = "form-control-file", type = "file", id = "fileInputloding" })
+                          
+                            <span id="fileInputlError" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div> <div class="panel panel-default">
+            <div class="panel-heading">
+                Trailer load details
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-3 col-md-2">
+                        <div class="form-group clearfix">
+                            <label for="barrierdate">Barrier loaded date</label>
+                            <input type="date" class="form-control" id="barrierdate">
+                            <span id="BarrierDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-md-2">
+                        <div class="form-group clearfix">
+                            <label for="Trailersupplier">Trailer supplier</label>
+                            <input type="text" class="form-control" id="Trailersupplier">
+                            <span id="TSupllier" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-md-2">
+                        <div class="form-group clearfix">
+                            <label for="Trailersupplier">Trailer number</label>
+                            <select class="form-control" id="TrailerSupNum">
+                                <option>Trailer 1</option>
+                                <option>Trailer 2</option>
+                                <option>Trailer 3</option>
+                                <option>Trailer 4</option>
+                                <option>Trailer 5</option>
+                            </select>
+                            <span id="TrailerNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-md-2">
+                        <div class="form-group clearfix">
+                            <label for="Labour">Load positioned :</label>
+                            <select class="form-control" id="LoadPositioned">
+                                <option>A</option>
+                                <option>B</option>
+                                <option>C</option>
+                                <option>D</option>
+                                <option>E</option>
+                                <option>F</option>
+                            </select>
+                            <span id="LoadPos" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-md-2">
+                        <div class="form-group clearfix">
+                            <label for="UnitLoad">Unit loaded:</label>
+                            <input type="number" class="form-control" id="UnitLoad">
+                            <span id="UnitLoaded" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>  <div class="row">
+                </div>
+                <!------./End Row---->
+                <div class="row">
+                    <div class="col-sm-3 col-md-2">
+                        <div class="form-group clearfix">
+                            <label for="Vehicle">Vehicle Reg:</label>
+                            <input type="text" class="form-control" id="Vehicle">
+                            <span id="Vehicalreg" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-md-2">
+                        <div class="form-group clearfix">
+                            <label for="TrailerDepart">Trailer Depart from:</label>
+                            <input type="text" class="form-control" id="TrailerDepart">
+                            <span id="TrailerDepartFrom" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-md-2">
+                        <div class="form-group clearfix">
+                            <label for="TrailerDepartTo">Trailer Depart to:</label>
+                            <input type="text" class="form-control" id="TrailerDepartTo">
+                            <span id="Trailerdepart" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-md-2">
+                        <div class="form-group clearfix">
+                            <label for="Loaded">Loaded by:</label>
+                            <input type="text" class="form-control" id="Loaded">
+                            <span id="LoadTrailer" class="text-danger"></span>
+                        </div>
+                    </div> <div class="col-sm-3 col-md-2">
+                        <div class="form-group clearfix" style="margin-top:20px">
+                            <label for="isOutbound">Is Outbound?:</label>
+                            <input type="checkbox" class="form-check-input" id="isOutbound" />
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-md-2">
+                        <div class="form-group clearfix" style="margin-top:25px;">
+
+                            <input type="button" id="buttonSave" onclick="SaveInBoundTrailerData()" value="Save" class="btn btn-default btn-primary btn-success" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!------./End Panel---->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Trailer Details Out Bound
+            </div>
+            <div class="panel-body">
+                <div class="clearfix table-responsive">
+                    <table id="TrailerDetails1" class="table table-bordered table-default">
+                        <thead>
+                            <tr>
+                                <th data-field="Id">SL</th>
+                                <th data-field="Email">Trailer Supplier</th>
+                                <th data-field="Email">Trailer Number</th>
+                                <th data-field="Activity Date">Load Quantity</th>
+                                <th data-field="Submitted">Load at Depot</th>
+                                <th data-field="View">Depot Depart From</th>
+                                <th data-field="Submitted">Date to be Loaded</th>
+                                <th data-field="View">Loaded by</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < Model.Trailerdetails.Count; i++)
+                            {
+                                var item = Model.Trailerdetails[i];
+                                @if (item.IsOutBound == true)
+                                {
+                                    <tr>
+                                        <td id="SL@(i)">@i</td>
+                                        <td id="TrailerSupplier@(i)">@item.TrailerSupplier</td>
+                                        <td id="TrailerNumber@(i)">@item.TrailerNumber</td>
+                                        <td id="LoadQuantity@(i)">@item.Quantity</td>
+                                        <td id="LoadDepot@(i)">@item.LoadDepot</td>
+                                        <td id="DepartFrom@(i)">@item.DepartFrom</td>
+                                        <td id="Date@(i)">@item.Date</td>
+                                        <td id="LoadedTippedBy@(i)">@item.LoadedTippedBy</td>
+                                    </tr>
+                                }
+
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!------./End Panel---->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Trailer Details Return
+            </div>
+            <div class="panel-body">
+                <div class="clearfix table-responsive">
+                    <table id="TrailerDetails2" class="table table-bordered table-default">
+                        <thead>
+                            <tr>
+                                <th data-field="Id">SL</th>
+                                <th data-field="Email">Trailer Supplier</th>
+                                <th data-field="Email">Trailer Number</th>
+                                <th data-field="Activity Date">Load Quantity</th>
+                                <th data-field="Submitted">Depot</th>
+                                <th data-field="View">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < Model.Trailerdetails.Count; i++)
+                            {
+                                var item = Model.Trailerdetails[i];
+                                @if (item.IsOutBound == false)
+                                {
+                                    <tr>
+                                        <td id="SL@(i)">@i</td>
+                                        <td id="TrailerSupplier@(i)">@item.TrailerSupplier</td>
+                                        <td id="TrailerNumber@(i)">@item.TrailerNumber</td>
+                                        <td id="LoadQuantity@(i)">@item.Quantity</td>
+                                        <td id="LoadDepot@(i)">@item.LoadDepot</td>
+                                        <td id="Date@(i)">@item.Date</td>
+                                    </tr>
+                                }
+
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else if (Model.Type == "Yard Tipping")
+{
+    <div class="panel panel-default ">
+        <div class="panel-heading">
+            <h4> Yard Tipping</h4>
+            <b>
+                (Developer info only - This section will display only if Job Card ->ActivityType selected value will be Yard Tipping )
+            </b>
+        </div>
+        <div class="panel-body yardTipping">
+            <div class="row">
+                <div class="col-sm-6 col-md-3">
+                    <div class="form-group clearfix">
+                        @Html.HiddenFor(model => model.Id, new { @class = "form-control", id="id"})
+                        @Html.HiddenFor(model => model.ActivityId, new { @class = "form-control", id="activityid"})
+                        @Html.HiddenFor(model => model.ActivityId, new { @class = "form-control", id="activityid"})
+                        <label for="bstartfinishTime">Start & finish Time:</label>
+                        @Html.TextBoxFor(x => x.Startandfinishtime, new { @class = "form-control", id="yardbstartfinishTime"})
+                        <span id="bstartfinishTimeError" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-group clearfix">
+                        <label for="blifting">Lifting equipment used:</label>
+                        @Html.TextBoxFor(x => x.LiftingEquipmentUsed, new { @class = "form-control", id="yardblifting"})
+                        <span id="bliftingError" class="text-danger"></span>
+                    </div>
+                </div>
+
+            </div>
+            <!--end row2-->
+            <!--row3-->
+            <div class="row">
+
+
+                <div class="col-sm-6 col-md-3">
+                    <div class="form-group clearfix">
+                        <label for="permitreq">
+                            Chain / lifting equipment to be used
+                            :
+                        </label>
+                        @Html.TextBoxFor(x => x.ChainLiftingequipmenttobeused, new { @class = "form-control", id="yardchainlifteq"})
+
+                        <span id="lifteqError" class="text-danger"></span>
+                    </div>
+
+
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-group clearfix">
+                        <label for="Incidentreporting">Incident reporting:</label>
+                        @Html.TextBoxFor(x => x.IncidentReporting, new { @class = "form-control", id="yardIncidentreporting"})
+                        <span id="yardIncidentreportingError" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <!--end row3-->
+            <!--row4-->
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-group clearfix">
+                        <label for="blocations">Any Near Miss / N/C / I/O occurrences:</label>
+                        @Html.TextAreaFor(model => model.AnyNearMissOccurrences, new { @class = "form-control", id = "txtyardAnymiss", cols = "5", rows = "5" })
+                        <span id="txtAnymissError" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-group clearfix">
+                        <label for="special">
+                            Barrier condition checks / suitability / damage
+                            :
+                        </label>
+                        @Html.TextAreaFor(model => model.BarrierConditionChecks, new { @class = "form-control", id = "txtbarriercondition", cols = "5", rows = "5" })
+                        <span id="txtbarrierconditionError" class="text-danger"></span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-24 col-md-12">
+                    <div class="form-group clearfix">
+                        <label for="blocations">All relevant activity RAMS, lift plans and SSOW:</label>
+                        @Html.TextAreaFor(model => model.AllRelevantActivityRams, new { @class = "form-control", id = "txtAllrelevant", cols = "5", rows = "5" })
+                        <span id="txtAllrelevantError" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <!--end row4-->
+            <div class="row">
+                <div class="col-sm-6 col-md-3">
+                    <div class="form-group clearfix">
+                        <label for="permitreq">Site/Layout drawings/ site images :</label>
+                        @Html.TextBoxFor(Model => Model.UploadPath, new { @class = "form-control-file", type = "file", id = "fileInputyard" })                        
+                        <span id="yardfileInputyardError" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="panel panel-default trailer-tipping-details">
+            <div class="panel-heading">
+                Trailer Tipping details
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-3 col-md-2">
+                        <div class="form-group clearfix">
+                            <label for="barrierdateloaded">Tipping date</label>
+                            <input type="date" class="form-control" id="yardbarrierdateloaded">
+                            <span id="yardbarrierdateloadedError" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-md-2">
+                        <div class="form-group clearfix">
+                            <label for="tsupplier">Trailer supplier</label>
+                            <input type="text" class="form-control" id="yardtsupplier">
+                            <span id="yardtsupplierError" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-md-2">
+                        <div class="form-group clearfix">
+                            <label for="tsupplier">Trailer number</label>
+                            <select class="form-control" id="yardTrailerNumber">
+                                <option>Trailer 1</option>
+                                <option>Trailer 2</option>
+                                <option>Trailer 3</option>
+                                <option>Trailer 4</option>
+                                <option>Trailer 5</option>
+                            </select>
+                            <span id="yardTrailerNumberError" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3 col-md-2">
+                        <div class="form-group clearfix">
+                            <label for="TransportSup">Unit:</label>
+                            <input type="number" class="form-control" id="yardunit">
+                            <span id="yardunitError" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>  <div class="row">
+                </div>
+                <!------./End Row---->
+                <div class="row">
+                    <div class="col-sm-3 col-md-2">
+                        <div class="form-group clearfix">
+                            <label for="VehicleReg">Vehicle Reg:</label>
+                            <input type="text" class="form-control" id="yardVehicleReg">
+                            <span id="yardVehicleRegError" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3 col-md-2">
+                        <div class="form-group clearfix">
+                            <label for="TrailerTo">Trailer depot:</label>
+                            <input type="text" class="form-control" id="yardTrailerdeport">
+                            <span id="yardTrailerdeportError" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-md-2">
+                        <div class="form-group clearfix">
+                            <label for="loadedby">Tipped by:</label>
+                            <input type="text" class="form-control" id="yardloadedby">
+                            <span id="yardloadedbyError" class="text-danger"></span>
+                        </div>
+                    </div> <div class="col-sm-3 col-md-2">
+                    </div>
+                    <div class="col-sm-3 col-md-2">
+                        <div class="form-group clearfix" style="margin-top:25px;">
+                            <input type="button" id="saveButton" onclick="saveTrailerdata()" value="Save" class="btn btn-large btn-primary btn-success" />
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!------./End Panel---->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Trailer Tipped details
+            </div>
+            <div class="panel-body">
+                <div class="clearfix table-responsive">
+                    <table id="yardTTrailerDetails" class="table table-bordered table-default">
+                        <thead>
+                            <tr>
+                                <th data-field="Id">SL</th>
+                                <th data-field="Email">Trailer Supplier</th>
+                                <th data-field="Email">Trailer Number</th>
+                                <th data-field="Activity Date">Tipped Quantity</th>
+
+                                <th data-field="View">Depot Depot From</th>
+
+                                <th data-field="View">Tipped by</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < Model.Trailerdetails.Count; i++)
+                            {
+                                var item = Model.Trailerdetails[i];
+                                <tr>
+                                    <td id="SL@(i)">@i</td>
+                                    <td id="TrailerSupplier@(i)">@item.TrailerSupplier</td>
+                                    <td id="TrailerNumber@(i)">@item.TrailerNumber</td>
+                                    <td id="LoadQuantity@(i)">@item.Quantity</td>
+                                    <td id="DepartFrom@(i)">@item.DepartFrom</td>
+                                    <td id="Date@(i)">@item.Date</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/asset/js/custom.js"></script>

@@ -12,14 +12,14 @@ namespace Domaincasepro.Queries
 {
     public class LoginQueryHandler
     {
-        private readonly CaseproDbContext _context;
+        private readonly ILoginRepository _repo;
 
-        public LoginQueryHandler(CaseproDbContext context)
+        public LoginQueryHandler(ILoginRepository repo)
         {
-            _context = context;
+            _repo = repo;
         }
 
-        public static UsersTable ExecuteLoginQuery(LoginRequestModel request, ILoginRepository loginRepository)
+        public UsersTable ExecuteLoginQuery(LoginRequestModel request)
         {
             UsersTable newuser = new UsersTable
             {
@@ -29,7 +29,7 @@ namespace Domaincasepro.Queries
             };
 
             // Execute the authentication query
-            return loginRepository.Authentication(newuser);
+            return _repo.Authentication(newuser);
         }
     }
 }

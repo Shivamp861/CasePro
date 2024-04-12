@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Domaincasepro")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f257cd89cc60556709cd5ae7fbce333c61c80dc1")]
 [assembly: System.Reflection.AssemblyProductAttribute("Domaincasepro")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Domaincasepro")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

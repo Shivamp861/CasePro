@@ -1,5 +1,10 @@
 ﻿@model Modelcasepro.ViewModel.Activity
 @inject Domaincasepro.Queries.ActivityQueryHandler handler
+@inject Domaincasepro.Queries.ActivitydetailsQueryHandler detailshandler
+@inject Domaincasepro.Queries.ProductQueryHandler productHandler
+@inject Domaincasepro.Queries.ResourceQueryHandler resourceHandler
+@inject Domaincasepro.Queries.InstructQueryHandler _handler
+@inject Domaincasepro.Queries.ActivitySummaryQueryhandler _Summaryhandler
 <section class="content">
 
     <div class="box">
@@ -17,7 +22,7 @@
                         <li><a href="#">Something else here</a></li>
                         <li class="divider"></li>
                         <li><a href="#">Separated link</a></li>
-                    </ul>  
+                    </ul>
                 </div>
                 <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
             </div>
@@ -44,35 +49,50 @@
                 <label class="tbs-lbl" for="tab6"><i class="fa fa-user-md"></i><span>Activity Summary</span></label>
 
                 <section id="content1" class="tab-content">
-                @{
-                    var jobcard = handler.GetJobCard(Model.ActivityId);
-                    @Html.Partial("~/Views/Activity/JobCard.cshtml", jobcard)
+                    @{
+                        var jobcard = handler.GetJobCard(Model.ActivityId);
+                        @Html.Partial("~/Views/Activity/JobCard.cshtml", jobcard)
                     }
                 </section>
                 <section id="content2" class="tab-content">
                     @{
-                        var productdetails = handler.GetProductDetails(Model.ActivityId);
+                        var productdetails = productHandler.GetProductDetails(Model.ActivityId);
                         @Html.Partial("~/Views/Activity/ProductDetails.cshtml",productdetails)
                     }
 
                 </section>
                 <section id="content3" class="tab-content">
-                  
+                    @{
+                        var resoursedetails = resourceHandler.GetResourseDetails(Model.ActivityId);
+                        @Html.Partial("~/Views/Activity/ResourseDetails.cshtml", resoursedetails)
+                    }
                 </section>
                 <section id="content4" class="tab-content">
-
-
-                  
+                    @{
+                        var Activitydetails = detailshandler.GetActivitydetails(Model.ActivityId);
+                        @Html.Partial("~/Views/Activity/ActivityDetails.cshtml", Activitydetails)
+                    }
+               
 
                 </section>
 
                 <!------./End section---->
                 <section id="content5" class="tab-content">
-                   
+                    @{
+                        var InstructOperation = _handler.GetInstructDetails(Model.ActivityId);
+                        @Html.Partial("~/Views/Activity/InstructOperation.cshtml",InstructOperation)
+                    }
                 </section>
 
                 <section id="content6" class="tab-content">
-                   
+                    @{
+                        if (Model.ActivityId !=0)
+                        {
+                            var Summarydetails = _Summaryhandler.ExecuteGetList(Model.ActivityId);
+                            @Html.Partial("~/Views/Activity/ActivitySummary.cshtml", Summarydetails)
+                        }
+                        
+                    }
                 </section>
             </div>
         </div>

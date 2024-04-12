@@ -11,6 +11,7 @@ namespace Modelcasepro.RequestModel
     public class SignoffRequestModel
     {
         public DateTime CompetionDate { get; set; }
+        public int InstructorId { get; set; }
 
         public string PrintName { get; set; }
 
@@ -18,6 +19,6 @@ namespace Modelcasepro.RequestModel
 
         public string Signature { get; set; }
 
-        public int ActivityId { get; set; } 
+        public int ActivityId { get; set; }
     }
 }

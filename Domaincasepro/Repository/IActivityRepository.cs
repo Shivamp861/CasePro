@@ -1,5 +1,6 @@
 ﻿using Modelcasepro.Entities;
 using Modelcasepro.RequestModel;
+using Modelcasepro.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,15 +12,18 @@ namespace Domaincasepro.Repository
 {
     public interface IActivityRepository
     {
-        public Task<ActivityTable> AddOrUpdateActivity(ActivityTable activityinfo);
+        public ActivityTable AddOrUpdateActivity(ActivityTable activityinfo);
 
         public ActivityTable GetActivityById(int activityid);
 
 		List<ActivityViewModel> GetAllList();
 
+        ActivitySummary ActivitySummaryGetAllList(int id);
 
+
+        bool DeleteActivity(int activityId);
 		public bool Create(ActivityNote notes);
         public ActivityTable getActivityId(ActivityTable activityid);
-        public ActivityProductDetail getProductById(int activityId);
+        
     }
 }

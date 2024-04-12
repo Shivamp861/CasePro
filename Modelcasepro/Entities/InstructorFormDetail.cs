@@ -18,4 +18,6 @@ public partial class InstructorFormDetail
     public bool? HasSent { get; set; }
 
     public bool? HasSubmitted { get; set; }
+
+    public int ActivityId { get; set; }
 }

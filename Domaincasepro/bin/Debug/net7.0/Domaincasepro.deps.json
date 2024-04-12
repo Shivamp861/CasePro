@@ -8,7 +8,8 @@
     ".NETCoreApp,Version=v7.0": {
       "Domaincasepro/1.0.0": {
         "dependencies": {
-          "Modelcasepro": "1.0.0"
+          "Modelcasepro": "1.0.0",
+          "System.Security.Claims": "4.3.0"
         },
         "runtime": {
           "Domaincasepro.dll": {}

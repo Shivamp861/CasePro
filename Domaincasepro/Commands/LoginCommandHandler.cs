@@ -11,15 +11,21 @@ using System.Threading.Tasks;
 
 namespace Domaincasepro.Commands
 {
-    public static class LoginCommandHandler 
+    public class LoginCommandHandler
     {
-        public static LoginResponseModel Execute(LoginRequestModel request,UsersTable user, ILoginRepository loginRepository)
+        private readonly ILoginRepository _loginRepo;
+
+        public LoginCommandHandler(ILoginRepository loginRepo)
+        {
+            _loginRepo = loginRepo;
+        }
+        public LoginResponseModel Execute(LoginRequestModel user, UsersTable res)
         {
             try
             {
-                if (user != null && user.Password == request.Password)
+                if (res != null && res.Password == user.Password)
                 {
-                    bool success = loginRepository.UpdateLastLogin(user.Id);
+                    bool success = _loginRepo.UpdateLastLogin(res.Id);
                     if (success)
                     {
                         return LoginResponseFactory.Create(true, "Login successful");
@@ -39,7 +45,9 @@ namespace Domaincasepro.Commands
             {
                 throw new Exception("An error occurred while Execute Authorize User: " + ex.Message);
             }
-           
+
         }
+
+
     }
 }

@@ -10,6 +10,9 @@ namespace Domaincasepro.Repository
     public interface IProductRepository
     {
         public bool Create(ActivityProductDetail product);
-        public ActivityTable getActivityId(ActivityTable activityid);
+        //public ActivityTable getActivityId(ActivityTable activityid);
+
+        public List<ActivityProductDetail> getProductById(int activityId);
+        bool Update(ActivityProductDetail productdata, int pid);
     }
 }

@@ -11,87 +11,83 @@ using System.Threading.Tasks;
 
 namespace Domaincasepro.Queries
 {
-	public class ActivityQueryHandler
-	{
-		private readonly IActivityRepository _repo;
+    public class ActivityQueryHandler
+    {
+        private readonly IActivityRepository _repo;
+        private readonly ICustomerRepository _custrepo;
 
 
-		public ActivityQueryHandler(IActivityRepository repo)
-		{
-			_repo = repo;
-		}
+        public ActivityQueryHandler(IActivityRepository repo, ICustomerRepository custrepo)
+        {
+            _repo = repo;
+            _custrepo = custrepo;
+        }
 
-		public ActivityTable ExecuteActivityQueryById(int activityid)
-		{
-			return _repo.GetActivityById(activityid) ?? new ActivityTable();
-		}
+        public ActivityTable ExecuteActivityQueryById(int activityid)
+        {
+            return _repo.GetActivityById(activityid) ?? new ActivityTable();
+        }
 
-		public List<ActivityViewModel> ExecuteGetList()
-		{
-			try
-			{
-				List<ActivityViewModel> activityview = _repo.GetAllList();
+        public List<ActivityCustomerTable> ExecuteCustQueryById(int activityid)
+        {
+            return _custrepo.GetActivityById(activityid) ?? new List<ActivityCustomerTable>();
+        }
+        public List<ActivityViewModel> ExecuteGetList()
+        {
+            try
+            {
+                List<ActivityViewModel> activityview = _repo.GetAllList();
 
-				// Initialize a list to store mapped view models
-				var viewModels = new List<ActivityRequestModel>();
+                // Initialize a list to store mapped view models
+                var viewModels = new List<ActivityRequestModel>();
 
-				return activityview;
-			}
-			catch (Exception ex)
-			{
-				throw new Exception("An error occurred while Get List of Activities: " + ex.Message);
-			}
-			// Retrieve list of activities from the repository
-
-		}
-
-		public JobCard GetJobCard(int activityId)
-		{
-			try
-			{
-				var activity = ExecuteActivityQueryById(activityId);
-				return new JobCard()
-				{
-					ActivityId = activity.Id,
-					ActivityType = activity.ActivitType,
-					CustomerOrderNumber = activity.CustomerOrderNumber,
-					DateRaised = !string.IsNullOrEmpty(activity.DateRaised) ? Convert.ToDateTime(activity.DateRaised) : null,
-					HcorderNumber = activity.HcorderNumber,
-					NearestAE = activity.NearestAE,
-					OutofhoursEmrgContact = activity.OutorhoursEmrgContact,
-					RaisedBy = activity.RaisedBy,
-					SageOrderNumber = activity.SageOrderNumber,
-					SiteAddress = activity.SiteAddress,
-				};
-			}
-			catch (Exception ex)
-			{
-				throw new Exception("An error occurred: " + ex.Message);
-			}
-		}
-		public ProductDetails GetProductDetails(int activityId)
-		{
-			try
-			{
-                var activity = ExecuteProductQueryById(activityId);
-				return new ProductDetails()
-				{
-					Shift = activity.Shift,
-					Date = activity.Date,
-					SummaryOfWorks = activity.SummaryOfWorks,
-					ActivityId = activity.Id,
-				};
+                return activityview;
             }
-            catch(Exception ex)
-			{
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while Get List of Activities: " + ex.Message);
+            }
+            // Retrieve list of activities from the repository
+
+        }
+        public JobCard GetJobCard(int activityId)
+        {
+            try
+            {
+                var activity = ExecuteActivityQueryById(activityId);
+                var customer = ExecuteCustQueryById(activityId);
+                List<CustomerviewModel> custdetails = customer.Select(c =>
+                      new CustomerviewModel
+                      {
+                          custid = c.Id,
+                          ContactNo = c.ContactNo,
+                          CustomerName = c.Name
+                      }).ToList();
+
+
+                return new JobCard()
+                {
+                    ActivityId = activity.Id,
+                    ActivityType = activity.ActivitType,
+                    CustomerOrderNumber = activity.CustomerOrderNumber,
+                    DateRaised = !string.IsNullOrEmpty(activity.DateRaised) ? Convert.ToDateTime(activity.DateRaised) : null,
+                    HcorderNumber = activity.HcorderNumber,
+                    NearestAE = activity.NearestAE,
+                    OutofhoursEmrgContact = activity.OutorhoursEmrgContact,
+                    RaisedBy = activity.RaisedBy,
+                    SageOrderNumber = activity.SageOrderNumber,
+                    SiteAddress = activity.SiteAddress,
+                    Notes = activity.ActivityNotes.Select(x => x.Notes).FirstOrDefault(),
+                    customerModel = custdetails,
+                };
+            }
+            catch (Exception ex)
+            {
                 throw new Exception("An error occurred: " + ex.Message);
             }
-		}
-
-        private ActivityProductDetail ExecuteProductQueryById(int activityId)
-        {
-            //return _repo.GetActivityById(activityid) ?? new ActivityTable();
-			return _repo.getProductById(activityId) ?? new ActivityProductDetail();
         }
+
+
+
     }
 }

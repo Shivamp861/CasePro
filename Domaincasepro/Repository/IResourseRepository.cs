@@ -9,8 +9,10 @@ namespace Domaincasepro.Repository
 {
     public interface IResourseRepository
     {
-        public bool Create(ActivityResourcesDetail resources);
+        bool Create(ActivityResourcesDetail request);
 
-        public ActivityTable getActivityId(ActivityTable activityid);
+        //public ActivityTable getActivityId(ActivityTable activityid);
+        public List<ActivityResourcesDetail> getResourseById(int activityId);
+        bool Update(ActivityResourcesDetail aRD, int rid);
     }
 }

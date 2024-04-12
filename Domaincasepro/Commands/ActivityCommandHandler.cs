@@ -4,6 +4,7 @@ using Modelcasepro.Entities;
 using Modelcasepro.Factory;
 using Modelcasepro.RequestModel;
 using Modelcasepro.ResponseModel;
+using Modelcasepro.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,23 +15,31 @@ namespace Domaincasepro.Commands
 {
     public class ActivityCommandHandler
     {
-        private readonly CaseproDbContext _context;
+        private readonly IActivityRepository _repo;
 
-        public ActivityCommandHandler(CaseproDbContext context)
+        public ActivityCommandHandler(IActivityRepository repo)
         {
-            _context = context;
+            _repo = repo;
         }
 
-        public  async Task<ActivityResponseModel> AddActivityAsync(ActivityRequestModel activityRequest, IActivityRepository activityrepo)
+        public  ActivityResponseModel AddActivity(JobCard activityRequest)
         {
             try
             {
                 ActivityTable activityEntity = MapToEntity(activityRequest);
-                ActivityTable addedActivity = await activityrepo.AddOrUpdateActivity(activityEntity);
+                ActivityTable addedActivity = _repo.AddOrUpdateActivity(activityEntity);
 
                 if (addedActivity != null)
                 {
-                    return ActivityResponseFactory.Create(true, "Activity Added successfully", addedActivity.Id,addedActivity.ActivitType);
+                    if (activityRequest.ActivityId==0)
+                    {
+                        return ActivityResponseFactory.Create(true, "Activity Added successfully", addedActivity.Id, addedActivity.ActivitType);
+                    }
+                    else
+                    {
+                        return ActivityResponseFactory.Create(true, "Activity Updated successfully", addedActivity.Id, addedActivity.ActivitType);
+                    }
+                    
                 }
                 else
                 {
@@ -44,7 +53,7 @@ namespace Domaincasepro.Commands
             }
         }
 
-        private ActivityTable MapToEntity(ActivityRequestModel requestModel)
+        private ActivityTable MapToEntity(JobCard requestModel)
         {
             return new ActivityTable
             {
@@ -53,10 +62,11 @@ namespace Domaincasepro.Commands
                 HcorderNumber = requestModel.HcorderNumber,
                 DateRaised = requestModel.DateRaised.ToString(),
                 RaisedBy = requestModel.RaisedBy,
-                SiteAddress=requestModel.SiteAddress,
+                SiteAddress = requestModel.SiteAddress,
                 OutorhoursEmrgContact = requestModel.OutofhoursEmrgContact,
                 NearestAE = requestModel.NearestAE,
-                ActivitType = requestModel.ActivityType
+                ActivitType = requestModel.ActivityType,
+                Id = requestModel.ActivityId,
                 
             };
         }

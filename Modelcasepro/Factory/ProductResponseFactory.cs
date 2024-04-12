@@ -9,7 +9,7 @@ namespace Modelcasepro.Factory
 {
     public class ProductResponseFactory
     {
-        public static ActivityResponseModel Create(bool isSuccess, string errorMessage)
+        public static ActivityResponseModel Create(bool isSuccess, string errorMessage, int id)
         {
             return new ActivityResponseModel
             {

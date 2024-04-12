@@ -1,0 +1,99 @@
+﻿@model Modelcasepro.ViewModel.InstructOperation
+
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<form id="sendEmailForm" action="/Activity/SaveInstruction" method="post">
+    <div class="row">
+        <div class="col-sm-6 col-md-3">
+            <div class="form-group clearfix">
+                <label for="HCJob">Opration Type:</label>
+                @Html.HiddenFor(model => model.ActivityId, new { @class = "form-control", id="id"})
+                @Html.DropDownListFor(model => model.SelectedActivity, new SelectList(new[]
+                {
+                new SelectListItem { Text = "Select Opration Type", Value = "" },
+                new SelectListItem { Text = "Notification to designated individuals", Value = "Notification to designated individuals" },
+                new SelectListItem { Text = "Equipment/Vehicle check", Value = "Equipment/Vehicle check" },
+                new SelectListItem { Text = "Risk assessment", Value = "Risk assessment" },
+                new SelectListItem { Text = "Team brief", Value = "Team brief" }
+                }, "Value", "Text"), new { @class = "form-control",name = "activityType" })
+
+
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="form-group clearfix">
+                <label for="InstructorName">Instructor Name:</label>
+
+
+                @Html.DropDownListFor(model => model.Name, new SelectList(new[]
+                {
+                new SelectListItem { Text = "Select Name", Value = "" },
+                new SelectListItem { Text = "Micky", Value = "Micky" },
+                new SelectListItem { Text = "Neil Campbell", Value = "Neil Campbell" },
+                new SelectListItem { Text = "Support", Value = "Support" }
+                }, "Value", "Text"), new { @class = "form-control", id = "InstructorNamedropdown",name = "InstructorName" })
+
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="form-group clearfix">
+                <label for="tbxActivityDate">Activity Date:</label>
+                @Html.TextBoxFor(model => model.Date, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date",name = "activityDate" })
+
+            </div>
+        </div>
+
+
+
+    </div>
+    <div class="row">
+        <div class="col-sm-20 col-md-10">
+            <div class="form-group clearfix">
+
+                <div class="form-group clearfix">
+                    <label for="inputNotes">Notes:</label>
+                    @Html.TextAreaFor(model => model.Note, new { @class = "form-control", id = "inputNotes", cols = "10", rows = "5", name = "notes" })
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-18 col-md-9"></div>
+        <div class="col-sm-4 col-md-2">
+            <button type="submit" class="btn btn-success">Send Email</button>
+        </div>
+    </div>
+</form>
+
+<div class="table-container create-actvttable">
+    <table id="instructOption" class="cmnacvt-table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true"
+           data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true"
+           data-show-toggle="true" data-resizable="true">
+        <thead>
+            <tr>
+                <th data-field="Id">Id</th>
+                <th data-field="Email">Email</th>
+                <th data-field="Activity Date">Activity Date</th>
+                <th data-field="Submitted">Submitted?</th>
+                <th data-field="View">View</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>n.campbell@advancedsoftware.co.uk</td>
+                <td>24/08/2023 13:12:00</td>
+                <td>False</td>
+                <td class="text-center">
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#InstructOpeations">
+                        <i class="fa fa-eye"></i>&nbsp; View Details
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

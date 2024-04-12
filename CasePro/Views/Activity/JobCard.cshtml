@@ -2,7 +2,7 @@
 @*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
-<div class="panel panel-default">
+<div class="panel panel-default Jobcard">
     <div class="panel-heading">
         Basic details
     </div>
@@ -53,7 +53,7 @@
             <div class="col-sm-4 col-md-4">
                 <div class="form-group clearfix">
                     <label for="Date">Date Raised:</label>
-                    @Html.TextBoxFor(x => x.DateRaised, new { @class = "form-control", type="date", id="Date"})
+                    @Html.TextBoxFor(x => x.DateRaised,"{0:yyyy-MM-dd}", new { @class = "form-control", type="date", id="Date"})
                     <span id="DateError" class="text-danger"></span>
                 </div>
             </div>
@@ -97,64 +97,122 @@
     <div class="panel-heading">
         Customer details
     </div>
-    <div class="panel-body original-row">
-        <div class="row">
-            <div class="col-sm-4 col-md-4">
-                <div class="form-group clearfix">
-                    <label for="Customer">Customer Name</label>
-                    <input type="text" class="form-control customer-name" id="CustomerName">
-                    <span class="text-danger validation-error" id="customerNameError"></span>
+    @if (Model.customerModel != null && Model.customerModel.Any())
+    {
+        @foreach (var item in Model.customerModel)
+        {
+            <div class="panel-body original-row">
+                <div class="row">
+                    <div class="col-sm-4 col-md-4">
+                        <div class="form-group clearfix">
+                            @Html.HiddenFor(model => item.custid, new { @class = "form-control", id="custid"})
+                            <label for="Customer">Customer Name</label>
+                            @Html.TextBoxFor(model => item.CustomerName, new { @class = "form-control customer-name", id="CustomerName" })
+                            <span class="text-danger validation-error" id="customerNameError"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-md-4">
+                        <div class="form-group clearfix">
+                            <label for="SAGEOrder">Contact Number</label>
+                            @Html.TextBoxFor(model => item.ContactNo, new { @class = "form-control contact-no", id="SAGEOrder" })
+                            <span class="text-danger validation-error" id="contactNoError"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-md-4">
+                        <label>&nbsp;</label>
+                        <input type="button" id="addcustomer" style="margin-top:20px" class="btn btn-primary btn-success add-customer" value="Add New Customer Contact">
+                    </div>
                 </div>
             </div>
-            <div class="col-sm-4 col-md-4">
-                <div class="form-group clearfix">
-                    <label for="SAGEOrder">Contact Number</label>
-                    <input type="text" value="" class="form-control contact-no" id="SAGEOrder">
-                    <span class="text-danger validation-error" id="contactNoError"></span>
+        }
+    }
+    else
+    {
+        <div class="panel-body original-row">
+            <div class="row">
+                <div class="col-sm-4 col-md-4">
+                    <div class="form-group clearfix">
+                        <input type="text" class="form-control custid hidden" id="custid">
+                        <label for="Customer">Customer Name</label>
+                        <input type="text" class="form-control customer-name" id="CustomerName">
+                        <span class="text-danger validation-error" id="customerNameError"></span>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-md-4">
+                    <div class="form-group clearfix">
+                        <label for="SAGEOrder">Contact Number</label>
+                        <input type="text" value="" class="form-control contact-no" id="SAGEOrder">
+                        <span class="text-danger validation-error" id="contactNoError"></span>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-md-4">
+                    <label>&nbsp;</label>
+                    <input type="button" id="addcustomer" style="margin-top:20px" class="btn btn-primary btn-success add-customer" value="Add New Customer Contact">
                 </div>
             </div>
-            <div class="col-sm-4 col-md-4">
-                <label>&nbsp;</label>
-                <input type="button" id="addcustomer" style="margin-top:20px" class="btn btn-primary btn-success add-customer" value="Add New Customer Contact">
-            </div>
         </div>
+    }
+
+</div>
+
+@if (Model.ActivityId==0)
+{
+    <div class="clearfix text-center">
+
+
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#NotesnComments" disabled>
+            Notes & Comments
+        </button>
+        &emsp; &emsp;
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ManagerSignOff" disabled>
+            Manager Sign Off - Job Complete
+        </button>
     </div>
 
-</div>
-
-<div class="clearfix text-center">
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#NotesnComments">
-        Notes & Comments
-    </button>&emsp;&emsp;
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ManagerSignOff">
-        Manager Sign Off - Job Complete
-    </button>
-</div>
+}
+else
+{
+    <div class="clearfix text-center">
 
 
-
-<div class="modal fade" id="NotesnComments">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title">NOTES & COMMENTS</h4>
-            </div>
-            <div class="modal-body">
-                @*  @Html.TextAreaFor(model => model.Notes, new { @class = "form-control", id = "textarea", cols = "50", rows = "4" }) *@
-                <textarea id="textarea" class="form-control" rows="4" cols="50">                  </textarea>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="button" onclick="SaveNote(this)" class="btn btn-primary">Save Changes</button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#NotesnComments">
+            Notes & Comments
+        </button>
+        &emsp; &emsp;
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ManagerSignOff">
+            Manager Sign Off - Job Complete
+        </button>
     </div>
-    <!-- /.modal-dialog -->
-</div>
+}
+
+
+
+
+<form id="saveForm" action="/Activity/SaveNote" method="post">
+    <div class="modal fade" id="NotesnComments">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">NOTES & COMMENTS</h4>
+                </div>
+                <div class="modal-body">
+                    @Html.HiddenFor(model => model.ActivityId, new { @class = "form-control", id="id"})
+                    @Html.TextAreaFor(model => model.Notes, new { @class = "form-control",name="note", id = "textarea", cols = "50", rows = "4" })
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</form>
 
 <div class="modal fade" id="NotesnComments">
     <div class="modal-dialog">
@@ -203,13 +261,21 @@
                             <th scope="row"><input type="date" class="form-control" id="Completeion1Date1"></th>
                             <td><input type="text" class="form-control" id="Signature1"></td>
                             <td><input type="text" class="form-control" id="Name1"></td>
-                            <td><input type="date" class="form-control" id="Date1"></td>
+                            <td>
+                                <input type="date" class="form-control" id="Date1">
+                                <input type="text" hidden id="InstructorId" value="@ViewBag.InstructorId" />
+                            </td>
+
                         </tr>
                         <tr>
                             <th scope="row"><input type="date" class="form-control" id="Completeion1Date2"></th>
                             <td><input type="text" class="form-control" id="Signature2"></td>
                             <td><input type="text" class="form-control" id="Name2"></td>
-                            <td><input type="date" class="form-control" id="Date2"></td>
+                            <td>
+                                <input type="date" class="form-control" id="Date2">
+                                <input type="text" hidden id="InstructorId" value="@ViewBag.InstructorId" />
+                            </td>
+
                         </tr>
                     </tbody>
                 </table>
@@ -222,3 +288,4 @@
     </div>
 
 </div>
+<script src="~/asset/js/custom.js"></script>

@@ -1,0 +1,164 @@
+﻿@model Modelcasepro.ViewModel.ActivitySummary
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+
+
+    <div class="panel panel-default activitysummary">
+
+        <div class="container-fluid">
+            <div class="main-table table-responsive">
+                <!--Table 1 starts-->
+
+                <div class=" clearfix table1 " id="" pt-5>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+
+                                <th data-field="Activity Dates">Activity Dates</th>
+                                <th data-field="Day or Night">Day or Night</th>
+                                <th data-field="Customer">Customer</th>
+                                <th data-field="Type Of avtivity">Type Of avtivity</th>
+                                <th data-field="Barrier Type">Barrier Type</th>
+                                <th data-field="Barrier Quantity">Barrier Quantity</th>
+
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Activity)
+                            {
+                                <tr>
+                                    <td>@item.ActivityDate</td>
+                                    <td>@item.Dayornight</td>
+                                    <td>@item.customer</td>
+                                    <td>@item.Type</td>
+                                    <td>@item.BarrierType</td>
+                                    <td>@item.BarrierQuntity</td>
+                                </tr>
+                            }
+
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+                <!--Table 1 ends-->
+                <!--Table 2 starts-->
+                <div class="clearfix table1 " id="" pt-5>
+                    <table class="table table-bordered ">
+                        <thead>
+                            <tr>
+
+                                <th data-field="Vehicle Reg">Vehicle Reg</th>
+                                <th data-field="Trailer Supplier">Trailer Supplier</th>
+                                <th data-field="Trailer Number">Trailer Number</th>
+                                <th data-field="Load Quantity">Load Quantity</th>
+                                <th data-field="Depot Depart From">Depot Depart From</th>
+                                <th data-field="Depot Return To">Depot Return To</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Trailer)
+                            {
+                                
+                                    <tr>
+                                        <td>@item.TrailerSupplier</td>
+                                        <td>@item.VehicleReg</td>
+                                        <td>@item.TrailerNumber</td>
+                                        <td>@item.Quantity</td>
+                                        <td>@item.DepartFrom</td>
+                                        <td>@item.LoadDepot</td>
+                                    </tr>
+                                
+                            }
+
+                        </tbody>
+                    </table>
+
+                </div>
+                <!--Table 2 ends-->
+                <!--Table 3 starts-->
+                <div class="clearfix table1 " id="" pt-5>
+                    <h5><b>Trailer Detail Out Bound</b></h5>
+                    <table class="table table-bordered ">
+                        <thead>
+                            <tr>
+
+                                <th data-field="Labour Supplier">Trailer Number</th>
+                                <th data-field="Transport Supplier">Load at Depot</th>
+                                <th data-field="Vehicle Reg">Date to be loaded</th>
+                                <th data-field="Trailer Supplier">Loaded by</th>
+
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model.Trailer)
+                            {
+                                if (item.IsOutBound == true)
+                                {
+                                    <tr>
+                                        <td>@item.TrailerNumber</td>
+                                        <td>@item.LoadDepot</td>
+                                        <td>@item.Date</td>
+                                        <td>@item.LoadedTippedBy</td>
+                                    </tr>
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+
+                </div>
+                <!--Table 3 ends-->
+                <!--Table 4 starts-->
+                <div class=" clearfix table1" id="">
+                    <h5><b>Trailer Detail Return</b></h5>
+                    <table class="table table-bordered ">
+                        <thead>
+                            <tr>
+                                <th data-field="Trailer supplier">Trailer supplier</th>
+                                <th data-field="Trailer Number">Trailer Number</th>
+                                <th data-field="Load Quantity">Load Quantity</th>
+                                <th data-field="Depot">Depot</th>
+                                <th data-field="Vehicle Reg">Vehicle Reg </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model.Trailer)
+                            {
+                                if (item.IsOutBound == false)
+                                {
+                                    <tr>
+                                        <td>@item.TrailerSupplier</td>
+                                        <td>@item.TrailerNumber</td>
+                                        <td>@item.Quantity</td>
+                                        <td>@item.DepartFrom</td>
+                                        <td>@item.VehicleReg</td>
+                                    </tr>
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+
+                </div>
+                <!--Table 4 ends-->
+
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+<link href="c:\users\admin\desktop\casepro\casepro\wwwroot\css\site.css" rel="stylesheet" />

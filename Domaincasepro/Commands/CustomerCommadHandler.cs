@@ -13,23 +13,31 @@ namespace Domaincasepro.Commands
 {
     public class CustomerCommadHandler
     {
-        private readonly CaseproDbContext _context;
+        private readonly ICustomerRepository _repo;
 
-        public CustomerCommadHandler(CaseproDbContext context)
+        public CustomerCommadHandler(ICustomerRepository repo)
         {
-            _context = context;
+            _repo = repo;
         }
 
-        public  ActivityResponseModel AddCustAsync(CustomerRequestModel CustRequest, ICustomerRepository Custrepo)
+        public  ActivityResponseModel AddCust(CustomerRequestModel CustRequest)
         {
             try
             {
                 ActivityCustomerTable CustEntity = MapToEntity(CustRequest);
-                ActivityCustomerTable addedCustInfo =  Custrepo.AddOrUpdateCustomer(CustEntity);
+                ActivityCustomerTable addedCustInfo =  _repo.AddOrUpdateCustomer(CustEntity);
 
                 if (addedCustInfo != null)
                 {
-                    return ActivityResponseFactory.Create(true, "Customer Added", CustEntity.Id,"");
+                    if (CustRequest.custid==0)
+                    {
+                        return ActivityResponseFactory.Create(true, "Customer Added", CustEntity.Id, "");
+                    }
+                    else
+                    {
+                        return ActivityResponseFactory.Create(true, "Customer Updated", CustEntity.Id, "");
+                    }
+                    
                 }
                 else
                 {
@@ -49,7 +57,8 @@ namespace Domaincasepro.Commands
             {
                 ActivityId = requestModel.ActivityId,
                 Name = requestModel.CustomerName,
-                ContactNo=requestModel.ContactNo
+                ContactNo=requestModel.ContactNo,
+                Id=requestModel.custid,
 
             };
         }

@@ -9,57 +9,75 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = CasePro
 build_property.RootNamespace = CasePro
-build_property.ProjectDir = C:\Projects\CaseProNew\CaseProNew\CasePro\
+build_property.ProjectDir = C:\Users\ADMIN\Desktop\CasePro_Merg\CasePro\CasePro\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Projects\CaseProNew\CaseProNew\CasePro
+build_property.MSBuildProjectDirectory = C:\Users\ADMIN\Desktop\CasePro_Merg\CasePro\CasePro
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Projects/CaseProNew/CaseProNew/CasePro/Views/Activity/ActivitiesList.cshtml]
+[C:/Users/ADMIN/Desktop/CasePro_Merg/CasePro/CasePro/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ADMIN/Desktop/CasePro_Merg/CasePro/CasePro/Views/Activity/ActivitiesList.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWN0aXZpdHlcQWN0aXZpdGllc0xpc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Projects/CaseProNew/CaseProNew/CasePro/Views/Activity/CreateActivity.cshtml]
+[C:/Users/ADMIN/Desktop/CasePro_Merg/CasePro/CasePro/Views/Activity/ActivityDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWN0aXZpdHlcQWN0aXZpdHlEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ADMIN/Desktop/CasePro_Merg/CasePro/CasePro/Views/Activity/ActivitySummary.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWN0aXZpdHlcQWN0aXZpdHlTdW1tYXJ5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ADMIN/Desktop/CasePro_Merg/CasePro/CasePro/Views/Activity/CreateActivity.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWN0aXZpdHlcQ3JlYXRlQWN0aXZpdHkuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Projects/CaseProNew/CaseProNew/CasePro/Views/Activity/JobCard.cshtml]
+[C:/Users/ADMIN/Desktop/CasePro_Merg/CasePro/CasePro/Views/Activity/InstructOperation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWN0aXZpdHlcSW5zdHJ1Y3RPcGVyYXRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ADMIN/Desktop/CasePro_Merg/CasePro/CasePro/Views/Activity/JobCard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWN0aXZpdHlcSm9iQ2FyZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Projects/CaseProNew/CaseProNew/CasePro/Views/Activity/ProductDetails.cshtml]
+[C:/Users/ADMIN/Desktop/CasePro_Merg/CasePro/CasePro/Views/Activity/ProductDetails.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWN0aXZpdHlcUHJvZHVjdERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Projects/CaseProNew/CaseProNew/CasePro/Views/Activity/ResourseDetails.cshtml]
+[C:/Users/ADMIN/Desktop/CasePro_Merg/CasePro/CasePro/Views/Activity/ResourseDetails.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWN0aXZpdHlcUmVzb3Vyc2VEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Projects/CaseProNew/CaseProNew/CasePro/Views/Home/Index.cshtml]
+[C:/Users/ADMIN/Desktop/CasePro_Merg/CasePro/CasePro/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Projects/CaseProNew/CaseProNew/CasePro/Views/Home/Privacy.cshtml]
+[C:/Users/ADMIN/Desktop/CasePro_Merg/CasePro/CasePro/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Projects/CaseProNew/CaseProNew/CasePro/Views/Shared/Error.cshtml]
+[C:/Users/ADMIN/Desktop/CasePro_Merg/CasePro/CasePro/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Projects/CaseProNew/CaseProNew/CasePro/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/ADMIN/Desktop/CasePro_Merg/CasePro/CasePro/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Projects/CaseProNew/CaseProNew/CasePro/Views/_ViewImports.cshtml]
+[C:/Users/ADMIN/Desktop/CasePro_Merg/CasePro/CasePro/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Projects/CaseProNew/CaseProNew/CasePro/Views/_ViewStart.cshtml]
+[C:/Users/ADMIN/Desktop/CasePro_Merg/CasePro/CasePro/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Projects/CaseProNew/CaseProNew/CasePro/Views/Shared/_Layout.cshtml]
+[C:/Users/ADMIN/Desktop/CasePro_Merg/CasePro/CasePro/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-8w6ixxr1ah

@@ -1,4 +1,5 @@
-﻿using Modelcasepro.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Modelcasepro.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace Domaincasepro.Repository
         {
             try
             {
-                var existingcustomer = _context.ActivityCustomerTables.Where(x => x.Id == cusInfo.Id).FirstOrDefault();
+                var existingcustomer = _context.ActivityCustomerTables.Where(x => x.Id == cusInfo.Id && x.ActivityId==cusInfo.ActivityId).FirstOrDefault();
 
                 if (existingcustomer != null)
                 {
@@ -30,7 +31,7 @@ namespace Domaincasepro.Repository
                     _context.ActivityCustomerTables.Add(cusInfo);
                 }
 
-                 _context.SaveChangesAsync();
+                 _context.SaveChanges();
 
                 return cusInfo;
             }
@@ -38,6 +39,11 @@ namespace Domaincasepro.Repository
             {
                 return null;
             }
+        }
+
+        public List<ActivityCustomerTable> GetActivityById(int activityid)
+        {
+            return _context.ActivityCustomerTables.Where(x => x.ActivityId == activityid).ToList();
         }
     }
 }

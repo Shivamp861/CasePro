@@ -12,3 +12,32 @@ C:\Projects\CaseProNew\CaseProNew\Modelcasepro\obj\Debug\net7.0\refint\Modelcase
 C:\Projects\CaseProNew\CaseProNew\Modelcasepro\obj\Debug\net7.0\Modelcasepro.pdb
 C:\Projects\CaseProNew\CaseProNew\Modelcasepro\obj\Debug\net7.0\Modelcasepro.genruntimeconfig.cache
 C:\Projects\CaseProNew\CaseProNew\Modelcasepro\obj\Debug\net7.0\ref\Modelcasepro.dll
+D:\Ritu Project\CasePro_Live\CasePro\Modelcasepro\bin\Debug\net7.0\Modelcasepro.deps.json
+D:\Ritu Project\CasePro_Live\CasePro\Modelcasepro\bin\Debug\net7.0\Modelcasepro.runtimeconfig.json
+D:\Ritu Project\CasePro_Live\CasePro\Modelcasepro\bin\Debug\net7.0\Modelcasepro.dll
+D:\Ritu Project\CasePro_Live\CasePro\Modelcasepro\bin\Debug\net7.0\Modelcasepro.pdb
+D:\Ritu Project\CasePro_Live\CasePro\Modelcasepro\obj\Debug\net7.0\Modelcasepro.csproj.AssemblyReference.cache
+D:\Ritu Project\CasePro_Live\CasePro\Modelcasepro\obj\Debug\net7.0\Modelcasepro.GeneratedMSBuildEditorConfig.editorconfig
+D:\Ritu Project\CasePro_Live\CasePro\Modelcasepro\obj\Debug\net7.0\Modelcasepro.AssemblyInfoInputs.cache
+D:\Ritu Project\CasePro_Live\CasePro\Modelcasepro\obj\Debug\net7.0\Modelcasepro.AssemblyInfo.cs
+D:\Ritu Project\CasePro_Live\CasePro\Modelcasepro\obj\Debug\net7.0\Modelcasepro.csproj.CoreCompileInputs.cache
+D:\Ritu Project\CasePro_Live\CasePro\Modelcasepro\obj\Debug\net7.0\Modelcasepro.dll
+D:\Ritu Project\CasePro_Live\CasePro\Modelcasepro\obj\Debug\net7.0\refint\Modelcasepro.dll
+D:\Ritu Project\CasePro_Live\CasePro\Modelcasepro\obj\Debug\net7.0\Modelcasepro.pdb
+D:\Ritu Project\CasePro_Live\CasePro\Modelcasepro\obj\Debug\net7.0\Modelcasepro.genruntimeconfig.cache
+D:\Ritu Project\CasePro_Live\CasePro\Modelcasepro\obj\Debug\net7.0\ref\Modelcasepro.dll
+C:\Users\ADMIN\Desktop\CasePro_Merg\CasePro\Modelcasepro\bin\Debug\net7.0\Modelcasepro.deps.json
+C:\Users\ADMIN\Desktop\CasePro_Merg\CasePro\Modelcasepro\bin\Debug\net7.0\Modelcasepro.runtimeconfig.json
+C:\Users\ADMIN\Desktop\CasePro_Merg\CasePro\Modelcasepro\bin\Debug\net7.0\Modelcasepro.dll
+C:\Users\ADMIN\Desktop\CasePro_Merg\CasePro\Modelcasepro\bin\Debug\net7.0\Modelcasepro.pdb
+C:\Users\ADMIN\Desktop\CasePro_Merg\CasePro\Modelcasepro\obj\Debug\net7.0\Modelcasepro.csproj.AssemblyReference.cache
+C:\Users\ADMIN\Desktop\CasePro_Merg\CasePro\Modelcasepro\obj\Debug\net7.0\Modelcasepro.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ADMIN\Desktop\CasePro_Merg\CasePro\Modelcasepro\obj\Debug\net7.0\Modelcasepro.AssemblyInfoInputs.cache
+C:\Users\ADMIN\Desktop\CasePro_Merg\CasePro\Modelcasepro\obj\Debug\net7.0\Modelcasepro.AssemblyInfo.cs
+C:\Users\ADMIN\Desktop\CasePro_Merg\CasePro\Modelcasepro\obj\Debug\net7.0\Modelcasepro.csproj.CoreCompileInputs.cache
+C:\Users\ADMIN\Desktop\CasePro_Merg\CasePro\Modelcasepro\obj\Debug\net7.0\Modelcasepro.sourcelink.json
+C:\Users\ADMIN\Desktop\CasePro_Merg\CasePro\Modelcasepro\obj\Debug\net7.0\Modelcasepro.dll
+C:\Users\ADMIN\Desktop\CasePro_Merg\CasePro\Modelcasepro\obj\Debug\net7.0\refint\Modelcasepro.dll
+C:\Users\ADMIN\Desktop\CasePro_Merg\CasePro\Modelcasepro\obj\Debug\net7.0\Modelcasepro.pdb
+C:\Users\ADMIN\Desktop\CasePro_Merg\CasePro\Modelcasepro\obj\Debug\net7.0\Modelcasepro.genruntimeconfig.cache
+C:\Users\ADMIN\Desktop\CasePro_Merg\CasePro\Modelcasepro\obj\Debug\net7.0\ref\Modelcasepro.dll

@@ -1,6 +1,7 @@
 ﻿using Domaincasepro.Repository;
 using Modelcasepro.Entities;
 using Modelcasepro.RequestModel;
+using Modelcasepro.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,20 +12,40 @@ namespace Domaincasepro.Queries
 {
     public class ResourceQueryHandler
     {
-        private readonly CaseproDbContext _context;
-        public ResourceQueryHandler(CaseproDbContext context)
-        {
-            _context = context;
-        }
-        //public static UsersTable ExecuteLoginQuery(LoginRequestModel request, ILoginRepository loginRepository)
+        public readonly IResourseRepository _resourseRepo;
 
-        public static ActivityTable GetId(ActivityRequestModel request, IResourseRepository resourseRepository)
+        public ResourceQueryHandler(IResourseRepository resourseRepo)
         {
-            ActivityTable activityid = new ActivityTable
-            {
-                Id = request.ActivityId,
-            };
-            return resourseRepository.getActivityId(activityid);
+            _resourseRepo = resourseRepo;
         }
+        public List<ResourseDetails> GetResourseDetails(int activityId)
+        {
+            try
+            {
+                var activity = ExecuteResourseQueryById(activityId);
+                List<ResourseDetails> resourseDetails = activity.Select(resourseDetails => new ResourseDetails
+                {
+                    Id = resourseDetails.Id,
+                    Name = resourseDetails.Name,
+                    ResourceType = resourseDetails.ResourceType,
+                    Comments = resourseDetails.Comments,
+                    DayNight = resourseDetails.DayNight,
+                    Shift = resourseDetails.Shift,
+                    ActivityId = (int)resourseDetails.ActivityId,
+                }).ToList();
+              
+                return resourseDetails;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred: " + ex.Message);
+            }
+        }
+
+        private List<ActivityResourcesDetail> ExecuteResourseQueryById(int activityId)
+        {
+            return _resourseRepo.getResourseById(activityId) ?? new List<ActivityResourcesDetail>();
+        }
+
     }
 }

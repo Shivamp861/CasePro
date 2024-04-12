@@ -4,6 +4,7 @@ using Modelcasepro.Entities;
 using Modelcasepro.Factory;
 using Modelcasepro.RequestModel;
 using Modelcasepro.ResponseModel;
+using Modelcasepro.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,30 +17,38 @@ namespace Domaincasepro.Commands
 {
     public class SiteInstallationCommandHandler
     {
-        private readonly CaseproDbContext _context;
+        private readonly IActivitydetailsRepository _repo;
 
-        public SiteInstallationCommandHandler(CaseproDbContext context)
+        public SiteInstallationCommandHandler(IActivitydetailsRepository repo)
         {
-            _context = context;
+            _repo = repo;
         }
-        public ActivityDetailResponseModel AddSitedetails(SiteInstallationRequestModel siterequestModel, IActivitydetailsRepository activitydetailsrepo, IFormFile SiteImage)
+        public  ActivityDetailResponseModel AddSitedetails(Details siterequestModel, IFormFile SiteImage)
         {
             try
             {
                 ActivityDetail activityEntity = MapToEntitySite(siterequestModel);
-
-                ActivityDetail addedActivity = activitydetailsrepo.AddOrUpdateActivitydetails(activityEntity);
-                ActivityImage activityImage = MapToEntityImage(SiteImage, siterequestModel.ActivityId);
-                ActivityImage addactivityImage = activitydetailsrepo.AddOrUpdateActivityImage(activityImage);
+                
+                ActivityDetail addedActivity = _repo.AddOrUpdateActivitydetails(activityEntity);
+                ActivityImage activityImage = MapToEntityImage(SiteImage, siterequestModel.ActivityId ?? 0);
+                ActivityImage addactivityImage = _repo.AddOrUpdateActivityImage(activityImage);
 
                 if (addedActivity != null)
                 {
-                    return siteInstallationResponseFactory.Create(true, "Site Installation successfully Added");
+                    if (siterequestModel.Id==0)
+                    {
+                        return siteInstallationResponseFactory.Create(true, "Activity details successfully Added", addedActivity.ActivityId ??0);
+                    }
+                    else
+                    {
+                        return siteInstallationResponseFactory.Create(true, "Activity details successfully Updated", addedActivity.ActivityId ?? 0);
+                    }
+                  
                 }
                 else
                 {
                     // Something went wrong while adding the activity
-                    return siteInstallationResponseFactory.Create(false, "Failed to Site Installation");
+                    return siteInstallationResponseFactory.Create(false, "Failed to Site Installation", 0);
                 }
             }
             catch (Exception ex)
@@ -48,7 +57,7 @@ namespace Domaincasepro.Commands
             }
         }
 
-        private ActivityDetail MapToEntitySite(SiteInstallationRequestModel requestModel)
+        private  ActivityDetail MapToEntitySite(Details requestModel)
         {
             return new ActivityDetail
             {
@@ -68,13 +77,16 @@ namespace Domaincasepro.Commands
                 OtherResourcesEquipmentUsed = requestModel.OtherResourcesEquipmentUsed,
                 AnySpecialInstructions = requestModel.AnySpecialInstructions,
                 AllRelevantActivityRams = requestModel.AllRelevantActivityRams,
-                ActivityId = requestModel.ActivityId
-
+                ActivityId = requestModel.ActivityId,
+                LiftingEquipmentUsed=requestModel.LiftingEquipmentUsed,
+                AnyNearMissOccurrences=requestModel.AnyNearMissOccurrences,
+                BarrierConditionChecks=requestModel.BarrierConditionChecks,
+                Startandfinishtime = requestModel.Startandfinishtime
             };
         }
-        private ActivityImage MapToEntityImage(IFormFile Image, int activityid)
+        private  ActivityImage MapToEntityImage(IFormFile Image, int activityid)
         {
-            var uploadPath = "Upload/"; // Relative path within the wwwroot folder
+            var uploadPath = "wwwroot/Upload/"; // Relative path within the wwwroot folder
             var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(Image.FileName);
             var fullPath = Path.Combine(uploadPath, uniqueFileName);
 
@@ -86,7 +98,7 @@ namespace Domaincasepro.Commands
 
             // Construct the full URL of the uploaded image
             var baseUrl = "https://localhost:7007"; // Your application's base URL
-            var fullUrl = baseUrl + "/" + fullPath.Replace("\\", "/");
+            var fullUrl = baseUrl + "/" + fullPath.Replace("\\", "/").Replace("wwwroot/","");
 
             return new ActivityImage
             {

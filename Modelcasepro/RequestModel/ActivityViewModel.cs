@@ -18,5 +18,6 @@ namespace Modelcasepro.RequestModel
 		public string TrailerNumber { get; set; }
 		public string CustomerName { get; set; }
 		public string DayNight { get; set; }
-	}
+        public string activityDate { get; set; }
+    }
 }

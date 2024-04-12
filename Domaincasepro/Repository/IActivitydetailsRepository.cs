@@ -11,5 +11,8 @@ namespace Domaincasepro.Repository
     {
         public ActivityDetail AddOrUpdateActivitydetails(ActivityDetail activitydetailsinfo);
         public ActivityImage AddOrUpdateActivityImage(ActivityImage activityimage);
+        public ActivityDetail GetActivityById(int activityid);
+
+        public ActivityImage GetActivityImage(int activityid);
     }
 }

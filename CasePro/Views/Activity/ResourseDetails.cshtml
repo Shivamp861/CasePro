@@ -1,7 +1,5 @@
-﻿@model Modelcasepro.ViewModel.ResourseDetails
-@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<Modelcasepro.ViewModel.ResourseDetails>
+
 <div class="clearfix table-responsive">
     <table class="table table-bordered" id="myTable">
         <thead>
@@ -17,83 +15,131 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>
-                    <select class="form-control" id="type">
-                        <option>
-                            Supervisor
-                        </option>
-                        <option>
-                            Operative
-                        </option>
-                        <option>
-                            Labour Man
-                        </option>
-                        <option>
-                            HGV
-                        </option>
-                        <option>
-                            HGV+Crane
-                        </option>
-                        <option>
-                            Trailer
-                        </option>
-                        <option>
-                            Loader
-                        </option>
-                        <option>
-                            Work Van
-                        </option>
+            @if (Model != null && Model.Count != 0)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
 
-                    </select>
-                </td>
+                            @Html.DropDownList("ResourceType", new List<SelectListItem>
+                    {
+                    new SelectListItem { Text = "Supervisor", Value = "Supervisor", Selected = (item.ResourceType == "Supervisor") },
+                    new SelectListItem { Text = "Operative", Value = "Operative" , Selected = (item.ResourceType == "Operative") },
+                    new SelectListItem { Text = "Labour Man", Value = "Labour Man", Selected = (item.ResourceType == "Labour Man")  },
+                    new SelectListItem { Text = "HGV", Value = "HGV", Selected = (item.ResourceType == "HGV")  },
+                    new SelectListItem { Text = "HGV+Crane", Value = "HGV+Crane" , Selected = (item.ResourceType == "HGV+Crane") },
+                    new SelectListItem { Text = "Trailer", Value = "Trailer"  , Selected = (item.ResourceType == "Trailer")  },
+                    new SelectListItem { Text = "Loader", Value = "Loader" , Selected = (item.ResourceType == "Loader") },
+                    new SelectListItem { Text = "Work Van", Value = "Work Van" , Selected = (item.ResourceType == "Work Van") }
 
-                <td>
-                    <select class="form-control" id="Shift1">
-                        <option>
-                            Shift 1
-                        </option>
-                        <option>
-                            Shift 2
-                        </option>
-                        <option>
-                            Shift 3
-                        </option>
-                        <option>
-                            Shift 4
-                        </option>
-                        <option>
-                            Shift 5
-                        </option>
-                        <option>
-                            Shift 6
-                        </option>
-                        <option>
-                            Shift 7
-                        </option>
-                        <option>
-                            Shift 8
-                        </option>
+                    },
+                    new { @class = "form-control", id = "type" }
+                    )
+                        </td>
 
-                    </select>
-                </td>
-                <td>
-                    <select class="form-control" id="daynight">
-                        <option>
-                            Day
-                        </option>
-                        <option>
-                            Night
-                        </option>
-                    </select>
-                </td>
-                <td><input value="" type="text" class="form-control" id="name"></td>
-                <td><input type="text" class="form-control" width="500" id="comment"></td>
-                <td><input type="button" value="Add New Row" onclick="addRow(this)" class="btn btn-primary btn-primary" /> </td>
+                        <td>
+                            @Html.DropDownList("Shift", new List<SelectListItem>
+                    {
+                    new SelectListItem { Text = "Shift 1", Value = "Shift 1", Selected = (item.Shift == "Shift 1") },
+                    new SelectListItem { Text = "Shift 2", Value = "Shift 2", Selected = (item.Shift == "Shift 2") },
+                    new SelectListItem { Text = "Shift 3", Value = "Shift 3", Selected = (item.Shift == "Shift 3") },
+                    new SelectListItem { Text = "Shift 4", Value = "Shift 4", Selected = (item.Shift == "Shift 4") },
+                    new SelectListItem { Text = "Shift 5", Value = "Shift 5", Selected = (item.Shift == "Shift 5") },
+                    new SelectListItem { Text = "Shift 6", Value = "Shift 6", Selected = (item.Shift == "Shift 6") },
+                    new SelectListItem { Text = "Shift 7", Value = "Shift 7", Selected = (item.Shift == "Shift 7") },
+                    new SelectListItem { Text = "Shift 8", Value = "Shift 8", Selected = (item.Shift == "Shift 8") }
+                    }, new { @class = "form-control", id = "Shift" })
+                        </td>
 
 
-            </tr>
+                        <td>
+                            @Html.DropDownList("DayNight", new List<SelectListItem>
+                    {
+                    new SelectListItem { Text = "Day", Value = "Day", Selected = (item.DayNight == "Day") }, // Default option
+                    new SelectListItem { Text = "Night", Value = "Night", Selected = (item.DayNight == "Night") },
+                    },
+                    new { @class = "form-control", id = "daynight" }
+                    )
+                        </td>
+                        <td>
+                            @Html.TextBox("Name", item.Name, new { @class = "form-control", type = "text", id = "name" })
+
+                        </td>
+                        <td>
+                            @Html.TextBox("Comments", item.Comments, new { @class = "form-control", type = "text", id = "comment" })
+                            @Html.HiddenFor(modelItem => item.Id, new { id = "rid" })
+
+                        </td>
+                        <td><input type="button" value="Update Row" onclick="addRow(this)" class="btn btn-primary btn-primary" /> </td>
+
+
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td>
+
+                        @Html.DropDownList("ResourceType",new List<SelectListItem>
+                    {
+                    new SelectListItem { Text = "Supervisor", Value = "Supervisor" }, // Default option
+                    new SelectListItem { Text = "Operative", Value = "Operative" },
+                    new SelectListItem { Text = "Labour Man", Value = "Labour Man" },
+                    new SelectListItem { Text = "HGV", Value = "HGV" },
+                    new SelectListItem { Text = "HGV+Crane", Value = "HGV+Crane" },
+                    new SelectListItem { Text = "Trailer", Value = "Trailer" },
+                    new SelectListItem { Text = "Loader", Value = "Loader" },
+                    new SelectListItem { Text = "Work Van", Value = "Work Van" }
+
+                    },
+                    new { @class = "form-control", id = "type" }
+                    )
+                    </td>
+
+                    <td>
+                        @Html.DropDownList("Shift", new List<SelectListItem>
+                    {
+                    new SelectListItem { Text = "Shift 1", Value = "Shift 1" },
+                    new SelectListItem { Text = "Shift 2", Value = "Shift 2" },
+                    new SelectListItem { Text = "Shift 3", Value = "Shift 3" },
+                    new SelectListItem { Text = "Shift 4", Value = "Shift 4" },
+                    new SelectListItem { Text = "Shift 5", Value = "Shift 5" },
+                    new SelectListItem { Text = "Shift 6", Value = "Shift 6" },
+                    new SelectListItem { Text = "Shift 7", Value = "Shift 7" },
+                    new SelectListItem { Text = "Shift 8", Value = "Shift 8" }
+                    }, new { @class = "form-control", id = "Shift" })
+                    </td>
+                    <td>
+                        @Html.DropDownList("DayNight", new List<SelectListItem>
+                    {
+                    new SelectListItem { Text = "Day", Value = "Day" }, // Default option
+                    new SelectListItem { Text = "Night", Value = "Night" },
+                    },
+                    new { @class = "form-control", id = "daynight" }
+                    )
+                    </td>
+                    <td>
+                        @Html.TextBox("Name", null, new { @class = "form-control", type = "text", id = "name" })
+                    </td>
+                    <td>
+                        @Html.TextBox("Comments",null, new { @class = "form-control", type = "text", id = "comment" })
+
+
+
+                        <input type="hidden" id="rid" value="0" />
+                        @Html.Hidden("Id", null, new { id = "activityid" })
+                    </td>
+                    <td><input type="button" value="Add New Row" onclick="addRow(this)" class="btn btn-primary btn-primary" /> </td>
+
+
+                </tr>
+            }
+
 
         </tbody>
     </table>
 </div>
+
+<script src="~/asset/js/custom.js"></script>

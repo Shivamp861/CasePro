@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Domaincasepro.Repository
 {
@@ -16,14 +17,24 @@ namespace Domaincasepro.Repository
             this._context = context;
         }
 
-        public ActivityTrailerTable AddTrailerTipping(ActivityTrailerTable TrailerInfo)
+        public ActivityTrailerTable AddTrailerTipping(ActivityTrailerTable data)
         {
             try
             {
-                _context.ActivityTrailerTables.Add(TrailerInfo);
-                _context.SaveChanges();
+                var existing = _context.ActivityTrailerTables.Where(x => x.Id == data.Id && x.ActivityId == data.ActivityId).FirstOrDefault();
 
-                return TrailerInfo;
+                if (existing != null)
+                {
+                    _context.Entry(existing).CurrentValues.SetValues(data);
+                }
+                else
+                {
+                    _context.ActivityTrailerTables.Add(data);
+                }
+
+                _context.SaveChanges();               
+
+                return data;
             }
             catch (Exception ex)
             {
@@ -31,14 +42,14 @@ namespace Domaincasepro.Repository
             }
         }
 
-        public List<ActivityTrailerTable> GetAllList()
+        public List<ActivityTrailerTable> GetAllListById(int id)
         {
             // Retrieve all activities from the database
-            return _context.ActivityTrailerTables.Where(x => x.IsOutBound == null).ToList();
+            return _context.ActivityTrailerTables.Where(x => x.ActivityId == id).ToList();
         }
         public ActivityTrailerTable getActivityTrailerId(int id)
         {
-            var latestEntity = _context.ActivityTrailerTables.OrderByDescending(x => x.Id == id).FirstOrDefault();
+            var latestEntity = _context.ActivityTrailerTables.Where(x => x.Id == id).FirstOrDefault();
             return latestEntity;
 
         }

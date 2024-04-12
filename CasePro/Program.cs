@@ -1,5 +1,7 @@
+using Domaincasepro.Commands;
 using Domaincasepro.Queries;
 using Domaincasepro.Repository;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,7 +14,38 @@ var conString = builder.Configuration.GetSection("ConnectionStrings").GetSection
 builder.Services.AddDbContext<Modelcasepro.Entities.CaseproDbContext>(options =>
                 options.UseSqlServer(conString));
 builder.Services.AddTransient<IActivityRepository, ActivityRepository>();
+builder.Services.AddTransient<IActivitydetailsRepository, ActivitydetailsRepository>();
+builder.Services.AddTransient<ITrailerTippingRepository, TrailerTippingRepository>();
+builder.Services.AddTransient<ILoginRepository, LoginRepository>();
+builder.Services.AddTransient<ICustomerRepository, CustomerRepository>();
+builder.Services.AddTransient<IProductRepository, ProductRepository>();
+builder.Services.AddTransient<IResourseRepository, ResourseRepository>();
+builder.Services.AddScoped<IActivitySignOffRepository, ActivitySignOffRepository>();
+builder.Services.AddScoped<IInstructOperationRepository, InstructOperationRepository>();
+
 builder.Services.AddScoped<ActivityQueryHandler>();
+builder.Services.AddScoped<ActivitydetailsQueryHandler>();
+builder.Services.AddScoped<SiteInstallationCommandHandler>();
+builder.Services.AddScoped<ActivityCommandHandler>();
+builder.Services.AddScoped<CustomerCommadHandler>();
+builder.Services.AddScoped<TrailerTippingCommandHandler>();
+builder.Services.AddScoped<TrailerTippingQueryHandler>();
+builder.Services.AddScoped<LoginQueryHandler>();
+builder.Services.AddScoped<LoginCommandHandler>();
+builder.Services.AddScoped<ProductQueryHandler>();
+builder.Services.AddScoped<ProductDataCommandHandler>();
+builder.Services.AddScoped<ResourceQueryHandler>();
+builder.Services.AddScoped<ResourceDataCommandHandler>();
+builder.Services.AddScoped<NotesCommandHandler>();
+builder.Services.AddScoped<NotesQueryHandler>();
+builder.Services.AddScoped<SignoffCommadnHandler>();
+builder.Services.AddScoped<InstructorDataCommandHandler>();
+builder.Services.AddScoped<InstructQueryHandler>();
+builder.Services.AddScoped<DeleteActivityCommandHandler>();
+builder.Services.AddScoped<ActivitySummaryQueryhandler>();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+              .AddCookie(x => x.LoginPath = "/");
 
 
 var app = builder.Build();
@@ -35,6 +68,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Account}/{action=Login}/{id?}");
 
 app.Run();

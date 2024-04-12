@@ -11,7 +11,7 @@ namespace Domaincasepro.Repository
     {
         public ActivityTrailerTable AddTrailerTipping(ActivityTrailerTable TrailerInfo);
 
-        List<ActivityTrailerTable> GetAllList();
+        List<ActivityTrailerTable> GetAllListById(int id);
         ActivityTrailerTable getActivityTrailerId(int id);
 
     }

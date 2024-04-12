@@ -8,6 +8,8 @@ namespace Modelcasepro.ViewModel
 {
     public class ResourseDetails
     {
+        public int Id { get; set; }
+
         public string Shift { get; set; }
 
         public DateTime? Date { get; set; }
@@ -18,5 +20,7 @@ namespace Modelcasepro.ViewModel
         public string Comments { get; set; }
 
         public string DayNight { get; set; }
+        public int ActivityId { get; set; }
+
     }
 }
