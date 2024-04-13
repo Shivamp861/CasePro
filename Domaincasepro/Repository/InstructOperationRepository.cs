@@ -18,14 +18,27 @@ namespace Domaincasepro.Repository
         }
         public InstructorFormDetail GetInstructById(int activityid)
         {
-            
-           return _context.InstructorFormDetails.Where(x => x.ActivityId == activityid).FirstOrDefault();
+
+            return _context.InstructorFormDetails.Where(x => x.ActivityId == activityid).FirstOrDefault();
         }
 
         public List<InstructorFormDetail> GetInstructorOperationsDetails(int id)
         {
             var data = _context.InstructorFormDetails.Where(x => x.ActivityId == id).ToList();
-            return null;
+            return data;
+        }
+
+        public List<InstructorName> GetInstrutNameList()
+        {
+            return _context.InstructorNames.Select(x => new InstructorName
+            {
+                Name = x.Name,
+            }).ToList();
+        }
+
+        public InstructorName GetMailByName(string iname)
+        {
+            return _context.InstructorNames.Where(x => x.Name == iname).FirstOrDefault(); 
         }
 
         public bool SaveMailData(InstructorFormDetail formDetail)
@@ -64,13 +77,13 @@ namespace Domaincasepro.Repository
                 mailMessage.To.Add(email);
                 mailMessage.Subject = " Action Required:Manager sign off";
 
-                // Constructing email body with the link
                 mailMessage.Body = $"Hello {formDetail.Name},\n\n" +
-                    $"You have been assigned the activity '{formDetail.SelectedActivity}' on {formDetail.Date}.\n\n" +
-                    $"Before clicking the following link to create the activity, kindly login using your credentials:\n" +
-                  $"https://localhost:7121/Activity/CreateActivity?id={activityid}&InstructorId={InstructorId}\n\n" + // Modified link
-                    $"Note: {formDetail.Note}\n\n" +
-                    $"Best regards,\nYour Name";
+    $"You have been assigned the activity '{formDetail.SelectedActivity}' on {formDetail.Date?.Date.ToShortDateString()}.\n\n" + // Extracting only the date part
+    $"Before clicking the following link to create the activity, kindly login using your credentials:\n" +
+    $"https://localhost:44324/Activity/CreateActivity?id={activityid}&InstructorId={InstructorId}\n\n" + // Modified link
+    $"Note: {formDetail.Note}\n\n" +
+    $"Best regards,\nYour Name";
+
 
                 // Optionally, you can set the email format to HTML if needed
                 // mailMessage.IsBodyHtml = true;

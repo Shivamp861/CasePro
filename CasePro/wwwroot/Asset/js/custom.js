@@ -6,7 +6,19 @@ var handleBlurEvent = true;
 $('.Jobcard input, .Jobcard textarea, .Jobcard button,.Jobcard select').on('blur', function () {
     Savedate();
 });
+$('.Installation, .loading, .Tipping').change(function () {
+    debugger;
+    var fileName = $(this).val();
+    var ext = fileName.split('.').pop().toLowerCase();
+    var errorMessageElement = $(this).closest('.form-group').find('.fileError');
 
+    if ($.inArray(ext, ['jpg', 'jpeg', 'gif', 'img']) == -1) {
+        errorMessageElement.html('Invalid file type. Only JPEG, JPG, GIF, or IMG files are allowed.');
+        $(this).val('');
+    } else {
+        errorMessageElement.html('');
+    }
+});
 
 var fileInputValueYard;
 $('.yardTipping').on('blur', 'input, select,textarea,button', function () {
@@ -204,7 +216,7 @@ function addsignoff(button) {
             $('#Signature2').val('');
             $('#Name2').val('');
             $('#Date2').val('');
-            alert('Note saved successfully!');
+            alert('Manager Sign Off Saved!');
             console.log(response);
         },
         error: function (xhr, status, error) {
