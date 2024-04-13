@@ -703,29 +703,104 @@ $(document).on('blur', '#content1 .panel-default.customer input:not(.add-custome
         };
 
         // Proceed with AJAX request to save the data
-        $.ajax({
-            url: '/activity/Customersavedata',
-            method: 'POST',
-            data: requestData,
-            success: function (response) {
+        //$.ajax({
 
-                // Handle success response
-                if (response.success) {
-                    document.getElementById("custid").value = response.activityId;
-                    $currentRow.find('input').prop('disabled', true);
-                    $('#addcustomer').prop('disabled', false);
-                    // Display success message
-                    alert(response.errorMessage); // or response.message if you want to display a message
+        //    url: '/activity/Customersavedata',
+        //    method: 'POST',
+        //    data: requestData,
+        //    success: function (response) {
+
+        //        // Handle success response
+        //        if (response.success) {
+        //            document.getElementById("custid").value = response.activityId;
+        //            $currentRow.find('input').prop('disabled', true);
+        //            $('#addcustomer').prop('disabled', false);
+        //            // Display success message
+        //            alert(response.errorMessage); // or response.message if you want to display a message
+        //        }
+        //    },
+        //    error: function (xhr, status, error) {
+        //        // Handle error response
+        //        console.error('Error saving data:', error);
+        //    }
+        //});
+        $('#addcustomer').on('click', function () {
+            // Perform AJAX request to save data
+            $.ajax({
+                url: '/activity/Customersavedata',
+                method: 'POST',
+                data: requestData,
+                success: function (response) {
+                    // Handle success response
+                    if (response.success) {
+                        document.getElementById("custid").value = response.activityId;
+                        $('.original-row input').prop('disabled', false);
+                        $('#addcustomer').prop('disabled', false); // Disable button after successful submission
+                        // Display success message
+                        alert(response.errorMessage); // or response.message if you want to display a message
+                    }
+                },
+                error: function (xhr, status, error) {
+                    // Handle error response
+                    console.error('Error saving data:', error);
                 }
-            },
-            error: function (xhr, status, error) {
-                // Handle error response
-                console.error('Error saving data:', error);
-            }
+            });
         });
+
+
+       
     }
 });
 //for add customer row
+//$(document).on('click', ".add-customer", function () {
+//    handleBlurEvent = false;
+//    // Validate all existing rows before adding a new one
+//    var isValid = true;
+//    $('.original-row').each(function () {
+//        var $row = $(this);
+//        var customerName = $row.find('.customer-name').val();
+//        var contactNo = $row.find('.contact-no').val();
+
+//        // Check if any required field is empty
+//        if (!customerName.trim() || !contactNo.trim()) {
+//            isValid = false;
+//            return false; // Exit the loop early if any row is invalid
+//        }
+//    });
+
+//    if (isValid) {
+//        // Proceed to add a new row
+//        var $originalRow = $(this).closest('.original-row');
+//        var $clonedRow = $originalRow.clone();
+
+//        // Clear the custid value for the cloned row
+//        $clonedRow.find('#custid').val('0');
+//        // Update IDs in the cloned row with unique indices
+//        var rowCount = $('.original-row').length + 1;
+//        $clonedRow.find('.customer-name').attr('id', 'CustomerName_' + rowCount);
+//        $clonedRow.find('.contact-no').attr('id', 'contactno_' + rowCount);
+
+//        // Add hidden class to the custid input field in the cloned row
+//        $clonedRow.find('.custid').addClass('hidden');
+
+//        // Append error spans below the cloned row
+//        $clonedRow.find('.customer-name').after('<span class="text-danger validation-error" id="customerNameError_' + rowCount + '"></span>');
+//        $clonedRow.find('.contact-no').after('<span class="text-danger validation-error" id="contactNoError_' + rowCount + '"></span>');
+
+//        $clonedRow.find('.customer-name, .contact-no').removeAttr('disabled');
+//        $clonedRow.find('.add-customer').removeAttr('disabled');
+
+//        rowCount++;
+
+//        $originalRow.after($clonedRow);
+//        $clonedRow.find('.customer-name').val('');
+//        $clonedRow.find('.contact-no').val('');
+//        //$originalRow.find('.add-customer').prop('disabled', true);
+//        handleBlurEvent = true;
+//    } else {
+//        alert("Please fill in all required fields in the existing rows before adding a new one.");
+//    }
+//});
 $(document).on('click', ".add-customer", function () {
     handleBlurEvent = false;
     // Validate all existing rows before adding a new one
@@ -761,15 +836,15 @@ $(document).on('click', ".add-customer", function () {
         $clonedRow.find('.customer-name').after('<span class="text-danger validation-error" id="customerNameError_' + rowCount + '"></span>');
         $clonedRow.find('.contact-no').after('<span class="text-danger validation-error" id="contactNoError_' + rowCount + '"></span>');
 
+        // Enable fields for the new row
         $clonedRow.find('.customer-name, .contact-no').removeAttr('disabled');
-        $clonedRow.find('.add-customer').removeAttr('disabled');
 
         rowCount++;
 
         $originalRow.after($clonedRow);
         $clonedRow.find('.customer-name').val('');
         $clonedRow.find('.contact-no').val('');
-        $originalRow.find('.add-customer').prop('disabled', true);
+        //$originalRow.find('.add-customer').prop('disabled', true);
         handleBlurEvent = true;
     } else {
         alert("Please fill in all required fields in the existing rows before adding a new one.");
@@ -1298,3 +1373,7 @@ $('.yardLoading').on('blur', 'input, select,textarea,button', function () {
 
 
 });
+
+
+
+

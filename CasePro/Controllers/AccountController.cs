@@ -59,7 +59,7 @@ namespace Webcasepro.Controllers
                         // Authentication successful
                         // Redirect to home page or any other page
                         ViewBag.ErrorMessage = response.Message;
-                        return RedirectToAction("CreateActivity", "Activity");
+                        return RedirectToAction("ActivitiesList", "Activity");
                     }
                     else
                     {

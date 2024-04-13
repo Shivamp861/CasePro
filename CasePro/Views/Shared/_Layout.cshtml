@@ -12,6 +12,13 @@
     <link href="~/Asset/css/bootstrap-table.css" rel="stylesheet" />
     <link href="~/Asset/css/skins.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <style>
+        /* Add your CSS styles here */
+        .active {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+    </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -141,7 +148,7 @@
 
                 <!-- /.search form -->
                 <!-- sidebar menu: : style can be found in sidebar.less -->
-                <ul class="sidebar-menu tree" data-widget="tree">
+               @*  <ul class="sidebar-menu tree" data-widget="tree">
                     <li class="header">MAIN NAVIGATION</li>
                     <li>
                         <a href="~/Activity/ActivitiesList">
@@ -153,26 +160,31 @@
                             <i class="fa fa-pencil-square-o"></i> <span>Create an Activity</span>
                         </a>
                     </li>
-                    <li class="active">
+                    <li class="">
                         <a href="@Url.Action("LogOut", "Account")">
                             <i class="fa fa-cog"></i> <span>Logout</span>
                         </a>
                     </li>
-                    <!--<li class="treeview">
-                      <a href="#">
-                        <i class="fa fa-list"></i>
-                        <span>Parent Menu</span>
-                        <span class="pull-right-container">
-                          <i class="fa fa-angle-left pull-right"></i>
-                        </span>
-                      </a>
-                      <ul class="treeview-menu">
-                        <li><a href="#"><i class="fa fa-circle-o"></i> Child Menu 1</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o"></i> Child Menu 2</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o"></i> Child Menu 3</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o"></i> Child Menu 4</a></li>
-                      </ul>
-                    </li> -->
+                   
+                </ul> *@
+
+                <ul class="sidebar-menu tree" data-widget="tree">
+                    <li class="header">MAIN NAVIGATION</li>
+                    <li id="activitiesList">
+                        <a href="~/Activity/ActivitiesList">
+                            <i class="fa fa-th"></i> <span>Activities List</span>
+                        </a>
+                    </li>
+                    <li id="createActivity">
+                        <a href="~/Activity/CreateActivity">
+                            <i class="fa fa-pencil-square-o"></i> <span>Create an Activity</span>
+                        </a>
+                    </li>
+                    <li id="logout">
+                        <a href="@Url.Action("LogOut", "Account")">
+                            <i class="fa fa-cog"></i> <span>Logout</span>
+                        </a>
+                    </li>
                 </ul>
             </section>
         </aside>
@@ -182,7 +194,7 @@
             <section class="content-header">
                 <ol class="breadcrumb">
                     <li><a href="Dashboard.html"><i class="fa fa-home"></i> Home</a></li>
-                    <li class="active">Create</li>
+                    <li class="active">Activities List</li>
                 </ol>
             </section>
             <!-- Main content -->
@@ -191,12 +203,38 @@
 
             <!-- /.content -->
         </div>
-
+		
 
         <footer class="main-footer text-center">
             <strong>Copyright &copy; 2024 <a href="">CasePRO</a></strong> All rights reserved.
         </footer>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Function to check if the current URL matches any href attribute and set the corresponding menu item as active
+            function setActiveMenuItem() {
+                var currentUrl = window.location.href;
+
+                $(".sidebar-menu li").removeClass("active");
+                $(".sidebar-menu li a").each(function () {
+                    if (currentUrl.indexOf($(this).attr("href")) > -1) {
+                        $(this).closest("li").addClass("active");
+                        return false; // Exit the loop if a match is found
+                    }
+                });
+            }
+
+            // Set active menu item when the page loads
+            setActiveMenuItem();
+
+            // Set active menu item when a menu item is clicked
+            $(".sidebar-menu li").click(function () {
+                $(".sidebar-menu li").removeClass("active");
+                $(this).addClass("active");
+            });
+        });
+    </script>
     <script src="~/Asset/js/jquery-3.7.1.min.js"></script>
     <script src="~/Asset/js/bootstrap.min.js"></script>
     <script src="~/Asset/js/fastclick.js"></script>
