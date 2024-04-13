@@ -357,38 +357,52 @@ namespace CasePro.Controllers
         }
         public IActionResult SaveInstruction(InstructOperation model)
         {
-            var activityid = model.ActivityId;
-            string email = "rushikeshkumbhar1722@gmail.com";
-
-            var savemaildata = _instructcommandhandler.SaveData(model);
-            if (savemaildata.IsSuccess)
+            var activityid = model.ActivityId;            
+            string iname = model.Name;
+            if (activityid == null && activityid == '0')
             {
-                var InstructorId = savemaildata.ActivityId;
-                var instructordata = _instructhandler.GetInstructOperationsDetails(activityid);
-
-                var sendmail = _instructcommandhandler.SendMail(model, activityid, InstructorId, email);
-                if (sendmail.IsSuccess)
+                var savemaildata = _instructcommandhandler.SaveData(model);
+                if (savemaildata.IsSuccess)
                 {
-                    var updatesend = _instructcommandhandler.updatedata();
-                    if (updatesend.IsSuccess)
-                    {
-                        instructordata = _instructhandler.getinstructoperationsdetails(activityid);
-                        return RedirectToAction("CreateActivity", "Activity", new { id = activityid });
+                    var InstructorId = savemaildata.ActivityId;
+                    var instructordata = _instructhandler.GetInstructOperationsDetails(activityid);
+                    var getemail = _instructhandler.GetMailByName(iname);
+                    string email = getemail.Email;
 
+                    var sendmail = _instructcommandhandler.SendMail(model, activityid, InstructorId, email);
+                    if (sendmail.IsSuccess)
+                    {
+                        var updatesend = _instructcommandhandler.updatedata();
+                        if (updatesend.IsSuccess)
+                        {
+                            instructordata = _instructhandler.getinstructoperationsdetails(activityid, _instructhandler);
+                            TempData["SuccessMessage"] = updatesend.Message;
+                            return RedirectToAction("CreateActivity", "Activity", new { id = activityid });
+
+                        }
+                        else
+                        {
+                            TempData["SuccessMessage"] = updatesend.Message;
+                            return RedirectToAction("CreateActivity", "Activity", new { success = false});
+                        }
                     }
                     else
                     {
-                        return View(new { success = false, errormessage = updatesend.Message });
+                        TempData["SuccessMessage"] = sendmail.Message;
+                        return RedirectToAction("CreateActivity", "Activity", new { data = instructordata});
                     }
                 }
                 else
                 {
-                    return View(new { data = instructordata, errorMessage = sendmail.Message });
+                    TempData["SuccessMessage"] = savemaildata.Message;
+                    return RedirectToAction("CreateActivity", "Activity", new { success = false});
                 }
             }
             else
             {
-                return View(new { success = false, errorMessage = savemaildata.Message });
+                TempData["SuccessMessage"] = "Please fill basic details";
+                return RedirectToAction("CreateActivity", "Activity", new { success = false});
+
             }
 
 

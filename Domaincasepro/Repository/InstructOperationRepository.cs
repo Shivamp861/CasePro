@@ -28,6 +28,19 @@ namespace Domaincasepro.Repository
             return data;
         }
 
+        public List<InstructorName> GetInstrutNameList()
+        {
+            return _context.InstructorNames.Select(x => new InstructorName
+            {
+                Name = x.Name,
+            }).ToList();
+        }
+
+        public InstructorName GetMailByName(string iname)
+        {
+            return _context.InstructorNames.Where(x => x.Name == iname).FirstOrDefault(); 
+        }
+
         public bool SaveMailData(InstructorFormDetail formDetail)
         {
             bool success = false;
