@@ -307,7 +307,9 @@ namespace CasePro.Controllers
                 var noteresponse = _notescommandhandler.Create(jobcard);
                 if (noteresponse.IsSuccess)
                 {
-                    return RedirectToAction("CreateActivity", "Activity", new { id = noteresponse.ActivityId });
+                    
+                    TempData["SuccessMessage"] =noteresponse.Message;
+                    return RedirectToAction("CreateActivity", "Activity", new { id = noteresponse.ActivityId});
                 }
                 else
                 {
@@ -370,7 +372,7 @@ namespace CasePro.Controllers
                     var updatesend = _instructcommandhandler.updatedata();
                     if (updatesend.IsSuccess)
                     {
-                        instructordata = _instructhandler.getinstructoperationsdetails(activityid, _instructhandler);
+                        instructordata = _instructhandler.getinstructoperationsdetails(activityid);
                         return RedirectToAction("CreateActivity", "Activity", new { id = activityid });
 
                     }
