@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Domaincasepro.Queries
 {
@@ -25,6 +26,8 @@ namespace Domaincasepro.Queries
             {
                 var activity = ExecuteInstructQueryById(activityId);
                 var activitydetails = ExecuteActivityQueryById(activityId);
+                List<InstructorName> InstructName = GetInstructerName();
+
                 return new InstructOperation()
                 {
                     ActivityId = activitydetails.Id,
@@ -32,6 +35,7 @@ namespace Domaincasepro.Queries
                     Name = activity.Name,
                     Date = activity.Date,
                     Note = activity.Note,
+                    InstructorNames = InstructName,
                 };
             }
             catch (Exception ex)
@@ -41,6 +45,12 @@ namespace Domaincasepro.Queries
 
 
         }
+
+        public List<InstructorName> GetInstructerName()
+        {
+            return _repo.GetInstrutNameList() ?? new List<InstructorName>();
+        }
+
         public ActivityTable ExecuteActivityQueryById(int activityid)
         {
             return _Activityrepo.GetActivityById(activityid) ?? new ActivityTable();
@@ -61,6 +71,9 @@ namespace Domaincasepro.Queries
             return instructdata;
         }
 
-
+        public InstructorName GetMailByName(string iname)
+        {
+            return _repo.GetMailByName(iname);
+        }
     }
 }

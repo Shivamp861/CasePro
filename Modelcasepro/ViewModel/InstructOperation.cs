@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Modelcasepro.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,5 +18,8 @@ namespace Modelcasepro.ViewModel
         public string Note { get; set; }
 
         public int ActivityId { get; set; }
+
+        public List<InstructorName> InstructorNames { get; set; }
     }
+    
 }
