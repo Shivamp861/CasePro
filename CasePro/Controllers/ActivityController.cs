@@ -307,7 +307,9 @@ namespace CasePro.Controllers
                 var noteresponse = _notescommandhandler.Create(jobcard);
                 if (noteresponse.IsSuccess)
                 {
-                    return RedirectToAction("CreateActivity", "Activity", new { id = noteresponse.ActivityId });
+                    
+                    TempData["SuccessMessage"] =noteresponse.Message;
+                    return RedirectToAction("CreateActivity", "Activity", new { id = noteresponse.ActivityId});
                 }
                 else
                 {

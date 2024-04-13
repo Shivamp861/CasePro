@@ -65,7 +65,7 @@ namespace Domaincasepro.Queries
             return _repo.GetInstructById(activityId) ?? new InstructorFormDetail();
         }
 
-        public List<InstructorFormDetail> getinstructoperationsdetails(int activityid, InstructQueryHandler instructhandler)
+        public List<InstructorFormDetail> getinstructoperationsdetails(int activityid)
         {
             var instructdata = _repo.GetInstructorOperationsDetails(activityid);
             return instructdata;

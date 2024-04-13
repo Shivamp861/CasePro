@@ -47,9 +47,11 @@ namespace Domaincasepro.Repository
         //    return _context.ActivityTables.ToList();
         //}
 
-        public bool Create(ActivityNote notes)
+        public (bool,bool) Create(ActivityNote notes)
         {
             bool success = false;
+            bool Hassave = true;
+
             try
             {
                 var existing = _context.ActivityNotes.Where(x => x.ActivityId == notes.ActivityId).FirstOrDefault();
@@ -57,6 +59,7 @@ namespace Domaincasepro.Repository
                 {
                     existing.Notes = notes.Notes;
                     success = true;
+                    Hassave = false;
                 }
                 else
                 {
@@ -70,7 +73,7 @@ namespace Domaincasepro.Repository
             {
                 Console.WriteLine($"An error occurred: {ex.Message}");
             }
-            return success;
+            return (success,Hassave);
         }
         public ActivityTable getActivityId(ActivityTable activityid)
         {
