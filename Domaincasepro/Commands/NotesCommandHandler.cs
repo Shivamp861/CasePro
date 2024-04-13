@@ -26,11 +26,18 @@ namespace Domaincasepro.Commands
                 Notes = jobcard.Notes,
                 ActivityId = jobcard.ActivityId,
             };
-            bool Resource = _activityrepo.Create(notedata);
+            (bool Resource,bool Hassave) = _activityrepo.Create(notedata);
             if (Resource)
             {
-
-                return ActivityResponseFactory.Create(true, "Data inserted successfully", jobcard.ActivityId,"");
+                if (Hassave)
+                {
+                    return ActivityResponseFactory.Create(true, "Data inserted successfully", jobcard.ActivityId, "");
+                }
+                else
+                {
+                    return ActivityResponseFactory.Create(true, "Data Updateded successfully", jobcard.ActivityId, "");
+                }
+                
             }
             else
             {

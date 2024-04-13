@@ -185,8 +185,8 @@
                 <div class="col-sm-6 col-md-3">
                     <div class="form-group clearfix">
                         @Html.Label("permitreq", "Site/Layout drawings/ site images :")
-                        @Html.TextBoxFor(Model => Model.UploadPath, new { @class = "form-control-file", type = "file", id = "fileInput" })                       
-                        <span id="fileInputError" class="text-danger"></span>
+                        @Html.TextBoxFor(Model => Model.UploadPath, new { @class = "form-control-file Installation", type = "file", id = "fileInput",onchange = "validateFileType(this)"})
+                        <span id="fileInputError" class="text-danger fileError"></span>
                         @Html.HiddenFor(model => model.Imgid, new { @class = "form-control", id="id"})
                     </div>
                 </div>
@@ -285,9 +285,9 @@ else if (Model.Type == "Yard Loading")
                     <div class="form-group clearfix">
                         <div class="form-group clearfix">
                             @Html.Label("permitreq", "Site/Layout drawings/ site images :")
-                            @Html.TextBoxFor(Model => Model.UploadPath, new { @class = "form-control-file", type = "file", id = "fileInputloding" })
-                          
-                            <span id="fileInputlError" class="text-danger"></span>
+                            @Html.TextBoxFor(Model => Model.UploadPath, new { @class = "form-control-file loading", type = "file", id = "fileInputloding"})
+
+                            <span id="fileInputlError" class="text-danger fileError"></span>
                         </div>
                     </div>
                 </div>
@@ -573,9 +573,9 @@ else if (Model.Type == "Yard Tipping")
             <div class="row">
                 <div class="col-sm-6 col-md-3">
                     <div class="form-group clearfix">
-                        <label for="permitreq">Site/Layout drawings/ site images :</label>
-                        @Html.TextBoxFor(Model => Model.UploadPath, new { @class = "form-control-file", type = "file", id = "fileInputyard" })                        
-                        <span id="yardfileInputyardError" class="text-danger"></span>
+                        @Html.Label("permitreq", "Site/Layout drawings/ site images :")
+                        @Html.TextBoxFor(Model => Model.UploadPath, new { @class = "form-control-file Tipping", type = "file", id = "fileInputloding" })
+                        <span id="yardfileInputyardError" class="text-danger fileError"></span>
                     </div>
                 </div>
             </div>

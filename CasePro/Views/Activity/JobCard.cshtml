@@ -2,6 +2,13 @@
 @*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@if (TempData["SuccessMessage"] != null)
+{
+    <script>
+        alert('@TempData["SuccessMessage"]');
+    </script>
+}
+
 <div class="panel panel-default Jobcard">
     <div class="panel-heading">
         Basic details
@@ -189,7 +196,7 @@ else
 
 
 <form id="saveForm" action="/Activity/SaveNote" method="post">
-    <div class="modal fade" id="NotesnComments">
+   <div class="modal fade" id="NotesnComments">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

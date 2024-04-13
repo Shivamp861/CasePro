@@ -22,7 +22,7 @@ namespace Domaincasepro.Repository
 
 
         bool DeleteActivity(int activityId);
-		public bool Create(ActivityNote notes);
+		public (bool,bool) Create(ActivityNote notes);
         public ActivityTable getActivityId(ActivityTable activityid);
         
     }
