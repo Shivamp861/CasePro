@@ -12,10 +12,11 @@ namespace Domaincasepro.Repository
         public InstructorFormDetail GetInstructById(int activityid);
         public List<InstructorFormDetail> GetInstructorOperationsDetails(int id);
         List<InstructorName> GetInstrutNameList();
-        InstructorName GetMailByName(string iname);
+        string GetMailByName(string iname);
         public bool SaveMailData(InstructorFormDetail formDetail);
         public bool SendMailData(InstructorFormDetail formDetail, string email, int activityid, int InstructorId);
         public bool Update(bool? hasSentval);
         public bool Updatemaildata(bool? hasSubmittedval, int id);
+        public List<InstructorFormDetail> GetInstructorOperationsDetailsToDisplay(int id);
     }
 }

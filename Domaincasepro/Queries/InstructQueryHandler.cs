@@ -71,7 +71,13 @@ namespace Domaincasepro.Queries
             return instructdata;
         }
 
-        public InstructorName GetMailByName(string iname)
+        public List<InstructorFormDetail> GetInstructoperationsdetailsToDisplay(int activityid)
+        {
+            var instructdata = _repo.GetInstructorOperationsDetailsToDisplay(activityid);
+            return instructdata;
+        }
+
+        public string GetMailByName(string iname)
         {
             return _repo.GetMailByName(iname);
         }

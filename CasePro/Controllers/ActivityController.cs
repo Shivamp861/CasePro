@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Modelcasepro.RequestModel;
 using Modelcasepro.ViewModel;
+using System.Web.Helpers;
 
 namespace CasePro.Controllers
 {
@@ -341,9 +342,9 @@ namespace CasePro.Controllers
                     }
                     // var instrtuId = response.
                     var instructordata = _instructcommandhandler.UpdateMailData(InstructorId);
-                    var loadinstructordata = _instructhandler.GetInstructOperationsDetails(activityId);
+                   
 
-                    return Json(new { success = true, activityId = response.ActivityId, instructordata = loadinstructordata, errorMessage = response.Message });
+                    return Json(new { success = true, activityId = response.ActivityId, errorMessage = response.Message });
                 }
                 else
                 {
@@ -359,7 +360,7 @@ namespace CasePro.Controllers
         {
             var activityid = model.ActivityId;            
             string iname = model.Name;
-            if (activityid == null && activityid == '0')
+            if (activityid != null && activityid != '0')
             {
                 var savemaildata = _instructcommandhandler.SaveData(model);
                 if (savemaildata.IsSuccess)
@@ -367,7 +368,7 @@ namespace CasePro.Controllers
                     var InstructorId = savemaildata.ActivityId;
                     var instructordata = _instructhandler.GetInstructOperationsDetails(activityid);
                     var getemail = _instructhandler.GetMailByName(iname);
-                    string email = getemail.Email;
+                    string email = getemail;
 
                     var sendmail = _instructcommandhandler.SendMail(model, activityid, InstructorId, email);
                     if (sendmail.IsSuccess)
@@ -375,7 +376,7 @@ namespace CasePro.Controllers
                         var updatesend = _instructcommandhandler.updatedata();
                         if (updatesend.IsSuccess)
                         {
-                            instructordata = _instructhandler.getinstructoperationsdetails(activityid, _instructhandler);
+                            instructordata = _instructhandler.getinstructoperationsdetails(activityid);
                             TempData["SuccessMessage"] = updatesend.Message;
                             return RedirectToAction("CreateActivity", "Activity", new { id = activityid });
 

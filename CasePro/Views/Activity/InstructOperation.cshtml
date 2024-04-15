@@ -1,4 +1,5 @@
 ﻿@model Modelcasepro.ViewModel.InstructOperation
+@inject Domaincasepro.Queries.InstructQueryHandler _handler
 
 @*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -84,17 +85,30 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>n.campbell@advancedsoftware.co.uk</td>
-                <td>24/08/2023 13:12:00</td>
-                <td>False</td>
-                @* <td class="text-center">
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#InstructOpeations">
-                        <i class="fa fa-eye"></i>&nbsp; View Details
-                    </button>
-                </td> *@
-            </tr>
+            @{
+                var instructs = _handler.GetInstructoperationsdetailsToDisplay(Model.ActivityId);
+            }
+            @if (instructs.Count > 0)
+            {
+                foreach (var item in instructs)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        <td>@item.Date</td>
+                        <td>@item.HasSubmitted</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            }
         </tbody>
     </table>
 </div>

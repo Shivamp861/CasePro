@@ -99,6 +99,7 @@ namespace Domaincasepro.Commands
             var HasSubmittedval = formDetailmail.HasSubmitted;
             var id = instructorId;
             bool UpdateMailData = _instructRepo.Updatemaildata(HasSubmittedval, id);
+             
 
             if (UpdateMailData)
             {
