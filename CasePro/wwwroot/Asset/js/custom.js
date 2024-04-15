@@ -1064,7 +1064,7 @@ function saveTrailerdata() {
                         '</tr>';
                     $('#yardTTrailerDetails tbody').append(newRow);
 
-
+                    alert('Trailer tipping details saved successfully.');
 
                     $('#yardbarrierdateloaded').val('');
                     $('#yardtsupplier').val('');
@@ -1210,7 +1210,10 @@ function SaveInBoundTrailerData() {
                             '<td>' + response.loadedTippedBy + '</td>' +
                             '</tr>';
                         $('#TrailerDetails1 tbody').append(newRow);
-                    } else {
+                        alert('Trailer Details Out Bound Saved successfully.');
+                    }
+                  
+                    else {
                         var rowcount2 = $('#TrailerDetails2 tbody tr').length;
                         var nextId1 = rowcount2 + 1;
                         var newRow1 = '<tr>' +
@@ -1222,8 +1225,10 @@ function SaveInBoundTrailerData() {
                             '<td>' + response.date + '</td>' +
                             '</tr>';
                         $('#TrailerDetails2 tbody').append(newRow1);
+                        alert('Tripping Details Return Saved successfully.')
                     }
 
+                   
 
                     // Clear input fields
                     $('#Trailersupplier').val('');
@@ -1361,6 +1366,7 @@ $('.yardLoading').on('blur', 'input, select,textarea,button', function () {
             data: formData,
             success: function (response) {
                 if (response.success) {
+                    //alert('Data saved successfully.');
                     alert(response.errorMessage); // or response.message if you want to display a message
                     window.location.href = '/Activity/CreateActivity/' + response.activityId;
                 }

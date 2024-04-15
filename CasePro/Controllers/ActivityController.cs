@@ -89,6 +89,7 @@ namespace CasePro.Controllers
                     var response = _Trailerhandler.AddActivityTrailerdetails(TrailerData);
 
                     TrailerTippingRequestModel res = _tQueryhandler.ExecuteTrailerQueryById(response.trid);
+                   
                     // Check the response and take appropriate action
                     if (response.IsSuccess)
                     {
@@ -375,7 +376,7 @@ namespace CasePro.Controllers
                         var updatesend = _instructcommandhandler.updatedata();
                         if (updatesend.IsSuccess)
                         {
-                            instructordata = _instructhandler.getinstructoperationsdetails(activityid, _instructhandler);
+                            instructordata = _instructhandler.getinstructoperationsdetails(activityid);
                             TempData["SuccessMessage"] = updatesend.Message;
                             return RedirectToAction("CreateActivity", "Activity", new { id = activityid });
 
