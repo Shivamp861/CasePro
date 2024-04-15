@@ -153,6 +153,273 @@ $('.yardTipping').on('blur', 'input, select,textarea,button', function () {
 });
 
 
+
+
+$(document).on('blur', '#myTable1 input[type="text"], #myTable1 select', function () {
+    debugger;
+    if (!handleBlurEvent) {
+        return; // Exit the event handler if handleBlurEvent is false
+    }
+
+    var isValid = true;
+    var $currentRow = $(this).closest('tr');
+    var aid = $('#activityid').val(); // Assuming you have an element with id="activityid" to get the ActivityId
+    if (aid == null || aid == '') {
+        alert("Please fill basic details");
+        return;
+    }
+
+    $currentRow.find('.text-danger').empty();
+
+    // Get data from the current row
+    var shift = $currentRow.find('select[name="Shift"]').val();
+    var date = $currentRow.find('input[name="Date"]').val();
+    var summaryOfWorks = $currentRow.find('input[name="SummaryOfWorks"]').val();
+    var pid = $currentRow.find('#pid').val();
+
+    // Validation for shift
+    if (!shift.trim()) {
+        isValid = false;
+        $currentRow.find('#ShiftError').text('Shift is required');
+    }
+
+    // Validation for date
+    if (!date.trim()) {
+        isValid = false;
+        $currentRow.find('#DateError').text('Date is required');
+    }
+
+    // Validation for summary of works
+    if (!summaryOfWorks.trim()) {
+        isValid = false;
+        $currentRow.find('#SummaryError').text('Summary of Works is required');
+    }
+
+    // Proceed only if the data is valid
+    if (isValid) {
+        var requestData = {
+            aid: aid,
+            shift: shift,
+            date: date,
+            summaryOfWorks: summaryOfWorks,
+            pid: pid
+        };
+
+        // Perform AJAX request to save data
+        $.ajax({
+            url: '/activity/ProductData',
+            method: 'POST',
+            data: requestData,
+            success: function (response) {
+                alert("Product Data Saved Successfully"); // Display success message
+            },
+            error: function (xhr, status, error) {
+                // Handle error response
+                console.error('Error saving data:', error);
+            }
+        });
+    }
+});
+
+$(document).on('blur', '#myTable input[type="text"], #myTable select', function () {
+    debugger;
+    var $currentRow = $(this).closest('tr');
+
+    var isValid = true;
+    var aid = $('#activityid').val(); // Assuming you have an element with id="activityid" to get the ActivityId
+    if (aid == null || aid == '') {
+        alert("Please fill basic details");
+        return;
+    }
+    
+    // Perform validation for each input field in the row
+    $currentRow.find('input[type="text"], select').each(function () {
+        var value = $(this).val().trim();
+        if (!value) {
+            isValid = false;
+            $(this).addClass('error'); // Add a class to highlight the invalid input
+        } else {
+            $(this).removeClass('error');
+        }
+    });
+
+    // Proceed only if all input fields are valid
+    if (isValid) {
+        var requestData = {
+            resourcetype: $currentRow.find('#type').val(),
+            shift: $currentRow.find('#Shift').val(),
+            daynight: $currentRow.find('#daynight').val(),
+            name: $currentRow.find('#name').val(),
+            comment: $currentRow.find('#comment').val(),
+            rid: $currentRow.find('#rid').val(),
+            aid: aid
+        };
+
+        // Perform AJAX request to save the data
+        $.ajax({
+            url: '/activity/ResourseData',
+            method: 'POST',
+            data: requestData,
+            success: function (response) {
+                alert("Resourse Data Saved Successfully")
+            },
+            error: function (xhr, status, error) {
+                console.error('Error saving data:', error);
+            }
+        });
+    }
+});
+
+// Function to add a new row to the table
+
+
+function addRow(button) {
+    debugger;
+    var table = document.getElementById("myTable");
+    var currentRow = button.parentNode.parentNode; // Get the current row
+    var inputs = currentRow.querySelectorAll('.form-control');
+    var errorSpans = currentRow.querySelectorAll('.text-danger');
+    var canAddRow = true;
+
+    inputs.forEach(function (input, index) {
+        if (input.value.trim() === '') {
+            canAddRow = false;
+            if (errorSpans[index]) {
+                errorSpans[index].innerText = "Please fill out this field.";
+            } else {
+                var errorSpan = document.createElement('span');
+                errorSpan.classList.add('text-danger');
+                errorSpan.innerText = "Please fill out this field.";
+                input.parentNode.appendChild(errorSpan);
+            }
+        } else {
+            if (errorSpans[index]) {
+                errorSpans[index].innerText = "";
+            }
+        }
+    });
+
+    // Check if any dropdown is not filled out
+    var dropdowns = currentRow.querySelectorAll('select');
+    dropdowns.forEach(function (dropdown) {
+        if (dropdown.value.trim() === '') {
+            canAddRow = false;
+            var errorSpan = document.createElement('span');
+            errorSpan.classList.add('text-danger');
+            errorSpan.innerText = "Please select an option.";
+            dropdown.parentNode.appendChild(errorSpan);
+        }
+    });
+
+    if (canAddRow) {
+        var newRow = table.insertRow(-1); // Insert row at the top (reversed)
+        var cell1 = newRow.insertCell(0);
+        var cell2 = newRow.insertCell(1);
+        var cell3 = newRow.insertCell(2);
+        var cell4 = newRow.insertCell(3);
+        var cell5 = newRow.insertCell(4);
+        var cell6 = newRow.insertCell(5);
+
+        cell1.innerHTML = '<select class="form-control" id="type">' +
+            '<option>Supervisor</option>' +
+            '<option>Operative</option>' +
+            '<option>Labour Man</option>' +
+            '<option>HGV</option>' +
+            '<option>HGV+Crane</option>' +
+            '<option>Trailer</option>' +
+            '<option>Loader</option>' +
+            '<option>Work Van</option>' +
+            '</select>';
+        cell2.innerHTML = '<select class="form-control" id="Shift">' +
+            '<option>Shift 1</option>' +
+            '<option>Shift 2</option>' +
+            '<option>Shift 3</option>' +
+            '<option>Shift 4</option>' +
+            '<option>Shift 5</option>' +
+            '<option>Shift 6</option>' +
+            '<option>Shift 7</option>' +
+            '<option>Shift 8</option>' +
+            '</select>';
+        cell3.innerHTML = '<select class="form-control" id="daynight">' +
+            '<option>Day</option>' +
+            '<option>Night</option>' +
+            '</select>';
+        cell4.innerHTML = '<input value="" type="text" class="form-control" id="name">';
+        cell5.innerHTML = '<input type="text" class="form-control" width="500" id="comment">';
+        cell6.innerHTML = '<input value="0" type="text" id="rid" style="display: none;">' + '<input value="' + aid + '" type="text" id="activityid" style="display: none;" /> ' ;
+    }
+
+}
+function addRow1(button) {
+    debugger;
+
+    var table = document.getElementById("myTable1");
+    var currentRow = button.parentNode.parentNode; // Get the current row
+    var inputs = currentRow.querySelectorAll('.form-control');
+    var errorSpans = currentRow.querySelectorAll('.text-danger');
+    var canAddRow = true;
+
+    inputs.forEach(function (input, index) {
+        if (input.value.trim() === '') {
+            canAddRow = false;
+            if (errorSpans[index]) {
+                errorSpans[index].innerText = "Please fill out this field.";
+            } else {
+                var errorSpan = document.createElement('span');
+                errorSpan.classList.add('text-danger');
+                errorSpan.innerText = "Please fill out this field.";
+                input.parentNode.appendChild(errorSpan);
+            }
+        } else {
+            if (errorSpans[index]) {
+                errorSpans[index].innerText = "";
+            }
+        }
+    });
+
+    // Check if any dropdown is not filled out
+    var dropdowns = currentRow.querySelectorAll('select');
+    dropdowns.forEach(function (dropdown) {
+        if (dropdown.value.trim() === '') {
+            canAddRow = false;
+            var errorSpan = document.createElement('span');
+            errorSpan.classList.add('text-danger');
+            errorSpan.innerText = "Please select an option.";
+            dropdown.parentNode.appendChild(errorSpan);
+        }
+    });
+
+    if (canAddRow) {
+
+        var newRow = table.insertRow(-1); // Insert row at the top (reversed)
+        var cell1 = newRow.insertCell(0);
+        var cell2 = newRow.insertCell(1);
+        var cell3 = newRow.insertCell(2);
+        var cell4 = newRow.insertCell(3);
+
+
+
+        cell1.innerHTML = '<select class="form-control" name="Shift" id="Shift">' +
+            '<option>Shift 1</option>' +
+            '<option>Shift 2</option>' +
+            '<option>Shift 3</option>' +
+            '<option>Shift 4</option>' +
+            '<option>Shift 5</option>' +
+            '<option>Shift 6</option>' +
+            '<option>Shift 7</option>' +
+            '<option>Shift 8</option>' +
+            '</select>';
+        cell2.innerHTML = '<input value="" type="date" class="form-control" name="Date" id="Date" style="width: 150px;">';
+        cell3.innerHTML = '<input value="" type="text" class="form-control" name="SummaryOfWorks" id="SummaryOfWorks">';
+
+        cell4.innerHTML = '<input value="0" type="text" id="pid" style="display: none;" />' + '<input value="' + aid + '" type="text" id="activityid" style="display: none;" /> ';
+
+    }
+
+}
+
+
+
 //ADD sign of and update has submit
 function addsignoff(button) {
     debugger;
@@ -224,7 +491,7 @@ function addsignoff(button) {
             console.error(xhr.responseText);
         }
     });
-  
+
 
 }
 
@@ -429,225 +696,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 //for add save and Update Product data
-function addRow1(button) {
 
-    var aid;
-    if (globalactivityId == undefined || globalactivityId == '' || globalactivityId == 0) {
-        aid = $('#activityid').val();
-    }
-    if (aid == '') {
-        alert("Please fill basic details")
-    } else {
-
-
-        
-
-        var table = document.getElementById("myTable1");
-        var currentRow = button.parentNode.parentNode; // Get the current row
-        var inputs = currentRow.querySelectorAll('.form-control');
-        var errorSpans = currentRow.querySelectorAll('.text-danger');
-        var canAddRow = true;
-
-        inputs.forEach(function (input, index) {
-            if (input.value.trim() === '') {
-                canAddRow = false;
-                if (errorSpans[index]) {
-                    errorSpans[index].innerText = "Please fill out this field.";
-                } else {
-                    var errorSpan = document.createElement('span');
-                    errorSpan.classList.add('text-danger');
-                    errorSpan.innerText = "Please fill out this field.";
-                    input.parentNode.appendChild(errorSpan);
-                }
-            } else {
-                if (errorSpans[index]) {
-                    errorSpans[index].innerText = ""; // Clear error message if field is filled
-                }
-            }
-        });
-
-        if (canAddRow) {
-            inputs.forEach(function (input) {
-                input.disabled = true;
-            });
-            button.disabled = true;
-
-            var shift = inputs[0].value;
-            var date = inputs[1].value;
-            var summary = inputs[2].value;
-            var pid = currentRow.querySelector("#pid").value;
-
-            $.ajax({
-                url: '/Activity/ProductData',
-                type: 'POST',
-                dataType: 'json',
-                data: { shift: shift, date: date, summary: summary, aid: aid, pid: pid },
-                success: function (data) {
-                    if (data.success) {
-                        if (pid == null || pid == "" || pid == '0') {
-                            var newRow = table.insertRow(currentRow.rowIndex + 1); // Insert after current row
-                            var cell1 = newRow.insertCell(0);
-                            var cell2 = newRow.insertCell(1);
-                            var cell3 = newRow.insertCell(2);
-                            var cell4 = newRow.insertCell(3);
-
-
-                            cell1.innerHTML = '<select class="form-control" id="Shift1to8">' +
-                                '<option>Shift 1</option>' +
-                                '<option>Shift 2</option>' +
-                                '<option>Shift 3</option>' +
-                                '<option>Shift 4</option>' +
-                                '<option>Shift 5</option>' +
-                                '<option>Shift 6</option>' +
-                                '<option>Shift 7</option>' +
-                                '<option>Shift 8</option>' +
-                                '</select>';
-                            cell2.innerHTML = '<input value="" type="date" class="form-control" id="Dateforproduct" style="width: 150px;">';
-                            cell3.innerHTML = '<input value="" type="text" class="form-control" id="Summaryforproduct">' + '<input value="0" type="text" id="pid" style="display: none;" />' + '<input value="' + aid + '" type="text" id="activityid" style="display: none;" /> ';
-
-                            cell4.innerHTML = '<button onclick="addRow1(this)" class="btn btn-primary btn-primary">Add New Row</button>';
-
-                        }
-                    } else {
-                        alert('Data save Succesfully.');
-                    }
-                },
-                error: function () {
-                    alert('Error occurred while saving data.');
-                }
-            });
-        }
-    }
-}
 
 //for add row save and Update Resource data
-function addRow(button) {
-    
-    var aid;
-    if (globalactivityId == undefined || globalactivityId == '' || globalactivityId == 0) {
-        aid = $('#activityid').val();
-    }
-    if (aid == '') {
-        alert("Please fill basic details")
-    } else {
 
-        var table = document.getElementById("myTable");
-        var currentRow = button.parentNode.parentNode; // Get the current row
-        var inputs = currentRow.querySelectorAll('.form-control');
-        var errorSpans = currentRow.querySelectorAll('.text-danger');
-        var canAddRow = true;
-        //var lastRow = table.rows[table.rows.length - 1];
-        //var errorSpans = lastRow.querySelectorAll('.text-danger');
-        //var inputs = lastRow.querySelectorAll('.form-control');
-
-        //var canAddRow = true;
-
-        // Check if all input fields in the last row are filled out
-        inputs.forEach(function (input, index) {
-            if (input.value.trim() === '') {
-                canAddRow = false;
-                if (errorSpans[index]) {
-                    errorSpans[index].innerText = "Please fill out this field.";
-                } else {
-                    var errorSpan = document.createElement('span');
-                    errorSpan.classList.add('text-danger');
-                    errorSpan.innerText = "Please fill out this field.";
-                    input.parentNode.appendChild(errorSpan);
-                }
-            } else {
-                if (errorSpans[index]) {
-                    errorSpans[index].innerText = "";
-                }
-            }
-        });
-
-        // Check if any dropdown is not filled out
-        var dropdowns = currentRow.querySelectorAll('select');
-        dropdowns.forEach(function (dropdown) {
-            if (dropdown.value.trim() === '') {
-                canAddRow = false;
-                var errorSpan = document.createElement('span');
-                errorSpan.classList.add('text-danger');
-                errorSpan.innerText = "Please select an option.";
-                dropdown.parentNode.appendChild(errorSpan);
-            }
-        });
-
-        if (canAddRow) {
-            var resourcetype = inputs[0].value;
-            var shift = inputs[1].value;
-            var daynight = inputs[2].value;
-            var name = inputs[3].value;
-            var comment = inputs[4].value;
-            var rid = currentRow.querySelector("#rid").value;
-
-            $.ajax({
-                url: '/Activity/ResourseData',
-                type: 'POST',
-                dataType: 'json',
-                data: { resourcetype: resourcetype, shift: shift, daynight: daynight, name: name, comment: comment, aid: aid, rid: rid },
-                success: function (data) {
-                    if (data.success) {
-                        inputs.forEach(function (input) {
-                            input.disabled = true;
-                        });
-                        button.disabled = true;
-                        if (rid == null || rid == "" || rid == '0') {
-
-
-                            // Disable previous row inputs and button
-                            var newRow = table.insertRow(-1);
-                            var cell1 = newRow.insertCell(0);
-                            var cell2 = newRow.insertCell(1);
-                            var cell3 = newRow.insertCell(2);
-                            var cell4 = newRow.insertCell(3);
-                            var cell5 = newRow.insertCell(4);
-                            var cell6 = newRow.insertCell(5);
-
-                            cell1.innerHTML = '<select class="form-control" id="type">' +
-                                '<option>Supervisor</option>' +
-                                '<option>Operative</option>' +
-                                '<option>Labour Man</option>' +
-                                '<option>HGV</option>' +
-                                '<option>HGV+Crane</option>' +
-                                '<option>Trailer</option>' +
-                                '<option>Loader</option>' +
-                                '<option>Work Van</option>' +
-                                '</select>';
-                            cell2.innerHTML = '<select class="form-control" id="Shift1">' +
-                                '<option>Shift 1</option>' +
-                                '<option>Shift 2</option>' +
-                                '<option>Shift 3</option>' +
-                                '<option>Shift 4</option>' +
-                                '<option>Shift 5</option>' +
-                                '<option>Shift 6</option>' +
-                                '<option>Shift 7</option>' +
-                                '<option>Shift 8</option>' +
-                                '</select>';
-                            cell3.innerHTML = '<select class="form-control" id="daynight">' +
-                                '<option>Day</option>' +
-                                '<option>Night</option>' +
-                                '</select>';
-
-                            cell4.innerHTML = '<input value="" type="text" class="form-control" id="name">';
-                            cell5.innerHTML = '<input type="text" class="form-control" width="500" id="comment">' + '<input value="0" type="text" id="rid" style="display: none;">' + '<input value="' + aid + '" type="text" id="activityid" style="display: none;" /> ';
-                            cell6.innerHTML = '<button onclick="addRow(this)" class="btn btn-primary btn-primary">Add New Row</button>';
-                        } else {
-                            alert('Data updated Succesfully.');
-                        }
-
-                    } else {
-                        alert('Failed to save data. Please try again.');
-                    }
-                },
-                error: function () {
-                    alert('Error occurred while saving data.');
-                }
-            });
-        }
-
-    }
-}
 
 //for save customer data
 $(document).on('blur', '#content1 .panel-default.customer input:not(.add-customer), #content1 .panel-default.customer textarea:not(.add-customer)', function () {
@@ -748,7 +800,7 @@ $(document).on('blur', '#content1 .panel-default.customer input:not(.add-custome
         });
 
 
-       
+
     }
 });
 //for add customer row

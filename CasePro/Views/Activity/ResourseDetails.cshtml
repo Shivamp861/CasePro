@@ -17,6 +17,7 @@
         <tbody>
             @if (Model != null && Model.Count != 0)
             {
+                bool isFirstRow = true;
                 foreach (var item in Model)
                 {
                     <tr>
@@ -71,7 +72,13 @@
                             @Html.HiddenFor(modelItem => item.Id, new { id = "rid" })
 
                         </td>
-                        <td><input type="button" value="Update Row" onclick="addRow(this)" class="btn btn-primary btn-primary" /> </td>
+                        <td>
+                            @if (isFirstRow)
+                            {
+                                <input type="button" value="Add New Row" onclick="addRow(this)" class="btn btn-primary btn-primary" />
+                                isFirstRow = false;
+                            }
+                            </td>
 
 
                     </tr>

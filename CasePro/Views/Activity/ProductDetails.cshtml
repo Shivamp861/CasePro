@@ -1,6 +1,6 @@
 ﻿@model List<Modelcasepro.ViewModel.ProductDetails>
 
-<div class="table-responsive clearfix">
+<div class="table-responsive clearfix test">
     <table class="table table-bordered" id="myTable1">
         <thead>
             <tr>
@@ -13,6 +13,7 @@
         <tbody>
             @if (Model != null && Model.Count != 0)
             {
+                bool isFirstRow = true;
                 foreach (var item in Model)
                 {
                     <tr>
@@ -41,7 +42,11 @@
                             @Html.HiddenFor(modelItem => item.ActivityId, new { @class = "form-control", id = "activityid" })
                         </td>
                         <td>
-                            <input type="button" value="Update row" onclick="addRow1(this)" class="btn btn-primary btn-primary" />
+                            @if (isFirstRow)
+                            {
+                                <input type="button" value="Add New Row" onclick="addRow1(this)" class="btn btn-primary btn-primary" />
+                                isFirstRow = false;
+                            }
                         </td>
                     </tr>
                 }
