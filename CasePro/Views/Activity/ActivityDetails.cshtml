@@ -429,7 +429,8 @@ else if (Model.Type == "Yard Loading")
                                         <td id="LoadQuantity@(i)">@item.Quantity</td>
                                         <td id="LoadDepot@(i)">@item.LoadDepot</td>
                                         <td id="DepartFrom@(i)">@item.DepartFrom</td>
-                                        <td id="Date@(i)">@item.Date</td>
+                                        @* <td id="Date@(i)">@item.Date</td> *@
+                                        <td>@(item.Date.HasValue ? item.Date.Value.Date.ToString("yyyy-MM-dd") : "")</td>
                                         <td id="LoadedTippedBy@(i)">@item.LoadedTippedBy</td>
                                     </tr>
                                 }
@@ -470,7 +471,8 @@ else if (Model.Type == "Yard Loading")
                                         <td id="TrailerNumber@(i)">@item.TrailerNumber</td>
                                         <td id="LoadQuantity@(i)">@item.Quantity</td>
                                         <td id="LoadDepot@(i)">@item.LoadDepot</td>
-                                        <td id="Date@(i)">@item.Date</td>
+                                        <td>@(item.Date.HasValue ? item.Date.Value.Date.ToString("yyyy-MM-dd") : "")</td>
+                                        @* <td id="Date@(i)">@item.Date</td> *@
                                     </tr>
                                 }
 

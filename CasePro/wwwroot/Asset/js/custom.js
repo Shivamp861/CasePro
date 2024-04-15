@@ -1196,9 +1196,30 @@ function SaveInBoundTrailerData() {
             data: loadingData,
             success: function (response) {
                 if (response != null) {
+                    //if (response.isOutBound == 'on') {
+                    //    var rowCount = $('#TrailerDetails1 tbody tr').length;
+                    //    var nextId = rowCount + 1;
+                    //    var newRow = '<tr>' +
+                    //        '<td>' + nextId + '</td>' +
+                    //        '<td>' + response.trailerSupplier + '</td>' +
+                    //        '<td>' + response.trailerNumber + '</td>' +
+                    //        '<td>' + response.quantity + '</td>' +
+                    //        '<td>' + response.loadDepot + '</td>' +
+                    //        '<td>' + response.departFrom + '</td>' +
+                    //        '<td>' + response.date + '</td>' +
+                    //        '<td>' + response.loadedTippedBy + '</td>' +
+                    //        '</tr>';
+                    //    $('#TrailerDetails1 tbody').append(newRow);
+                    //    alert('Trailer Details Out Bound Saved successfully.');
+                    //}
                     if (response.isOutBound == 'on') {
                         var rowCount = $('#TrailerDetails1 tbody tr').length;
                         var nextId = rowCount + 1;
+
+                        // Extracting the date part from response.date and formatting it
+                        var datePart = response.date.split('T')[0];
+
+                        // Appending a new row with the date part only
                         var newRow = '<tr>' +
                             '<td>' + nextId + '</td>' +
                             '<td>' + response.trailerSupplier + '</td>' +
@@ -1206,23 +1227,28 @@ function SaveInBoundTrailerData() {
                             '<td>' + response.quantity + '</td>' +
                             '<td>' + response.loadDepot + '</td>' +
                             '<td>' + response.departFrom + '</td>' +
-                            '<td>' + response.date + '</td>' +
+                            '<td>' + datePart + '</td>' + // Displaying only the date part
                             '<td>' + response.loadedTippedBy + '</td>' +
                             '</tr>';
+
+                        // Appending the new row to the table body
                         $('#TrailerDetails1 tbody').append(newRow);
+
                         alert('Trailer Details Out Bound Saved successfully.');
                     }
+
                   
                     else {
                         var rowcount2 = $('#TrailerDetails2 tbody tr').length;
                         var nextId1 = rowcount2 + 1;
+                        var datePart = response.date.split('T')[0];
                         var newRow1 = '<tr>' +
                             '<td>' + nextId1 + '</td>' +
                             '<td>' + response.trailerSupplier + '</td>' +
                             '<td>' + response.trailerNumber + '</td>' +
                             '<td>' + response.quantity + '</td>' +
                             '<td>' + response.loadDepot + '</td>' +
-                            '<td>' + response.date + '</td>' +
+                            '<td>' + datePart + '</td>' +
                             '</tr>';
                         $('#TrailerDetails2 tbody').append(newRow1);
                         alert('Tripping Details Return Saved successfully.')
