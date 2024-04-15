@@ -74,7 +74,7 @@
 									<td style="">
 										<div class="actlist" style="text-align:center;">
 											<button class="acticon" data-toggle="tooltip" title="Edit" onclick="editActivity(@item.Id)"><i class="fa fa-edit"></i></button>
-											<button class="acticon" data-toggle="tooltip" title="Details"><i class="fa fa-book"></i></button>
+											<button class="acticon" data-toggle="tooltip" title="Details" onclick="DetailActivity(@item.Id)"><i class="fa fa-book"></i></button>
 											<button class="acticon" data-toggle="tooltip" title="Clone"><i class="fa fa-clone"></i></button>
 											<button class="acticon" data-toggle="tooltip" title="Delete" onclick="deleteActivity(@item.Id)">
 												<i class="fa fa-trash"></i>
@@ -100,11 +100,11 @@
 			// Send an AJAX request to the controller action
 			window.location.href = '/Activity/CreateActivity/' + activityId;
 		}
-		function DetailActivity(activityId) {
-			debugger;
-			// Send an AJAX request to the controller action
-			window.location.href = '/Activity/CreateActivity/' + activityId;
-		}
+	function DetailActivity(activityId) {
+		debugger;
+		// Send an AJAX request to the controller action
+		window.location.href = '/Activity/CreateActivity/' + activityId;
+	}
 		function deleteActivity(activityId) {
 			// Send an AJAX request to the controller action
 			var confirmation = confirm("All the Customer and Day/Night data will be delete related to activity,Are you sure you want to delete this activity?");
