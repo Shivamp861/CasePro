@@ -205,6 +205,7 @@ function addsignoff(button) {
         data: JSON.stringify(signOffData),
         datatype: 'json',
         success: function (response) {
+            console.log(response);
 
             // Handle success response from the server
             $('#Completeion1Date1').val('');
@@ -216,8 +217,9 @@ function addsignoff(button) {
             $('#Signature2').val('');
             $('#Name2').val('');
             $('#Date2').val('');
-            alert('Manager Sign Off Saved!');
-            console.log(response);
+            alert('Manager Sign Off Saved');
+            window.location.reload();
+      
         },
         error: function (xhr, status, error) {
             // Handle error response from the server

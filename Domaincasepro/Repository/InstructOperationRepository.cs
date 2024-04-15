@@ -28,6 +28,16 @@ namespace Domaincasepro.Repository
             return data;
         }
 
+        public List<InstructorFormDetail> GetInstructorOperationsDetailsToDisplay(int id)
+        {
+            var data = _context.InstructorFormDetails.Where(x => x.ActivityId == id).ToList();
+            foreach(var item in data)
+            {
+                item.Name = _context.InstructorNames.Where(x => x.Name == item.Name).Select(x => x.Email).FirstOrDefault();
+            }
+            return data;
+        }
+
         public List<InstructorName> GetInstrutNameList()
         {
             return _context.InstructorNames.Select(x => new InstructorName
@@ -36,9 +46,9 @@ namespace Domaincasepro.Repository
             }).ToList();
         }
 
-        public InstructorName GetMailByName(string iname)
+        public string GetMailByName(string iname)
         {
-            return _context.InstructorNames.Where(x => x.Name == iname).FirstOrDefault(); 
+            return _context.InstructorNames.Where(x => x.Name == iname).Select(x => x.Email).FirstOrDefault(); 
         }
 
         public bool SaveMailData(InstructorFormDetail formDetail)
@@ -80,7 +90,7 @@ namespace Domaincasepro.Repository
                 mailMessage.Body = $"Hello {formDetail.Name},\n\n" +
     $"You have been assigned the activity '{formDetail.SelectedActivity}' on {formDetail.Date?.Date.ToShortDateString()}.\n\n" + // Extracting only the date part
     $"Before clicking the following link to create the activity, kindly login using your credentials:\n" +
-    $"https://localhost:44324/Activity/CreateActivity?id={activityid}&InstructorId={InstructorId}\n\n" + // Modified link
+    $"https://localhost:7121/Activity/CreateActivity?id={activityid}&InstructorId={InstructorId}\n\n" + // Modified link
     $"Note: {formDetail.Note}\n\n" +
     $"Best regards,\nYour Name";
 
