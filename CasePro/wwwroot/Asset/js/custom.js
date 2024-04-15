@@ -7,7 +7,6 @@ $('.Jobcard input, .Jobcard textarea, .Jobcard button,.Jobcard select').on('blur
     Savedate();
 });
 $('.Installation, .loading, .Tipping').change(function () {
-    debugger;
     var fileName = $(this).val();
     var ext = fileName.split('.').pop().toLowerCase();
     var errorMessageElement = $(this).closest('.form-group').find('.fileError');
@@ -156,7 +155,7 @@ $('.yardTipping').on('blur', 'input, select,textarea,button', function () {
 
 
 $(document).on('blur', '#myTable1 input[type="text"], #myTable1 select', function () {
-    debugger;
+    
     if (!handleBlurEvent) {
         return; // Exit the event handler if handleBlurEvent is false
     }
@@ -222,7 +221,7 @@ $(document).on('blur', '#myTable1 input[type="text"], #myTable1 select', functio
 });
 
 $(document).on('blur', '#myTable input[type="text"], #myTable select', function () {
-    debugger;
+    
     var $currentRow = $(this).closest('tr');
 
     var isValid = true;
@@ -274,7 +273,7 @@ $(document).on('blur', '#myTable input[type="text"], #myTable select', function 
 
 
 function addRow(button) {
-    debugger;
+    
     var table = document.getElementById("myTable");
     var currentRow = button.parentNode.parentNode; // Get the current row
     var inputs = currentRow.querySelectorAll('.form-control');
@@ -351,7 +350,7 @@ function addRow(button) {
 
 }
 function addRow1(button) {
-    debugger;
+   
 
     var table = document.getElementById("myTable1");
     var currentRow = button.parentNode.parentNode; // Get the current row
@@ -422,7 +421,7 @@ function addRow1(button) {
 
 //ADD sign of and update has submit
 function addsignoff(button) {
-    debugger;
+    
     var actid = $('#id').val();
 
     var rowData1 = new Object();
