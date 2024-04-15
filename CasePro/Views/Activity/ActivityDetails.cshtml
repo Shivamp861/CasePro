@@ -4,6 +4,7 @@
 *@
 @if (Model.Type == "Site Installation" || Model.Type == "Site Uplift")
 {
+
     <div class="panel panel-default siteInstallation">
         <div class="panel-heading">
             <h4> Site Installation</h4>
@@ -199,9 +200,9 @@ else if (Model.Type == "Yard Loading")
     <div class="panel panel-default ">
         <div class="panel-heading">
             <h4> Yard loading</h4>
-            <b>
+            @* <b>
                 (Developer info only - This section will display only if Job Card ->ActivityType selected value will be Yard loading )
-            </b>
+            </b> *@
         </div>
         <div class="panel-body yardLoading">
 
