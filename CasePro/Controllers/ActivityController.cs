@@ -208,15 +208,15 @@ namespace CasePro.Controllers
         }
 
         [HttpPost]
-        public ActionResult ProductData(string shift, DateTime date, string summary, int aid, int pid)
+        public ActionResult ProductData(string shift, DateTime date, string summaryOfWorks, int aid, int pid)
         {
-            if (summary != null)
+            if (summaryOfWorks != null)
             {
                 ProductDetails PD = new ProductDetails
                 {
                     Date = date,
                     Shift = shift,
-                    SummaryOfWorks = summary,
+                    SummaryOfWorks = summaryOfWorks,
                     ActivityId = aid,
 
 
