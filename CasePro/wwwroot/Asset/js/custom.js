@@ -479,45 +479,49 @@ function addsignoff(button) {
 
     for (var i = 0; i < rows.length; i++) {
         var row = rows[i];
-        var rowData = {
-            CompetionDate: $(row).find('input[type="date"]').eq(0).val(),
-            Signature: $(row).find('input[type="text"]').eq(0).val(),
-            PrintName: $(row).find('input[type="text"]').eq(1).val(),
-            SignOffDate: $(row).find('input[type="date"]').eq(1).val(),
-            InstructorId: $(row).find('#InstructorId').val(),
-            ActivityId: actid
-        };
-        signOffData.push(rowData);
+        var CompetionDate = $(row).find('input[type="date"]').eq(0).val();
+        var Signature = $(row).find('input[type="text"]').eq(0).val();
+        var PrintName = $(row).find('input[type="text"]').eq(1).val();
+        var SignOffDate = $(row).find('input[type="date"]').eq(1).val();
+        var InstructorId = $(row).find('#InstructorId').val();
+
+        // Check if any field is blank or null
+        if (CompetionDate && Signature && PrintName && SignOffDate && InstructorId) {
+            var rowData = {
+                CompetionDate: CompetionDate,
+                Signature: Signature,
+                PrintName: PrintName,
+                SignOffDate: SignOffDate,
+                InstructorId: InstructorId,
+                ActivityId: actid
+            };
+            signOffData.push(rowData);
+        }
     }
 
-    $.ajax({
-        type: 'POST',
-        url: '/Activity/SaveSignOff',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(signOffData),
-        datatype: 'json',
-        success: function (response) {
-            console.log(response);
+    if (signOffData.length > 0) {
+        $.ajax({
+            type: 'POST',
+            url: '/Activity/SaveSignOff',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(signOffData),
+            datatype: 'json',
+            success: function (response) {
+                console.log(response);
 
-            // Handle success response from the server
-            $('#Completeion1Date1').val('');
-            $('#Signature1').val('');
-            $('#Name1').val('');
-            $('#Date1').val('');
+                alert('Manager Sign Off Saved');
+                window.location.reload();
 
-            $('#Completeion1Date2').val('');
-            $('#Signature2').val('');
-            $('#Name2').val('');
-            $('#Date2').val('');
-            alert('Manager Sign Off Saved');
-            window.location.reload();
-      
-        },
-        error: function (xhr, status, error) {
-            // Handle error response from the server
-            console.error(xhr.responseText);
-        }
-    });
+            },
+            error: function (xhr, status, error) {
+                // Handle error response from the server
+                console.error(xhr.responseText);
+            }
+        });
+    }
+    else {
+        alert("Please Fill atleast One row!");
+    }
 
 
 }
