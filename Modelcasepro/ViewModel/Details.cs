@@ -58,11 +58,13 @@ namespace Modelcasepro.ViewModel
 
         public string? Startandfinishtime { get; set; }
 
-        public int Imgid { get; set; }        
+        public int Imgid { get; set; }
+        public List<IFormFile> SiteImages { get; set; }
 
         public string UploadPath { get; set; }        
 
         public List<TrailerViewModel> Trailerdetails { get; set; }
+        public List<ActivityImagesViewModel> activityImages  { get; set; }
     }
     public class TrailerViewModel
     {
@@ -78,6 +80,12 @@ namespace Modelcasepro.ViewModel
         public string? LoadedTippedBy { get; set; }
         public string? LoadPositioned {  get; set; }
         public bool? IsOutBound { get; set;}
+    }
+
+    public class ActivityImagesViewModel
+    {
+        public int Imgid { get; set; }
+        public string UploadPath { get; set; }
     }
 
 }

@@ -22,6 +22,7 @@ builder.Services.AddTransient<IProductRepository, ProductRepository>();
 builder.Services.AddTransient<IResourseRepository, ResourseRepository>();
 builder.Services.AddScoped<IActivitySignOffRepository, ActivitySignOffRepository>();
 builder.Services.AddScoped<IInstructOperationRepository, InstructOperationRepository>();
+builder.Services.AddScoped<IInstructOperationRepository, InstructOperationRepository>();
 
 builder.Services.AddScoped<ActivityQueryHandler>();
 builder.Services.AddScoped<ActivitydetailsQueryHandler>();
@@ -43,6 +44,7 @@ builder.Services.AddScoped<InstructorDataCommandHandler>();
 builder.Services.AddScoped<InstructQueryHandler>();
 builder.Services.AddScoped<DeleteActivityCommandHandler>();
 builder.Services.AddScoped<ActivitySummaryQueryhandler>();
+builder.Services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
               .AddCookie(x => x.LoginPath = "/");

@@ -186,11 +186,23 @@
                 <div class="col-sm-6 col-md-3">
                     <div class="form-group clearfix">
                         @Html.Label("permitreq", "Site/Layout drawings/ site images :")
-                        @Html.TextBoxFor(Model => Model.UploadPath, new { @class = "form-control-file Installation", type = "file", id = "fileInput",onchange = "validateFileType(this)"})
+                        @if (Model.activityImages.Count > 0)
+                        {
+                            for (int i = 0; i < Model.activityImages.Count; i++)
+                            {
+                                <div>
+                                    <img src="@Model.activityImages[i].UploadPath" alt="Display" style="max-width: 100px; max-height: 100px;" />
+                                    @Html.HiddenFor(model => model.activityImages[i].Imgid)
+                                    @Html.HiddenFor(model => model.activityImages[i].UploadPath)
+                                </div>
+                            }
+                        }
+                        @Html.TextBoxFor(Model => Model.UploadPath, new { @class = "form-control-file Installation", type = "file", id = "fileInput",name = "SiteImages[]", @multiple = "multiple",onchange="displayThumbnails(event)"})
                         <span id="fileInputError" class="text-danger fileError"></span>
                         @Html.HiddenFor(model => model.Imgid, new { @class = "form-control", id="id"})
                     </div>
                 </div>
+                <div id="thumbnails" style="display:flex;"></div>
             </div>
         </div>
     </div>
@@ -283,15 +295,29 @@ else if (Model.Type == "Yard Loading")
             <!--end row4-->
             <div class="row">
                 <div class="col-sm-6 col-md-3">
+                    f
                     <div class="form-group clearfix">
                         <div class="form-group clearfix">
                             @Html.Label("permitreq", "Site/Layout drawings/ site images :")
-                            @Html.TextBoxFor(Model => Model.UploadPath, new { @class = "form-control-file loading", type = "file", id = "fileInputloding"})
+                            @if (Model.activityImages.Count > 0)
+                            {
+                                for (int i = 0; i < Model.activityImages.Count; i++)
+                                {
+                                    <div>
+                                        <img src="@Model.activityImages[i].UploadPath" alt="Display" style="max-width: 100px; max-height: 100px;" />
+                                        @Html.HiddenFor(model => model.activityImages[i].Imgid)
+                                        @Html.HiddenFor(model => model.activityImages[i].UploadPath)
+                                    </div>
+                                }
+                            }
+                            @Html.TextBoxFor(Model => Model.UploadPath, new { @class = "form-control-file loading", type = "file", id = "fileInputloding",name = "SiteImages[]", @multiple = "multiple",onchange="displayThumbnails(event)"})
 
                             <span id="fileInputlError" class="text-danger fileError"></span>
+                            @Html.HiddenFor(model => model.Imgid, new { @class = "form-control", id="id"})
                         </div>
                     </div>
                 </div>
+                <div id="thumbnails" style="display:flex;"></div>
             </div>
 
         </div> <div class="panel panel-default">
@@ -494,96 +520,111 @@ else if (Model.Type == "Yard Tipping")
                 (Developer info only - This section will display only if Job Card ->ActivityType selected value will be Yard Tipping )
             </b>
         </div>
-        <div class="panel-body yardTipping">
-            <div class="row">
-                <div class="col-sm-6 col-md-3">
-                    <div class="form-group clearfix">
-                        @Html.HiddenFor(model => model.Id, new { @class = "form-control", id="id"})
-                        @Html.HiddenFor(model => model.ActivityId, new { @class = "form-control", id="activityid"})
-                        @Html.HiddenFor(model => model.ActivityId, new { @class = "form-control", id="activityid"})
-                        <label for="bstartfinishTime">Start & finish Time:</label>
-                        @Html.TextBoxFor(x => x.Startandfinishtime, new { @class = "form-control", id="yardbstartfinishTime"})
-                        <span id="bstartfinishTimeError" class="text-danger"></span>
+        <form method="post" action="/Activity/SaveDataactivitydetails" enctype="multipart/form-data">
+            <div class="panel-body yardTipping">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group clearfix">
+                            @Html.HiddenFor(model => model.Id, new { @class = "form-control", id="id"})
+                            @Html.HiddenFor(model => model.ActivityId, new { @class = "form-control", id="activityid"})
+                            @Html.HiddenFor(model => model.ActivityId, new { @class = "form-control", id="activityid"})
+                            <label for="bstartfinishTime">Start & finish Time:</label>
+                            @Html.TextBoxFor(x => x.Startandfinishtime, new { @class = "form-control", id="yardbstartfinishTime"})
+                            <span id="bstartfinishTimeError" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group clearfix">
+                            <label for="blifting">Lifting equipment used:</label>
+                            @Html.TextBoxFor(x => x.LiftingEquipmentUsed, new { @class = "form-control", id="yardblifting"})
+                            <span id="bliftingError" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+                <!--end row2-->
+                <!--row3-->
+                <div class="row">
+
+
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group clearfix">
+                            <label for="permitreq">
+                                Chain / lifting equipment to be used
+                                :
+                            </label>
+                            @Html.TextBoxFor(x => x.ChainLiftingequipmenttobeused, new { @class = "form-control", id="yardchainlifteq"})
+
+                            <span id="lifteqError" class="text-danger"></span>
+                        </div>
+
+
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group clearfix">
+                            <label for="Incidentreporting">Incident reporting:</label>
+                            @Html.TextBoxFor(x => x.IncidentReporting, new { @class = "form-control", id="yardIncidentreporting"})
+                            <span id="yardIncidentreportingError" class="text-danger"></span>
+                        </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-6">
-                    <div class="form-group clearfix">
-                        <label for="blifting">Lifting equipment used:</label>
-                        @Html.TextBoxFor(x => x.LiftingEquipmentUsed, new { @class = "form-control", id="yardblifting"})
-                        <span id="bliftingError" class="text-danger"></span>
+                <!--end row3-->
+                <!--row4-->
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group clearfix">
+                            <label for="blocations">Any Near Miss / N/C / I/O occurrences:</label>
+                            @Html.TextAreaFor(model => model.AnyNearMissOccurrences, new { @class = "form-control", id = "txtyardAnymiss", cols = "5", rows = "5" })
+                            <span id="txtAnymissError" class="text-danger"></span>
+                        </div>
                     </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group clearfix">
+                            <label for="special">
+                                Barrier condition checks / suitability / damage
+                                :
+                            </label>
+                            @Html.TextAreaFor(model => model.BarrierConditionChecks, new { @class = "form-control", id = "txtbarriercondition", cols = "5", rows = "5" })
+                            <span id="txtbarrierconditionError" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-24 col-md-12">
+                        <div class="form-group clearfix">
+                            <label for="blocations">All relevant activity RAMS, lift plans and SSOW:</label>
+                            @Html.TextAreaFor(model => model.AllRelevantActivityRams, new { @class = "form-control", id = "txtAllrelevant", cols = "5", rows = "5" })
+                            <span id="txtAllrelevantError" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <!--end row4-->
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group clearfix">
+                            @Html.Label("permitreq", "Site/Layout drawings/ site images :")
+                            @if (Model.activityImages.Count > 0)
+                            {
+                                for (int i = 0; i < Model.activityImages.Count; i++)
+                                {
+                                    <div>
+                                        <img src="@Model.activityImages[i].UploadPath" alt="Display" style="max-width: 100px; max-height: 100px;" />
+                                        @Html.HiddenFor(model => model.activityImages[i].Imgid)
+                                        @Html.HiddenFor(model => model.activityImages[i].UploadPath)
+                                    </div>
+                                }
+                            }
+                            @Html.TextBoxFor(Model => Model.UploadPath, new { @class = "form-control-file Tipping", type = "file", id = "fileInputyard", name = "SiteImages[]", @multiple = "multiple",onchange="displayThumbnails(event)"})
+                            <span id="yardfileInputyardError" class="text-danger fileError"></span>
+                            @Html.HiddenFor(model => model.Imgid, new { @class = "form-control", id="id"})
+                        </div>
+                    </div>
+                    <div id="thumbnails" style="display:flex;"></div>
                 </div>
 
             </div>
-            <!--end row2-->
-            <!--row3-->
-            <div class="row">
-
-
-                <div class="col-sm-6 col-md-3">
-                    <div class="form-group clearfix">
-                        <label for="permitreq">
-                            Chain / lifting equipment to be used
-                            :
-                        </label>
-                        @Html.TextBoxFor(x => x.ChainLiftingequipmenttobeused, new { @class = "form-control", id="yardchainlifteq"})
-
-                        <span id="lifteqError" class="text-danger"></span>
-                    </div>
-
-
-                </div>
-                <div class="col-sm-12 col-md-6">
-                    <div class="form-group clearfix">
-                        <label for="Incidentreporting">Incident reporting:</label>
-                        @Html.TextBoxFor(x => x.IncidentReporting, new { @class = "form-control", id="yardIncidentreporting"})
-                        <span id="yardIncidentreportingError" class="text-danger"></span>
-                    </div>
-                </div>
-            </div>
-            <!--end row3-->
-            <!--row4-->
-            <div class="row">
-                <div class="col-sm-12 col-md-6">
-                    <div class="form-group clearfix">
-                        <label for="blocations">Any Near Miss / N/C / I/O occurrences:</label>
-                        @Html.TextAreaFor(model => model.AnyNearMissOccurrences, new { @class = "form-control", id = "txtyardAnymiss", cols = "5", rows = "5" })
-                        <span id="txtAnymissError" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-6">
-                    <div class="form-group clearfix">
-                        <label for="special">
-                            Barrier condition checks / suitability / damage
-                            :
-                        </label>
-                        @Html.TextAreaFor(model => model.BarrierConditionChecks, new { @class = "form-control", id = "txtbarriercondition", cols = "5", rows = "5" })
-                        <span id="txtbarrierconditionError" class="text-danger"></span>
-                    </div>
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="col-sm-24 col-md-12">
-                    <div class="form-group clearfix">
-                        <label for="blocations">All relevant activity RAMS, lift plans and SSOW:</label>
-                        @Html.TextAreaFor(model => model.AllRelevantActivityRams, new { @class = "form-control", id = "txtAllrelevant", cols = "5", rows = "5" })
-                        <span id="txtAllrelevantError" class="text-danger"></span>
-                    </div>
-                </div>
-            </div>
-            <!--end row4-->
-            <div class="row">
-                <div class="col-sm-6 col-md-3">
-                    <div class="form-group clearfix">
-                        @Html.Label("permitreq", "Site/Layout drawings/ site images :")
-                        @Html.TextBoxFor(Model => Model.UploadPath, new { @class = "form-control-file Tipping", type = "file", id = "fileInputloding" })
-                        <span id="yardfileInputyardError" class="text-danger fileError"></span>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+        </form>
         <div class="panel panel-default trailer-tipping-details">
             <div class="panel-heading">
                 Trailer Tipping details

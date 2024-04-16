@@ -1,4 +1,6 @@
-﻿using Domaincasepro.Repository;
+﻿using Azure.Core;
+using Domaincasepro.Repository;
+using Microsoft.AspNetCore.Http;
 using Modelcasepro.Entities;
 using Modelcasepro.ViewModel;
 using System;
@@ -14,22 +16,24 @@ namespace Domaincasepro.Queries
         public readonly IActivityRepository _activityRepo;
         private readonly IActivitydetailsRepository _repo;
         private readonly ITrailerTippingRepository _Trepo;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
 
-        public ActivitydetailsQueryHandler(IActivitydetailsRepository repo, ITrailerTippingRepository trepo, IActivityRepository activityRepo)
+        public ActivitydetailsQueryHandler(IActivitydetailsRepository repo, ITrailerTippingRepository trepo, IActivityRepository activityRepo, IHttpContextAccessor httpContextAccessor)
         {
             _repo = repo;
             _Trepo = trepo;
             _activityRepo = activityRepo;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public ActivityDetail ExecuteActivityddetailsQueryById(int activityid)
         {
             return _repo.GetActivityById(activityid)??new ActivityDetail();
         }
-        public ActivityImage ExecuteImageByID(int activityid)
+        public List<ActivityImage> ExecuteImageByID(int activityid)
         {
-            return _repo.GetActivityImage(activityid) ?? new ActivityImage();
+            return _repo.GetActivityImage(activityid) ?? new List<ActivityImage>();
         }
         public ActivityTable ExecuteActivityByID(int activityid)
         {
@@ -47,6 +51,15 @@ namespace Domaincasepro.Queries
                 var activityImage = ExecuteImageByID(activityId);
                 var activity = ExecuteActivityByID(activityId);
                 var TrailerdetailsInfo = ExecuteTrailerByID(activityId);
+
+                var request = _httpContextAccessor.HttpContext.Request;
+                string baseUrl = $"{request.Scheme}://{request.Host}";
+
+                List<ActivityImagesViewModel> images = activityImage.Select(activitiesImage => new ActivityImagesViewModel {
+                Imgid = activitiesImage.Id,
+                    UploadPath = activitiesImage.UploadPath.Replace(activitiesImage.UploadPath.Substring(0, activitiesImage.UploadPath.IndexOf("/Upload")), baseUrl),
+                }).ToList();
+                
                 List<TrailerViewModel> Trailerdetails = TrailerdetailsInfo.Select(trailer =>
             new TrailerViewModel
             {
@@ -90,8 +103,9 @@ namespace Domaincasepro.Queries
                     AnyNearMissOccurrences = activitydetails.AnyNearMissOccurrences,
                     BarrierConditionChecks = activitydetails.BarrierConditionChecks,
                     Startandfinishtime = activitydetails.Startandfinishtime,
-                    Imgid = activityImage.Id,                 
-                    UploadPath = activityImage.UploadPath,
+                    //Imgid = activityImage.Id,                 
+                    //UploadPath = activityImage.UploadPath,
+                    activityImages = images,
                     Trailerdetails = Trailerdetails,
                     
                 };

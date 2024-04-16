@@ -114,30 +114,30 @@ namespace CasePro.Controllers
         }
 
         [HttpPost]
-        public IActionResult SaveDataactivitydetails([FromForm] Details Sitedata, [FromForm] IFormFile SiteImage)
+        public IActionResult SaveDataactivitydetails([FromForm] Details Sitedata, [FromForm] List<IFormFile> SiteImages)
         {
             try
             {
                 if (Sitedata != null)
                 {
-                    var response = _sitehandler.AddSitedetails(Sitedata, SiteImage);
+                    foreach (var siteImage in SiteImages)
+                    {
+                        var response = _sitehandler.AddSitedetails(Sitedata, siteImage);
 
-                    // Check the response and take appropriate action
-                    if (response.IsSuccess)
-                    {
-                        return Json(new { success = true, activityId = response.ActivityId, errorMessage = response.Message });
+                        // Check the response and take appropriate action
+                        if (!response.IsSuccess)
+                        {
+                            return Json(new { success = false, errorMessage = response.Message }); // Or return appropriate error response
+                        }
                     }
-                    else
-                    {
-                        return Json(new { success = false, errorMessage = response.Message }); // Or return appropriate error response
-                    }
+
+                    // If all images were successfully processed
+                    return Json(new { success = true, activityId = "whatever_activity_id", errorMessage = "" });
                 }
                 else
                 {
-                    return Json("");
+                    return Json(new { success = true, errorMessage = "" });
                 }
-
-
             }
             catch (Exception ex)
             {
