@@ -7,7 +7,7 @@ $('.Jobcard input, .Jobcard textarea, .Jobcard button,.Jobcard select').on('blur
     Savedate();
 });
 $('.Installation, .loading, .Tipping').change(function () {
-    
+
     var fileName = $(this).val();
     var ext = fileName.split('.').pop().toLowerCase();
     var errorMessageElement = $(this).closest('.form-group').find('.fileError');
@@ -499,9 +499,57 @@ $(document).on('blur', '#myTable input[type="text"], #myTable select', function 
 
 // Function to add a new row to the table
 
+function addRowformanage(button) {
+    debugger;
+    var table = document.getElementById("manageTable");
+    var currentRow = button.parentNode.parentNode; // Get the current row
+    var inputs = currentRow.querySelectorAll('.form-control');
+    var errorSpans = currentRow.querySelectorAll('.text-danger');
+    var canAddRow = true;
 
+    inputs.forEach(function (input, index) {
+        if (input.value.trim() === '') {
+            canAddRow = false;
+            if (errorSpans[index]) {
+                errorSpans[index].innerText = "Please fill out this field.";
+            } else {
+                var errorSpan = document.createElement('span');
+                errorSpan.classList.add('text-danger');
+                errorSpan.innerText = "Please fill out this field.";
+                input.parentNode.appendChild(errorSpan);
+            }
+        } else {
+            if (errorSpans[index]) {
+                errorSpans[index].innerText = "";
+            }
+        }
+    });
+
+    if (canAddRow) {
+        var newRow = table.insertRow(-1); // Insert row at the top (reversed)
+        var cell1 = newRow.insertCell(0);
+        var cell2 = newRow.insertCell(1);
+        var cell3 = newRow.insertCell(2);
+        var cell4 = newRow.insertCell(3);
+
+        cell1.innerHTML = '<input type="date" class="form-control" id="Completeion1Date1">';
+        cell2.innerHTML = '<input type="text" class="form-control" id="Signature1">';
+        cell3.innerHTML = '<input type="text" class="form-control" id="Name1">';
+        cell4.innerHTML = '<input type="date" class="form-control" id="Date1">' + '<input type="text" hidden="" id="InstructorId" value="1013">';
+
+        // Reapply validation logic to the new row inputs
+        var newInputs = newRow.querySelectorAll('.form-control');
+        newInputs.forEach(function (input) {
+            input.addEventListener('blur', function () {
+                // Your validation logic here
+            });
+        });
+    }
+}
+
+ 
 function addRow(button) {
-   
+
     var table = document.getElementById("myTable");
     var currentRow = button.parentNode.parentNode; // Get the current row
     var inputs = currentRow.querySelectorAll('.form-control');
@@ -578,7 +626,7 @@ function addRow(button) {
 
 }
 function addRow1(button) {
-    
+
 
     var table = document.getElementById("myTable1");
     var currentRow = button.parentNode.parentNode; // Get the current row
@@ -649,75 +697,60 @@ function addRow1(button) {
 
 //ADD sign of and update has submit
 function addsignoff(button) {
-    
-    var actid = $('#id').val();
 
-    var rowData1 = new Object();
-    var rowData2 = new Object();
+    var actid = $('#id').val(); // Assuming you have an element with id="id" to get the actid
 
+    var signOffData = [];
 
-    var signOffData = new Array();
+    // Get all table rows except the header row
+    var rows = $('#manageTable tbody tr');
 
+    for (var i = 0; i < rows.length; i++) {
+        var row = rows[i];
+        var CompetionDate = $(row).find('input[type="date"]').eq(0).val();
+        var Signature = $(row).find('input[type="text"]').eq(0).val();
+        var PrintName = $(row).find('input[type="text"]').eq(1).val();
+        var SignOffDate = $(row).find('input[type="date"]').eq(1).val();
+        var InstructorId = $(row).find('#InstructorId').val();
 
-    var completionDate1 = $('#Completeion1Date1').val();
-    var signature1 = $('#Signature1').val();
-    var name1 = $('#Name1').val();
-    var date1 = $('#Date1').val();
-    var InstruId = $('#InstructorId').val();
-
-    var completionDate2 = $('#Completeion1Date2').val();
-    var signature2 = $('#Signature2').val();
-    var name2 = $('#Name2').val();
-    var date2 = $('#Date2').val();
-    var InstruId = $('#InstructorId').val();
-
-    rowData1.CompetionDate = completionDate1
-    rowData1.InstructorId = InstruId
-    rowData1.PrintName = name1
-    rowData1.SignOffDate = date1
-    rowData1.Signature = signature1
-    rowData1.ActivityId = actid
-
-
-    rowData2.CompetionDate = completionDate2
-    rowData2.InstructorId = InstruId
-    rowData2.PrintName = name2
-    rowData2.SignOffDate = date2
-    rowData2.Signature = signature2
-    rowData2.ActivityId = actid
-
-
-
-    signOffData.push(rowData1);
-    signOffData.push(rowData2);
-
-
-    $.ajax({
-        type: 'POST',
-        url: '/Activity/SaveSignOff',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(signOffData),
-        datatype: 'json',
-        success: function (response) {
-
-            // Handle success response from the server
-            $('#Completeion1Date1').val('');
-            $('#Signature1').val('');
-            $('#Name1').val('');
-            $('#Date1').val('');
-
-            $('#Completeion1Date2').val('');
-            $('#Signature2').val('');
-            $('#Name2').val('');
-            $('#Date2').val('');
-            alert('Manager Sign Off Saved!');
-            console.log(response);
-        },
-        error: function (xhr, status, error) {
-            // Handle error response from the server
-            console.error(xhr.responseText);
+        // Check if any field is blank or null
+        if (CompetionDate && Signature && PrintName && SignOffDate && InstructorId) {
+            var rowData = {
+                CompetionDate: CompetionDate,
+                Signature: Signature,
+                PrintName: PrintName,
+                SignOffDate: SignOffDate,
+                InstructorId: InstructorId,
+                ActivityId: actid
+            };
+            signOffData.push(rowData);
         }
-    });
+    }
+
+
+    if (signOffData.length > 0) {
+        $.ajax({
+            type: 'POST',
+            url: '/Activity/SaveSignOff',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(signOffData),
+            datatype: 'json',
+            success: function (response) {
+                console.log(response);
+
+                alert('Manager Sign Off Saved');
+                window.location.reload();
+
+            },
+            error: function (xhr, status, error) {
+                // Handle error response from the server
+                console.error(xhr.responseText);
+            }
+        });
+    }
+    else {
+        alert("Please Fill atleast One row!");
+    }
 
 
 }
@@ -1352,7 +1385,7 @@ function saveTrailerdata() {
                         '</tr>';
                     $('#yardTTrailerDetails tbody').append(newRow);
 
-
+                    alert('Trailer tipping details saved successfully.');
 
                     $('#yardbarrierdateloaded').val('');
                     $('#yardtsupplier').val('');
@@ -1484,9 +1517,30 @@ function SaveInBoundTrailerData() {
             data: loadingData,
             success: function (response) {
                 if (response != null) {
+                    //if (response.isOutBound == 'on') {
+                    //    var rowCount = $('#TrailerDetails1 tbody tr').length;
+                    //    var nextId = rowCount + 1;
+                    //    var newRow = '<tr>' +
+                    //        '<td>' + nextId + '</td>' +
+                    //        '<td>' + response.trailerSupplier + '</td>' +
+                    //        '<td>' + response.trailerNumber + '</td>' +
+                    //        '<td>' + response.quantity + '</td>' +
+                    //        '<td>' + response.loadDepot + '</td>' +
+                    //        '<td>' + response.departFrom + '</td>' +
+                    //        '<td>' + response.date + '</td>' +
+                    //        '<td>' + response.loadedTippedBy + '</td>' +
+                    //        '</tr>';
+                    //    $('#TrailerDetails1 tbody').append(newRow);
+                    //    alert('Trailer Details Out Bound Saved successfully.');
+                    //}
                     if (response.isOutBound == 'on') {
                         var rowCount = $('#TrailerDetails1 tbody tr').length;
                         var nextId = rowCount + 1;
+
+                        // Extracting the date part from response.date and formatting it
+                        var datePart = response.date.split('T')[0];
+
+                        // Appending a new row with the date part only
                         var newRow = '<tr>' +
                             '<td>' + nextId + '</td>' +
                             '<td>' + response.trailerSupplier + '</td>' +
@@ -1494,24 +1548,34 @@ function SaveInBoundTrailerData() {
                             '<td>' + response.quantity + '</td>' +
                             '<td>' + response.loadDepot + '</td>' +
                             '<td>' + response.departFrom + '</td>' +
-                            '<td>' + response.date + '</td>' +
+                            '<td>' + datePart + '</td>' + // Displaying only the date part
                             '<td>' + response.loadedTippedBy + '</td>' +
                             '</tr>';
+
+                        // Appending the new row to the table body
                         $('#TrailerDetails1 tbody').append(newRow);
-                    } else {
+
+                        alert('Trailer Details Out Bound Saved successfully.');
+                    }
+
+                  
+                    else {
                         var rowcount2 = $('#TrailerDetails2 tbody tr').length;
                         var nextId1 = rowcount2 + 1;
+                        var datePart = response.date.split('T')[0];
                         var newRow1 = '<tr>' +
                             '<td>' + nextId1 + '</td>' +
                             '<td>' + response.trailerSupplier + '</td>' +
                             '<td>' + response.trailerNumber + '</td>' +
                             '<td>' + response.quantity + '</td>' +
                             '<td>' + response.loadDepot + '</td>' +
-                            '<td>' + response.date + '</td>' +
+                            '<td>' + datePart + '</td>' +
                             '</tr>';
                         $('#TrailerDetails2 tbody').append(newRow1);
+                        alert('Tripping Details Return Saved successfully.')
                     }
 
+                   
 
                     // Clear input fields
                     $('#Trailersupplier').val('');
@@ -1695,6 +1759,7 @@ $('.yardLoading').on('blur', 'input, select,textarea,button', function () {
             data: formData,
             success: function (response) {
                 if (response.success) {
+                    //alert('Data saved successfully.');
                     alert(response.errorMessage); // or response.message if you want to display a message
                     window.location.href = '/Activity/CreateActivity/' + response.activityId;
                 }

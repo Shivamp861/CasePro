@@ -4,6 +4,7 @@
 *@
 @if (Model.Type == "Site Installation" || Model.Type == "Site Uplift")
 {
+
     <div class="panel panel-default siteInstallation">
         <div class="panel-heading">
             <h4> Site Installation</h4>
@@ -211,9 +212,9 @@ else if (Model.Type == "Yard Loading")
     <div class="panel panel-default ">
         <div class="panel-heading">
             <h4> Yard loading</h4>
-            <b>
+            @* <b>
                 (Developer info only - This section will display only if Job Card ->ActivityType selected value will be Yard loading )
-            </b>
+            </b> *@
         </div>
         <div class="panel-body yardLoading">
 
@@ -454,7 +455,8 @@ else if (Model.Type == "Yard Loading")
                                         <td id="LoadQuantity@(i)">@item.Quantity</td>
                                         <td id="LoadDepot@(i)">@item.LoadDepot</td>
                                         <td id="DepartFrom@(i)">@item.DepartFrom</td>
-                                        <td id="Date@(i)">@item.Date</td>
+                                        @* <td id="Date@(i)">@item.Date</td> *@
+                                        <td>@(item.Date.HasValue ? item.Date.Value.Date.ToString("yyyy-MM-dd") : "")</td>
                                         <td id="LoadedTippedBy@(i)">@item.LoadedTippedBy</td>
                                     </tr>
                                 }
@@ -495,7 +497,8 @@ else if (Model.Type == "Yard Loading")
                                         <td id="TrailerNumber@(i)">@item.TrailerNumber</td>
                                         <td id="LoadQuantity@(i)">@item.Quantity</td>
                                         <td id="LoadDepot@(i)">@item.LoadDepot</td>
-                                        <td id="Date@(i)">@item.Date</td>
+                                        <td>@(item.Date.HasValue ? item.Date.Value.Date.ToString("yyyy-MM-dd") : "")</td>
+                                        @* <td id="Date@(i)">@item.Date</td> *@
                                     </tr>
                                 }
 

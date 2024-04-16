@@ -23,16 +23,39 @@ namespace Domaincasepro.Repository
 
             if (existing != null)
             {
-                _context.Entry(existing).CurrentValues.SetValues(existing);
+                existing.Activity = data.Activity;
+                existing.ActivityDate  = data.ActivityDate;
+                existing.AllRelevantActivityRams = data.AllRelevantActivityRams;
+                existing.NoOfPersoneSupplied = data.NoOfPersoneSupplied;
+                existing.LabourSupplier = data.LabourSupplier;
+                existing.BarrierQty = data.BarrierQty;
+                existing.BarrierConditionChecks = data.BarrierConditionChecks;
+                existing.SupplierContact = data.SupplierContact;
+                existing.BarrierPerformance = data.BarrierPerformance;
+                existing.AnchoringDetails = data.AnchoringDetails;
+                existing.AnyNearMissOccurrences = data.AnyNearMissOccurrences;
+                existing.AnySpecialInstructions = data.AnySpecialInstructions;
+                existing.BarrierStartAndFinishLocation = data.BarrierConditionChecks;
+                existing.BarrierType = data.BarrierType;
+                existing.ChainLiftingequipmenttobeused = data.ChainLiftingequipmenttobeused;
+                existing.IncidentReporting = data.IncidentReporting;
+                existing.Isapermittobreakgroundrequired = data.Isapermittobreakgroundrequired;
+                existing.LengthOfRuns = data.LengthOfRuns;
+                existing.LiftingEquipmentUsed = data.LiftingEquipmentUsed;
+                existing.MeetingSite = data.MeetingSite;
+                existing.OtherResourcesEquipmentUsed = data.OtherResourcesEquipmentUsed;
+                existing.Startandfinishtime = data.Startandfinishtime;
+                _context.Update(existing);
             }
             else
             {
                 _context.ActivityDetails.Add(data);
+                return data;
             }
 
             _context.SaveChanges();
-
-            return data;
+            return existing;
+            
         }
 
         public ActivityImage AddOrUpdateActivityImage(ActivityImage activityimage)

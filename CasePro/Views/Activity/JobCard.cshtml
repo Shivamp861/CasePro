@@ -254,36 +254,29 @@ else
                 <h4 class="modal-title">MANAGER SIGN OFF - JOB COMPLETE</h4>
             </div>
             <div class="modal-body table-responsive">
-                <table class="table table-bordered">
+                <table class="table table-bordered" id="manageTable">
                     <thead>
                         <tr>
                             <th scope="col">Completeion Date</th>
                             <th scope="col">Signature</th>
                             <th scope="col">Name</th>
                             <th scope="col">Date</th>
+                            <th style="width:60px;"></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <th scope="row"><input type="date" class="form-control" id="Completeion1Date1"></th>
+                            <td><input type="date" class="form-control" id="Completeion1Date1"></td>
                             <td><input type="text" class="form-control" id="Signature1"></td>
                             <td><input type="text" class="form-control" id="Name1"></td>
                             <td>
                                 <input type="date" class="form-control" id="Date1">
                                 <input type="text" hidden id="InstructorId" value="@ViewBag.InstructorId" />
                             </td>
+                            <td><input type="button" value="Add New Row" onclick="addRowformanage(this)" class="btn btn-primary btn-primary" /></td>
 
                         </tr>
-                        <tr>
-                            <th scope="row"><input type="date" class="form-control" id="Completeion1Date2"></th>
-                            <td><input type="text" class="form-control" id="Signature2"></td>
-                            <td><input type="text" class="form-control" id="Name2"></td>
-                            <td>
-                                <input type="date" class="form-control" id="Date2">
-                                <input type="text" hidden id="InstructorId" value="@ViewBag.InstructorId" />
-                            </td>
-
-                        </tr>
+                      
                     </tbody>
                 </table>
             </div>
