@@ -58,9 +58,9 @@ namespace Domaincasepro.Repository
             return _context.ActivityDetails.Where(x => x.ActivityId == activityid).FirstOrDefault();
         }
 
-        public ActivityImage GetActivityImage(int activityid)
+        public List<ActivityImage> GetActivityImage(int activityid)
         {
-            return _context.ActivityImages.Where(x => x.ActivityId == activityid).FirstOrDefault();
+            return _context.ActivityImages.Where(x => x.ActivityId == activityid).ToList();
         }
     }
 }

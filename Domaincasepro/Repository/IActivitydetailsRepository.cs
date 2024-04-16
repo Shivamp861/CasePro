@@ -13,6 +13,6 @@ namespace Domaincasepro.Repository
         public ActivityImage AddOrUpdateActivityImage(ActivityImage activityimage);
         public ActivityDetail GetActivityById(int activityid);
 
-        public ActivityImage GetActivityImage(int activityid);
+        public List<ActivityImage> GetActivityImage(int activityid);
     }
 }

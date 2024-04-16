@@ -7,7 +7,7 @@ $('.Jobcard input, .Jobcard textarea, .Jobcard button,.Jobcard select').on('blur
     Savedate();
 });
 $('.Installation, .loading, .Tipping').change(function () {
-    debugger;
+    
     var fileName = $(this).val();
     var ext = fileName.split('.').pop().toLowerCase();
     var errorMessageElement = $(this).closest('.form-group').find('.fileError');
@@ -20,9 +20,272 @@ $('.Installation, .loading, .Tipping').change(function () {
     }
 });
 
-var fileInputValueYard;
-$('.yardTipping').on('blur', 'input, select,textarea,button', function () {
+//var fileInputValueYard;
+//$('.yardTipping').on('blur', 'input, select,textarea,button', function () {
 
+//    var isValid = true;
+//    var id = globalactivityId
+//    if (id == "" || id == null || id == undefined || id == 0) {
+//        id = $('#activityid').val();
+//    }
+
+//    if ($(this).is('#fileInputyard')) {
+//        fileInputValueYard = $('#fileInputyard')[0].files[0];
+//    }
+
+//    var formData = new FormData();
+//    formData.append('SiteImage', $('#fileInputyard')[0].files[0]);
+
+//    var Siteformdata = {
+//        Startandfinishtime: $('#yardbstartfinishTime').val(),
+//        LiftingEquipmentUsed: $('#yardblifting').val(),
+//        ChainLiftingequipmenttobeused: $('#yardchainlifteq').val(),
+//        IncidentReporting: $('#yardIncidentreporting').val(),
+//        AnyNearMissOccurrences: $('#txtyardAnymiss').val(),
+//        BarrierConditionChecks: $('#txtbarriercondition').val(),
+//        AllRelevantActivityRams: $('#txtAllrelevant').val(),
+//        ActivityId: id || 0,
+//        Id: $('#id').val(),
+//        // Add other form fields here
+//    };
+
+//    formData.append('Sitedata', Siteformdata);
+
+
+//    $.each(Siteformdata, function (key, value) {
+//        // Check if the value is empty or null
+//        if (!value) {
+//            // Set error message based on the field
+//            switch (key) {
+//                case 'Startandfinishtime':
+//                    $('#bstartfinishTimeError').text('Start & finish Time is required.');
+//                    break;
+//                case 'LiftingEquipmentUsed':
+//                    $('#bliftingError').text('Lifting equipment used is required.');
+//                    break;
+//                case 'ChainLiftingequipmenttobeused':
+//                    $('#lifteqError').text('Chain / lifting equipment to be used is required.');
+//                    break;
+//                case 'IncidentReporting':
+//                    $('#yardIncidentreportingError').text('Incident reporting is required.');
+//                    break;
+//                case 'AnyNearMissOccurrences':
+//                    $('#txtAnymissError').text('Any Near Miss / N/C / I/O occurrences is required.');
+//                    break;
+//                case 'AllRelevantActivityRams':
+//                    $('#txtAllrelevantError').text('Barrier condition checks/suitability/damage is required.');
+//                    break;
+//                case 'BarrierStartAndFinishLocation':
+//                    $('#txtbarrierconditionError').text('Barrier start and finish location is required.');
+//                    break;
+
+//                // Add cases for other fields
+//                default:
+//                    break;
+//            }
+//            isValid = false; // Set isValid to false
+//        } else {
+//            // Clear error message if the field is not empty
+//            switch (key) {
+//                case 'Startandfinishtime':
+//                    $('#bstartfinishTimeError').text('');
+//                    break;
+//                case 'LiftingEquipmentUsed':
+//                    $('#bliftingError').text('');
+//                    break;
+//                case 'ChainLiftingequipmenttobeused':
+//                    $('#lifteqError').text('');
+//                    break;
+//                case 'IncidentReporting':
+//                    $('#yardIncidentreportingError').text('');
+//                    break;
+//                case 'AnyNearMissOccurrences':
+//                    $('#txtAnymissError ').text('');
+//                    break;
+//                case 'AllRelevantActivityRams':
+//                    $('#txtAllrelevantError').text('');
+//                    break;
+//                case 'BarrierStartAndFinishLocation':
+//                    $('#txtbarrierconditionError').text('');
+//                    break;
+
+//                // Add cases for other fields
+//                default:
+//                    break;
+//            }
+//        }
+//    });
+
+//    if (!fileInputValueYard) {
+//        $('#yardfileInputyardError').text('Site/Layout drawings/site images is required.');
+//        isValid = false;
+//    } else {
+//        $('#yardfileInputyardError').text('');
+//    }
+
+//    // Move AJAX call inside the isValid block
+//    if (isValid) {
+//        $.each(Siteformdata, function (key, value) {
+//            formData.append('Sitedata.' + key, value);
+//        });
+
+//        $.ajax({
+//            url: '/activity/SaveDataactivitydetails',
+//            method: 'post',
+//            processData: false, // Prevent jQuery from processing the data
+//            contentType: false, // Prevent jQuery from setting contentType
+//            data: formData,
+//            success: function (response) {
+//                if (response.success) {
+//                    alert(response.errorMessage); // or response.message if you want to display a message
+//                    window.location.href = '/Activity/CreateActivity/' + response.activityId;
+//                }
+//            },
+//            error: function (xhr, status, error) {
+//                console.error('error saving data:', error);
+//            }
+//        });
+//    }
+
+
+
+
+//});
+
+//var fileInputValueYard;
+//$('.yardTipping').on('blur', 'input, select,textarea,button', function () {
+   
+
+//    var isValid = true;
+//    var id = globalactivityId
+//    if (id == "" || id == null || id == undefined || id == 0) {
+//        id = $('#activityid').val();
+//    }
+
+//    if ($(this).is('#fileInputyard')) {
+//        fileInputValueYard = $('#fileInputyard')[0].files[0];
+//    }
+
+//    var formData = new FormData();
+//    formData.append('SiteImages', $('#fileInputyard')[0].files[0]); // Check if a file is selected before appending it to formData
+
+//    var Siteformdata = {
+//        Startandfinishtime: $('#yardbstartfinishTime').val(),
+//        LiftingEquipmentUsed: $('#yardblifting').val(),
+//        ChainLiftingequipmenttobeused: $('#yardchainlifteq').val(),
+//        IncidentReporting: $('#yardIncidentreporting').val(),
+//        AnyNearMissOccurrences: $('#txtyardAnymiss').val(),
+//        BarrierConditionChecks: $('#txtbarriercondition').val(),
+//        AllRelevantActivityRams: $('#txtAllrelevant').val(),
+//        ActivityId: id || 0,
+//        Id: $('#id').val(),
+//        // Add other form fields here
+//    };
+
+//    formData.append('Sitedata', JSON.stringify(Siteformdata)); // Convert Siteformdata to JSON string before appending it to formData
+
+
+//    // Check if the value is empty or null
+//    $.each(Siteformdata, function (key, value) {
+//        if (!value) {
+//            // Set error message based on the field
+//            switch (key) {
+//                case 'Startandfinishtime':
+//                    $('#bstartfinishTimeError').text('Start & finish Time is required.');
+//                    break;
+//                case 'LiftingEquipmentUsed':
+//                    $('#bliftingError').text('Lifting equipment used is required.');
+//                    break;
+//                case 'ChainLiftingequipmenttobeused':
+//                    $('#lifteqError').text('Chain / lifting equipment to be used is required.');
+//                    break;
+//                case 'IncidentReporting':
+//                    $('#yardIncidentreportingError').text('Incident reporting is required.');
+//                    break;
+//                case 'AnyNearMissOccurrences':
+//                    $('#txtAnymissError').text('Any Near Miss / N/C / I/O occurrences is required.');
+//                    break;
+//                case 'AllRelevantActivityRams':
+//                    $('#txtAllrelevantError').text('Barrier condition checks/suitability/damage is required.');
+//                    break;
+//                case 'BarrierStartAndFinishLocation':
+//                    $('#txtbarrierconditionError').text('Barrier start and finish location is required.');
+//                    break;
+
+//                // Add cases for other fields
+//                default:
+//                    break;
+//            }
+//            isValid = false; // Set isValid to false
+//        } else {
+//            // Clear error message if the field is not empty
+//            switch (key) {
+//                case 'Startandfinishtime':
+//                    $('#bstartfinishTimeError').text('');
+//                    break;
+//                case 'LiftingEquipmentUsed':
+//                    $('#bliftingError').text('');
+//                    break;
+//                case 'ChainLiftingequipmenttobeused':
+//                    $('#lifteqError').text('');
+//                    break;
+//                case 'IncidentReporting':
+//                    $('#yardIncidentreportingError').text('');
+//                    break;
+//                case 'AnyNearMissOccurrences':
+//                    $('#txtAnymissError ').text('');
+//                    break;
+//                case 'AllRelevantActivityRams':
+//                    $('#txtAllrelevantError').text('');
+//                    break;
+//                case 'BarrierStartAndFinishLocation':
+//                    $('#txtbarrierconditionError').text('');
+//                    break;
+
+//                // Add cases for other fields
+//                default:
+//                    break;
+//            }
+//        }
+//    });
+
+//    if (!fileInputValueYard) {
+//        $('#yardfileInputyardError').text('Site/Layout drawings/site images is required.');
+//        isValid = false;
+//    } else {
+//        $('#yardfileInputyardError').text('');
+//    }
+
+//    // Move AJAX call inside the isValid block
+//    if (isValid) {
+//        $.each(Siteformdata, function (key, value) {
+//            formData.append('Sitedata.' + key, value);
+//        });
+
+//        $.ajax({
+//            url: '/activity/SaveDataactivitydetails',
+//            method: 'post',
+//            processData: false, // Prevent jQuery from processing the data
+//            contentType: false, // Prevent jQuery from setting contentType
+//            data: formData,
+//            success: function (response) {
+//                if (response.success) {
+//                    alert(response.errorMessage); // or response.message if you want to display a message
+//                    window.location.href = '/Activity/CreateActivity/' + response.activityId;
+//                }
+//            },
+//            error: function (xhr, status, error) {
+//                console.error('error saving data:', error);
+//            }
+//        });
+//    }
+
+//});
+
+var fileInputValueYard;
+
+$('.yardTipping').on('blur', 'input, select,textarea,button', function () {
+   
     var isValid = true;
     var id = globalactivityId
     if (id == "" || id == null || id == undefined || id == 0) {
@@ -34,7 +297,11 @@ $('.yardTipping').on('blur', 'input, select,textarea,button', function () {
     }
 
     var formData = new FormData();
-    formData.append('SiteImage', $('#fileInputyard')[0].files[0]);
+
+    // Append all files selected to the formData
+    $.each($('#fileInputyard')[0].files, function (index, file) {
+        formData.append('SiteImages', file);
+    });
 
     var Siteformdata = {
         Startandfinishtime: $('#yardbstartfinishTime').val(),
@@ -49,11 +316,13 @@ $('.yardTipping').on('blur', 'input, select,textarea,button', function () {
         // Add other form fields here
     };
 
-    formData.append('Sitedata', Siteformdata);
-
-
+    // Append other form data fields to the formData
     $.each(Siteformdata, function (key, value) {
-        // Check if the value is empty or null
+        formData.append('Sitedata.' + key, value);
+    });
+
+    // Check if the value is empty or null
+    $.each(Siteformdata, function (key, value) {
         if (!value) {
             // Set error message based on the field
             switch (key) {
@@ -63,22 +332,6 @@ $('.yardTipping').on('blur', 'input, select,textarea,button', function () {
                 case 'LiftingEquipmentUsed':
                     $('#bliftingError').text('Lifting equipment used is required.');
                     break;
-                case 'ChainLiftingequipmenttobeused':
-                    $('#lifteqError').text('Chain / lifting equipment to be used is required.');
-                    break;
-                case 'IncidentReporting':
-                    $('#yardIncidentreportingError').text('Incident reporting is required.');
-                    break;
-                case 'AnyNearMissOccurrences':
-                    $('#txtAnymissError').text('Any Near Miss / N/C / I/O occurrences is required.');
-                    break;
-                case 'AllRelevantActivityRams':
-                    $('#txtAllrelevantError').text('Barrier condition checks/suitability/damage is required.');
-                    break;
-                case 'BarrierStartAndFinishLocation':
-                    $('#txtbarrierconditionError').text('Barrier start and finish location is required.');
-                    break;
-
                 // Add cases for other fields
                 default:
                     break;
@@ -93,22 +346,6 @@ $('.yardTipping').on('blur', 'input, select,textarea,button', function () {
                 case 'LiftingEquipmentUsed':
                     $('#bliftingError').text('');
                     break;
-                case 'ChainLiftingequipmenttobeused':
-                    $('#lifteqError').text('');
-                    break;
-                case 'IncidentReporting':
-                    $('#yardIncidentreportingError').text('');
-                    break;
-                case 'AnyNearMissOccurrences':
-                    $('#txtAnymissError ').text('');
-                    break;
-                case 'AllRelevantActivityRams':
-                    $('#txtAllrelevantError').text('');
-                    break;
-                case 'BarrierStartAndFinishLocation':
-                    $('#txtbarrierconditionError').text('');
-                    break;
-
                 // Add cases for other fields
                 default:
                     break;
@@ -116,7 +353,7 @@ $('.yardTipping').on('blur', 'input, select,textarea,button', function () {
         }
     });
 
-    if (!fileInputValueYard) {
+    if ($('#fileInputyard')[0].files.length === 0) {
         $('#yardfileInputyardError').text('Site/Layout drawings/site images is required.');
         isValid = false;
     } else {
@@ -125,10 +362,6 @@ $('.yardTipping').on('blur', 'input, select,textarea,button', function () {
 
     // Move AJAX call inside the isValid block
     if (isValid) {
-        $.each(Siteformdata, function (key, value) {
-            formData.append('Sitedata.' + key, value);
-        });
-
         $.ajax({
             url: '/activity/SaveDataactivitydetails',
             method: 'post',
@@ -146,17 +379,11 @@ $('.yardTipping').on('blur', 'input, select,textarea,button', function () {
             }
         });
     }
-
-
-
-
 });
 
 
-
-
 $(document).on('blur', '#myTable1 input[type="text"], #myTable1 select', function () {
-    debugger;
+    
     if (!handleBlurEvent) {
         return; // Exit the event handler if handleBlurEvent is false
     }
@@ -222,7 +449,7 @@ $(document).on('blur', '#myTable1 input[type="text"], #myTable1 select', functio
 });
 
 $(document).on('blur', '#myTable input[type="text"], #myTable select', function () {
-    debugger;
+    
     var $currentRow = $(this).closest('tr');
 
     var isValid = true;
@@ -274,7 +501,7 @@ $(document).on('blur', '#myTable input[type="text"], #myTable select', function 
 
 
 function addRow(button) {
-    debugger;
+   
     var table = document.getElementById("myTable");
     var currentRow = button.parentNode.parentNode; // Get the current row
     var inputs = currentRow.querySelectorAll('.form-control');
@@ -351,7 +578,7 @@ function addRow(button) {
 
 }
 function addRow1(button) {
-    debugger;
+    
 
     var table = document.getElementById("myTable1");
     var currentRow = button.parentNode.parentNode; // Get the current row
@@ -422,7 +649,7 @@ function addRow1(button) {
 
 //ADD sign of and update has submit
 function addsignoff(button) {
-    debugger;
+    
     var actid = $('#id').val();
 
     var rowData1 = new Object();
@@ -497,6 +724,7 @@ function addsignoff(button) {
 
 
 $('.siteInstallation').on('blur', 'input, select,textarea,button', function () {
+   
     var id = globalactivityId;
     var fileInputValue;
     if (id == "" || id == null || id == undefined || id == 0) {
@@ -530,8 +758,16 @@ $('.siteInstallation').on('blur', 'input, select,textarea,button', function () {
     };
 
     var formData = new FormData();
-    formData.append('SiteImage', $('#fileInput')[0].files[0]);
-    formData.append('Sitedata', Siteformdata);
+    // Append all files selected to the formData
+    $.each($('#fileInput')[0].files, function (index, file) {
+        formData.append('SiteImages', file);
+    });
+    
+
+    // Append other form data fields to the formData
+    $.each(Siteformdata, function (key, value) {
+        formData.append('Sitedata.' + key, value);
+    });
 
     $.each(Siteformdata, function (key, value) {
         // Check if the value is empty or null
@@ -1296,9 +1532,49 @@ function SaveInBoundTrailerData() {
         });
     }
 }
+function displayThumbnails(event) {
+    var files = event.target.files;
+    var thumbnailsContainer = document.getElementById('thumbnails');
+    thumbnailsContainer.innerHTML = ''; // Clear previous thumbnails
 
+    for (var i = 0; i < files.length; i++) {
+        var file = files[i];
+        if (file.type.startsWith('image/')) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var thumbnail = document.createElement('img');
+                thumbnail.src = e.target.result;
+                thumbnail.style.width = '100px'; // Adjust thumbnail size as needed
+                thumbnail.style.marginRight = '10px'; // Adjust spacing between thumbnails
+                thumbnail.classList.add('thumbnail'); // Add a class for easier selection
+                thumbnailsContainer.appendChild(thumbnail);
+
+                thumbnail.addEventListener('click', function () {
+                    // Create a Blob from the base64 data
+                    var blob = dataURItoBlob(this.src);
+                    var blobUrl = URL.createObjectURL(blob);
+                    // Open the Blob URL in a new tab
+                    window.open(blobUrl, '_blank');
+                });
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+}
+
+// Function to convert data URI to Blob
+function dataURItoBlob(dataURI) {
+    var byteString = atob(dataURI.split(',')[1]);
+    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    var ab = new ArrayBuffer(byteString.length);
+    var ia = new Uint8Array(ab);
+    for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([ab], { type: mimeString });
+}
 $('.yardLoading').on('blur', 'input, select,textarea,button', function () {
-
+  
     var isValid = true;
 
     // Check if the changed element is an input or select within the .siteInstallation panel
@@ -1315,7 +1591,10 @@ $('.yardLoading').on('blur', 'input, select,textarea,button', function () {
     }
 
     var formData = new FormData();
-    formData.append('SiteImage', $('#fileInputloding')[0].files[0]);
+    // Append all files selected to the formData
+    $.each($('#fileInputloding')[0].files, function (index, file) {
+        formData.append('SiteImages', file);
+    });
 
     var Yardformdata = {
         Startandfinishtime: $('#bstartfinishTime').val(),
@@ -1330,8 +1609,11 @@ $('.yardLoading').on('blur', 'input, select,textarea,button', function () {
 
         // Add other form fields here
     };
-
-    formData.append('Sitedata', Yardformdata);
+    // Append other form data fields to the formData
+    $.each(Yardformdata, function (key, value) {
+        formData.append('Sitedata.' + key, value);
+    });
+   /* formData.append('Sitedata', Yardformdata);*/
 
 
     $.each(Yardformdata, function (key, value) {
