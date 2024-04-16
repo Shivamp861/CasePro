@@ -271,7 +271,55 @@ $(document).on('blur', '#myTable input[type="text"], #myTable select', function 
 
 // Function to add a new row to the table
 
+function addRowformanage(button) {
+    debugger;
+    var table = document.getElementById("manageTable");
+    var currentRow = button.parentNode.parentNode; // Get the current row
+    var inputs = currentRow.querySelectorAll('.form-control');
+    var errorSpans = currentRow.querySelectorAll('.text-danger');
+    var canAddRow = true;
 
+    inputs.forEach(function (input, index) {
+        if (input.value.trim() === '') {
+            canAddRow = false;
+            if (errorSpans[index]) {
+                errorSpans[index].innerText = "Please fill out this field.";
+            } else {
+                var errorSpan = document.createElement('span');
+                errorSpan.classList.add('text-danger');
+                errorSpan.innerText = "Please fill out this field.";
+                input.parentNode.appendChild(errorSpan);
+            }
+        } else {
+            if (errorSpans[index]) {
+                errorSpans[index].innerText = "";
+            }
+        }
+    });
+
+    if (canAddRow) {
+        var newRow = table.insertRow(-1); // Insert row at the top (reversed)
+        var cell1 = newRow.insertCell(0);
+        var cell2 = newRow.insertCell(1);
+        var cell3 = newRow.insertCell(2);
+        var cell4 = newRow.insertCell(3);
+
+        cell1.innerHTML = '<input type="date" class="form-control" id="Completeion1Date1">';
+        cell2.innerHTML = '<input type="text" class="form-control" id="Signature1">';
+        cell3.innerHTML = '<input type="text" class="form-control" id="Name1">';
+        cell4.innerHTML = '<input type="date" class="form-control" id="Date1">' + '<input type="text" hidden="" id="InstructorId" value="1013">';
+
+        // Reapply validation logic to the new row inputs
+        var newInputs = newRow.querySelectorAll('.form-control');
+        newInputs.forEach(function (input) {
+            input.addEventListener('blur', function () {
+                // Your validation logic here
+            });
+        });
+    }
+}
+
+ 
 function addRow(button) {
     
     var table = document.getElementById("myTable");
@@ -421,48 +469,26 @@ function addRow1(button) {
 
 //ADD sign of and update has submit
 function addsignoff(button) {
-    
-    var actid = $('#id').val();
+    debugger;
+    var actid = $('#id').val(); // Assuming you have an element with id="id" to get the actid
 
-    var rowData1 = new Object();
-    var rowData2 = new Object();
+    var signOffData = [];
 
+    // Get all table rows except the header row
+    var rows = $('#manageTable tbody tr');
 
-    var signOffData = new Array();
-
-
-    var completionDate1 = $('#Completeion1Date1').val();
-    var signature1 = $('#Signature1').val();
-    var name1 = $('#Name1').val();
-    var date1 = $('#Date1').val();
-    var InstruId = $('#InstructorId').val();
-
-    var completionDate2 = $('#Completeion1Date2').val();
-    var signature2 = $('#Signature2').val();
-    var name2 = $('#Name2').val();
-    var date2 = $('#Date2').val();
-    var InstruId = $('#InstructorId').val();
-
-    rowData1.CompetionDate = completionDate1
-    rowData1.InstructorId = InstruId
-    rowData1.PrintName = name1
-    rowData1.SignOffDate = date1
-    rowData1.Signature = signature1
-    rowData1.ActivityId = actid
-
-
-    rowData2.CompetionDate = completionDate2
-    rowData2.InstructorId = InstruId
-    rowData2.PrintName = name2
-    rowData2.SignOffDate = date2
-    rowData2.Signature = signature2
-    rowData2.ActivityId = actid
-
-
-
-    signOffData.push(rowData1);
-    signOffData.push(rowData2);
-
+    for (var i = 0; i < rows.length; i++) {
+        var row = rows[i];
+        var rowData = {
+            CompetionDate: $(row).find('input[type="date"]').eq(0).val(),
+            Signature: $(row).find('input[type="text"]').eq(0).val(),
+            PrintName: $(row).find('input[type="text"]').eq(1).val(),
+            SignOffDate: $(row).find('input[type="date"]').eq(1).val(),
+            InstructorId: $(row).find('#InstructorId').val(),
+            ActivityId: actid
+        };
+        signOffData.push(rowData);
+    }
 
     $.ajax({
         type: 'POST',

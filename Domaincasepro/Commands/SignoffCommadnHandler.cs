@@ -27,16 +27,19 @@ namespace Domaincasepro.Commands
                 {
                     foreach (var item in signOffData)
                     {
-
-                        ActivitySignOffdetail activityEntity = MapToEntity(item);
-                        ActivitySignOffdetail addedActivity = _signoffrepo.AddOrUpdateSignOffdetails(activityEntity);
-
-                        if (addedActivity == null)
+                        if (item.CompetionDate != DateTime.MinValue && item.PrintName != null && item.Signature != null && item.SignOffDate != DateTime.MinValue)
                         {
-                            // Something went wrong while adding the activity
-                            success = false;
-                            break; // Exit the loop early
+                            ActivitySignOffdetail activityEntity = MapToEntity(item);
+                            ActivitySignOffdetail addedActivity = _signoffrepo.AddOrUpdateSignOffdetails(activityEntity);
+
+                            if (addedActivity == null)
+                            {
+                                // Something went wrong while adding the activity
+                                success = false;
+                                break; // Exit the loop early
+                            }
                         }
+                        
                     }
                 }
                
