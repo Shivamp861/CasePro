@@ -120,13 +120,28 @@ namespace CasePro.Controllers
             {
                 int actid = 0;
                 var message = "";
+                IFormFile formFile = null;
                 if (Sitedata != null)
                 {
-                    foreach (var siteImage in SiteImages)
+                    if (SiteImages.Count > 0) // Check if there are any images
                     {
-                        var response = _sitehandler.AddSitedetails(Sitedata, siteImage);
+                        foreach (var siteImage in SiteImages)
+                        {
+                            var response = _sitehandler.AddSitedetails(Sitedata, siteImage);
 
-                        // Check the response and take appropriate action
+                            // Check the response and take appropriate action
+                            if (!response.IsSuccess)
+                            {
+                                return Json(new { success = false, errorMessage = response.Message }); // Or return appropriate error response
+                            }
+                            actid = (int)response.ActivityId;
+                            message = (string)response.Message;
+                        }
+                    }
+                    else
+                    {
+                        // If there are no images, still process Sitedata
+                        var response = _sitehandler.AddSitedetails(Sitedata, formFile);
                         if (!response.IsSuccess)
                         {
                             return Json(new { success = false, errorMessage = response.Message }); // Or return appropriate error response
@@ -148,6 +163,7 @@ namespace CasePro.Controllers
                 return Json(new { success = false, errorMessage = "An error: " + ex.Message });
             }
         }
+
 
         [HttpPost]
         public IActionResult Customersavedata(CustomerRequestModel model)
@@ -347,6 +363,8 @@ namespace CasePro.Controllers
                     }
                     // var instrtuId = response.
                     var instructordata = _instructcommandhandler.UpdateMailData(InstructorId);
+                    string status = "Complete";
+                    var activitystatus = _activityhandler.Updateactivitystatus(status, activityId);
                    
 
                     return Json(new { success = true, activityId = response.ActivityId, errorMessage = response.Message });
@@ -382,6 +400,8 @@ namespace CasePro.Controllers
                         if (updatesend.IsSuccess)
                         {
                             instructordata = _instructhandler.getinstructoperationsdetails(activityid);
+                            string status = "Awaititng For Approval";
+                            var Updateactivitystatus = _activityhandler.Updateactivitystatus(status , activityid);
                             TempData["SuccessMessage"] = updatesend.Message;
                             return RedirectToAction("CreateActivity", "Activity", new { id = activityid });
 

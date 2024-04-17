@@ -53,6 +53,14 @@ namespace Domaincasepro.Commands
             }
         }
 
+        public ActivityTable Updateactivitystatus(string status, int activityId)
+        {
+            var updatestatus = _repo.updateactivitystatus(status, activityId);
+            return updatestatus;
+        }
+
+      
+
         private ActivityTable MapToEntity(JobCard requestModel)
         {
             return new ActivityTable
@@ -67,7 +75,8 @@ namespace Domaincasepro.Commands
                 NearestAE = requestModel.NearestAE,
                 ActivitType = requestModel.ActivityType,
                 Id = requestModel.ActivityId,
-                
+                ActivityStatus = "Active",
+
             };
         }
     }

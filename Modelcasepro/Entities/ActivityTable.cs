@@ -33,6 +33,8 @@ public partial class ActivityTable
 
     public string? SiteAddress { get; set; }
 
+    public string? ActivityStatus { get; set; }
+
     public virtual ICollection<ActivityCustomerTable> ActivityCustomerTables { get; } = new List<ActivityCustomerTable>();
 
     public virtual ICollection<ActivityDetail> ActivityDetails { get; } = new List<ActivityDetail>();

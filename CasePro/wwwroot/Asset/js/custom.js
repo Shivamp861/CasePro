@@ -12,7 +12,7 @@ $('.Installation, .loading, .Tipping').change(function () {
     var ext = fileName.split('.').pop().toLowerCase();
     var errorMessageElement = $(this).closest('.form-group').find('.fileError');
 
-    if ($.inArray(ext, ['jpg', 'jpeg', 'gif', 'img','png']) == -1) {
+    if ($.inArray(ext, ['jpg', 'jpeg', 'gif', 'img', 'png']) == -1) {
         errorMessageElement.html('Invalid file type. Only JPEG, JPG, GIF, or IMG files are allowed.');
         $(this).val('');
     } else {
@@ -20,289 +20,36 @@ $('.Installation, .loading, .Tipping').change(function () {
     }
 });
 
-//var fileInputValueYard;
-//$('.yardTipping').on('blur', 'input, select,textarea,button', function () {
 
-//    var isValid = true;
-//    var id = globalactivityId
-//    if (id == "" || id == null || id == undefined || id == 0) {
-//        id = $('#activityid').val();
-//    }
-
-//    if ($(this).is('#fileInputyard')) {
-//        fileInputValueYard = $('#fileInputyard')[0].files[0];
-//    }
-
-//    var formData = new FormData();
-//    formData.append('SiteImage', $('#fileInputyard')[0].files[0]);
-
-//    var Siteformdata = {
-//        Startandfinishtime: $('#yardbstartfinishTime').val(),
-//        LiftingEquipmentUsed: $('#yardblifting').val(),
-//        ChainLiftingequipmenttobeused: $('#yardchainlifteq').val(),
-//        IncidentReporting: $('#yardIncidentreporting').val(),
-//        AnyNearMissOccurrences: $('#txtyardAnymiss').val(),
-//        BarrierConditionChecks: $('#txtbarriercondition').val(),
-//        AllRelevantActivityRams: $('#txtAllrelevant').val(),
-//        ActivityId: id || 0,
-//        Id: $('#id').val(),
-//        // Add other form fields here
-//    };
-
-//    formData.append('Sitedata', Siteformdata);
-
-
-//    $.each(Siteformdata, function (key, value) {
-//        // Check if the value is empty or null
-//        if (!value) {
-//            // Set error message based on the field
-//            switch (key) {
-//                case 'Startandfinishtime':
-//                    $('#bstartfinishTimeError').text('Start & finish Time is required.');
-//                    break;
-//                case 'LiftingEquipmentUsed':
-//                    $('#bliftingError').text('Lifting equipment used is required.');
-//                    break;
-//                case 'ChainLiftingequipmenttobeused':
-//                    $('#lifteqError').text('Chain / lifting equipment to be used is required.');
-//                    break;
-//                case 'IncidentReporting':
-//                    $('#yardIncidentreportingError').text('Incident reporting is required.');
-//                    break;
-//                case 'AnyNearMissOccurrences':
-//                    $('#txtAnymissError').text('Any Near Miss / N/C / I/O occurrences is required.');
-//                    break;
-//                case 'AllRelevantActivityRams':
-//                    $('#txtAllrelevantError').text('Barrier condition checks/suitability/damage is required.');
-//                    break;
-//                case 'BarrierStartAndFinishLocation':
-//                    $('#txtbarrierconditionError').text('Barrier start and finish location is required.');
-//                    break;
-
-//                // Add cases for other fields
-//                default:
-//                    break;
-//            }
-//            isValid = false; // Set isValid to false
-//        } else {
-//            // Clear error message if the field is not empty
-//            switch (key) {
-//                case 'Startandfinishtime':
-//                    $('#bstartfinishTimeError').text('');
-//                    break;
-//                case 'LiftingEquipmentUsed':
-//                    $('#bliftingError').text('');
-//                    break;
-//                case 'ChainLiftingequipmenttobeused':
-//                    $('#lifteqError').text('');
-//                    break;
-//                case 'IncidentReporting':
-//                    $('#yardIncidentreportingError').text('');
-//                    break;
-//                case 'AnyNearMissOccurrences':
-//                    $('#txtAnymissError ').text('');
-//                    break;
-//                case 'AllRelevantActivityRams':
-//                    $('#txtAllrelevantError').text('');
-//                    break;
-//                case 'BarrierStartAndFinishLocation':
-//                    $('#txtbarrierconditionError').text('');
-//                    break;
-
-//                // Add cases for other fields
-//                default:
-//                    break;
-//            }
-//        }
-//    });
-
-//    if (!fileInputValueYard) {
-//        $('#yardfileInputyardError').text('Site/Layout drawings/site images is required.');
-//        isValid = false;
-//    } else {
-//        $('#yardfileInputyardError').text('');
-//    }
-
-//    // Move AJAX call inside the isValid block
-//    if (isValid) {
-//        $.each(Siteformdata, function (key, value) {
-//            formData.append('Sitedata.' + key, value);
-//        });
-
-//        $.ajax({
-//            url: '/activity/SaveDataactivitydetails',
-//            method: 'post',
-//            processData: false, // Prevent jQuery from processing the data
-//            contentType: false, // Prevent jQuery from setting contentType
-//            data: formData,
-//            success: function (response) {
-//                if (response.success) {
-//                    alert(response.errorMessage); // or response.message if you want to display a message
-//                    window.location.href = '/Activity/CreateActivity/' + response.activityId;
-//                }
-//            },
-//            error: function (xhr, status, error) {
-//                console.error('error saving data:', error);
-//            }
-//        });
-//    }
-
-
-
-
-//});
-
-//var fileInputValueYard;
-//$('.yardTipping').on('blur', 'input, select,textarea,button', function () {
-   
-
-//    var isValid = true;
-//    var id = globalactivityId
-//    if (id == "" || id == null || id == undefined || id == 0) {
-//        id = $('#activityid').val();
-//    }
-
-//    if ($(this).is('#fileInputyard')) {
-//        fileInputValueYard = $('#fileInputyard')[0].files[0];
-//    }
-
-//    var formData = new FormData();
-//    formData.append('SiteImages', $('#fileInputyard')[0].files[0]); // Check if a file is selected before appending it to formData
-
-//    var Siteformdata = {
-//        Startandfinishtime: $('#yardbstartfinishTime').val(),
-//        LiftingEquipmentUsed: $('#yardblifting').val(),
-//        ChainLiftingequipmenttobeused: $('#yardchainlifteq').val(),
-//        IncidentReporting: $('#yardIncidentreporting').val(),
-//        AnyNearMissOccurrences: $('#txtyardAnymiss').val(),
-//        BarrierConditionChecks: $('#txtbarriercondition').val(),
-//        AllRelevantActivityRams: $('#txtAllrelevant').val(),
-//        ActivityId: id || 0,
-//        Id: $('#id').val(),
-//        // Add other form fields here
-//    };
-
-//    formData.append('Sitedata', JSON.stringify(Siteformdata)); // Convert Siteformdata to JSON string before appending it to formData
-
-
-//    // Check if the value is empty or null
-//    $.each(Siteformdata, function (key, value) {
-//        if (!value) {
-//            // Set error message based on the field
-//            switch (key) {
-//                case 'Startandfinishtime':
-//                    $('#bstartfinishTimeError').text('Start & finish Time is required.');
-//                    break;
-//                case 'LiftingEquipmentUsed':
-//                    $('#bliftingError').text('Lifting equipment used is required.');
-//                    break;
-//                case 'ChainLiftingequipmenttobeused':
-//                    $('#lifteqError').text('Chain / lifting equipment to be used is required.');
-//                    break;
-//                case 'IncidentReporting':
-//                    $('#yardIncidentreportingError').text('Incident reporting is required.');
-//                    break;
-//                case 'AnyNearMissOccurrences':
-//                    $('#txtAnymissError').text('Any Near Miss / N/C / I/O occurrences is required.');
-//                    break;
-//                case 'AllRelevantActivityRams':
-//                    $('#txtAllrelevantError').text('Barrier condition checks/suitability/damage is required.');
-//                    break;
-//                case 'BarrierStartAndFinishLocation':
-//                    $('#txtbarrierconditionError').text('Barrier start and finish location is required.');
-//                    break;
-
-//                // Add cases for other fields
-//                default:
-//                    break;
-//            }
-//            isValid = false; // Set isValid to false
-//        } else {
-//            // Clear error message if the field is not empty
-//            switch (key) {
-//                case 'Startandfinishtime':
-//                    $('#bstartfinishTimeError').text('');
-//                    break;
-//                case 'LiftingEquipmentUsed':
-//                    $('#bliftingError').text('');
-//                    break;
-//                case 'ChainLiftingequipmenttobeused':
-//                    $('#lifteqError').text('');
-//                    break;
-//                case 'IncidentReporting':
-//                    $('#yardIncidentreportingError').text('');
-//                    break;
-//                case 'AnyNearMissOccurrences':
-//                    $('#txtAnymissError ').text('');
-//                    break;
-//                case 'AllRelevantActivityRams':
-//                    $('#txtAllrelevantError').text('');
-//                    break;
-//                case 'BarrierStartAndFinishLocation':
-//                    $('#txtbarrierconditionError').text('');
-//                    break;
-
-//                // Add cases for other fields
-//                default:
-//                    break;
-//            }
-//        }
-//    });
-
-//    if (!fileInputValueYard) {
-//        $('#yardfileInputyardError').text('Site/Layout drawings/site images is required.');
-//        isValid = false;
-//    } else {
-//        $('#yardfileInputyardError').text('');
-//    }
-
-//    // Move AJAX call inside the isValid block
-//    if (isValid) {
-//        $.each(Siteformdata, function (key, value) {
-//            formData.append('Sitedata.' + key, value);
-//        });
-
-//        $.ajax({
-//            url: '/activity/SaveDataactivitydetails',
-//            method: 'post',
-//            processData: false, // Prevent jQuery from processing the data
-//            contentType: false, // Prevent jQuery from setting contentType
-//            data: formData,
-//            success: function (response) {
-//                if (response.success) {
-//                    alert(response.errorMessage); // or response.message if you want to display a message
-//                    window.location.href = '/Activity/CreateActivity/' + response.activityId;
-//                }
-//            },
-//            error: function (xhr, status, error) {
-//                console.error('error saving data:', error);
-//            }
-//        });
-//    }
-
-//});
 
 var fileInputValueYard;
 
-$('.yardTipping').on('blur', 'input, select,textarea,button', function () {
-   
+$('.yardTipping').on('blur', 'input, select,textarea,button', function (e) {
+
+    const target = e.target || e.srcElement;
+
+    // Check if the target element or any of its ancestors is the file input
+    if (target.id === 'fileInputyard' || $(target).closest('#fileInputyard').length > 0) {
+        return; // Do nothing if the file input or its child elements triggered the event
+    }
+
+    var actid = globalactivityId;
+    //var fileInputValue;
+    if (actid == "" || actid == null || actid == undefined || actid == 0) {
+        actid = $('#activityid').val();
+
+        var filesInput = document.getElementById('fileInputyard');
+        if (filesInput && filesInput.files && filesInput.files.length > 0) {
+            fileInputValue = filesInput.files;
+        }
+        else {
+
+        }
+    }
     var isValid = true;
-    var id = globalactivityId
-    if (id == "" || id == null || id == undefined || id == 0) {
-        id = $('#activityid').val();
-    }
-
-    if ($(this).is('#fileInputyard')) {
-        fileInputValueYard = $('#fileInputyard')[0].files[0];
-    }
-
-    var formData = new FormData();
-
-    // Append all files selected to the formData
-    $.each($('#fileInputyard')[0].files, function (index, file) {
-        formData.append('SiteImages', file);
-    });
-
+    //if ($(this).is('#fileInput')) {
+    //    fileInputValue = $('#fileInput')[0].files[0];
+    //}
     var Siteformdata = {
         Startandfinishtime: $('#yardbstartfinishTime').val(),
         LiftingEquipmentUsed: $('#yardblifting').val(),
@@ -311,17 +58,30 @@ $('.yardTipping').on('blur', 'input, select,textarea,button', function () {
         AnyNearMissOccurrences: $('#txtyardAnymiss').val(),
         BarrierConditionChecks: $('#txtbarriercondition').val(),
         AllRelevantActivityRams: $('#txtAllrelevant').val(),
-        ActivityId: id || 0,
-        Id: $('#id').val(),
+        ActivityId: actid || 0,
+        Id: $('#Id').val(),
         // Add other form fields here
     };
+
+    // Append other form data fields to the formData
+    var formData = new FormData();
+    // Append all files selected to the formData
+
+    if (filesInput.files.length > 0) {
+        for (var i = 0; i < filesInput.files.length; i++) {
+            formData.append('SiteImages', filesInput.files[i]);
+        }
+    }
+    //$.each($('#fileInput')[0].files, function (index, file) {
+    //    formData.append('SiteImages', file);
+    //});
+
 
     // Append other form data fields to the formData
     $.each(Siteformdata, function (key, value) {
         formData.append('Sitedata.' + key, value);
     });
 
-    // Check if the value is empty or null
     $.each(Siteformdata, function (key, value) {
         if (!value) {
             // Set error message based on the field
@@ -353,9 +113,15 @@ $('.yardTipping').on('blur', 'input, select,textarea,button', function () {
         }
     });
 
-    if ($('#fileInputyard')[0].files.length === 0) {
-        $('#yardfileInputyardError').text('Site/Layout drawings/site images is required.');
-        isValid = false;
+    if (filesInput.files.length == 0) {
+        var IsimageCount = document.querySelectorAll('#UploadPath');
+        if (IsimageCount.length > 0) {
+            $('#yardfileInputyardError').text('');
+        }
+        else {
+            $('#yardfileInputyardError').text('Site/Layout drawings/site images is required.');
+            isValid = false;
+        }
     } else {
         $('#yardfileInputyardError').text('');
     }
@@ -383,7 +149,7 @@ $('.yardTipping').on('blur', 'input, select,textarea,button', function () {
 
 
 $(document).on('blur', '#myTable1 input[type="text"], #myTable1 select', function () {
-    
+
     if (!handleBlurEvent) {
         return; // Exit the event handler if handleBlurEvent is false
     }
@@ -449,7 +215,7 @@ $(document).on('blur', '#myTable1 input[type="text"], #myTable1 select', functio
 });
 
 $(document).on('blur', '#myTable input[type="text"], #myTable select', function () {
-    
+
     var $currentRow = $(this).closest('tr');
 
     var isValid = true;
@@ -458,7 +224,7 @@ $(document).on('blur', '#myTable input[type="text"], #myTable select', function 
         alert("Please fill basic details");
         return;
     }
-    
+
     // Perform validation for each input field in the row
     $currentRow.find('input[type="text"], select').each(function () {
         var value = $(this).val().trim();
@@ -547,7 +313,7 @@ function addRowformanage(button) {
     }
 }
 
- 
+
 function addRow(button) {
 
     var table = document.getElementById("myTable");
@@ -621,7 +387,7 @@ function addRow(button) {
             '</select>';
         cell4.innerHTML = '<input value="" type="text" class="form-control" id="name">';
         cell5.innerHTML = '<input type="text" class="form-control" width="500" id="comment">';
-        cell6.innerHTML = '<input value="0" type="text" id="rid" style="display: none;">' + '<input value="' + aid + '" type="text" id="activityid" style="display: none;" /> ' ;
+        cell6.innerHTML = '<input value="0" type="text" id="rid" style="display: none;">' + '<input value="' + aid + '" type="text" id="activityid" style="display: none;" /> ';
     }
 
 }
@@ -756,17 +522,32 @@ function addsignoff(button) {
 }
 
 
-$('.siteInstallation').on('blur', 'input, select,textarea,button', function () {
-   
-    var id = globalactivityId;
-    var fileInputValue;
-    if (id == "" || id == null || id == undefined || id == 0) {
-        id = $('#activityid').val();
+$('.siteInstallation').on('blur', 'input, select,textarea,button', function (e) {
+
+    const target = e.target || e.srcElement;
+
+    // Check if the target element or any of its ancestors is the file input
+    if (target.id === 'fileInput' || $(target).closest('#fileInput').length > 0) {
+        return; // Do nothing if the file input or its child elements triggered the event
+    }
+
+    var actid = globalactivityId;
+    //var fileInputValue;
+    if (actid == "" || actid == null || actid == undefined || actid == 0) {
+        actid = $('#activityid').val();
+
+        var filesInput = document.getElementById('fileInput');
+        if (filesInput && filesInput.files && filesInput.files.length > 0) {
+            fileInputValue = filesInput.files;
+        }
+        else {
+
+        }
     }
     var isValid = true;
-    if ($(this).is('#fileInput')) {
-        fileInputValue = $('#fileInput')[0].files[0];
-    }
+    //if ($(this).is('#fileInput')) {
+    //    fileInputValue = $('#fileInput')[0].files[0];
+    //}
     var Siteformdata = {
         MeetingSite: $('#sitemeetingDate').val(),
         LabourSupplier: $('#sitelabourSupplier').val(),
@@ -784,18 +565,24 @@ $('.siteInstallation').on('blur', 'input, select,textarea,button', function () {
         OtherResourcesEquipmentUsed: $('#txtresources').val(),
         AllRelevantActivityRams: $('#txtrelevantactivity').val(),
         AnySpecialInstructions: $('#txtspecialinstruction').val(),
-        ActivityId: id,
-        Id: $('#id').val(),
+        ActivityId: actid,
+        Id: $('#Id').val(),
 
         // Add other form fields here
     };
 
     var formData = new FormData();
     // Append all files selected to the formData
-    $.each($('#fileInput')[0].files, function (index, file) {
-        formData.append('SiteImages', file);
-    });
-    
+
+    if (filesInput.files.length > 0) {
+        for (var i = 0; i < filesInput.files.length; i++) {
+            formData.append('SiteImages', filesInput.files[i]);
+        }
+    }
+    //$.each($('#fileInput')[0].files, function (index, file) {
+    //    formData.append('SiteImages', file);
+    //});
+
 
     // Append other form data fields to the formData
     $.each(Siteformdata, function (key, value) {
@@ -918,9 +705,15 @@ $('.siteInstallation').on('blur', 'input, select,textarea,button', function () {
         }
     });
 
-    if (!fileInputValue) {
-        $('#fileInputError').text('Site/Layout drawings/site images is required.');
-        isValid = false;
+    if (filesInput.files.length == 0) {
+        var IsimageCount = document.querySelectorAll('#UploadPath');
+        if (IsimageCount.length > 0) {
+            $('#fileInputError').text('');
+        }
+        else {
+            $('#fileInputError').text('Site/Layout drawings/site images is required.');
+            isValid = false;
+        }
     } else {
         $('#fileInputError').text('');
     }
@@ -949,6 +742,232 @@ $('.siteInstallation').on('blur', 'input, select,textarea,button', function () {
     }
 
 });
+
+
+//$('.siteInstallation').on('blur', 'input, select,textarea,button', function () {
+//     debugger;
+//    var id = globalactivityId;
+//    var fileInputValue;
+//    if (id == "" || id == null || id == undefined || id == 0) {
+//        id = $('#activityid').val();
+//    }
+//    var isValid = true;
+//    //if ($(this).is('#fileInput')) {
+//    //    fileInputValue = $('#fileInput')[0].files[0];
+//    //}
+//    var Siteformdata = {
+//        MeetingSite: $('#sitemeetingDate').val(),
+//        LabourSupplier: $('#sitelabourSupplier').val(),
+//        SupplierContact: $('#sitesupplierContact').val(),
+//        NoOfPersoneSupplied: $('#Numberofpersons').val(),
+//        BarrierType: $('#btype').val(),
+//        BarrierQty: $('#bquantity').val(),
+//        BarrierStartAndFinishLocation: $('#blocations').val(),
+//        BarrierPerformance: $('#bPerformance').val(),
+//        LengthOfRuns: $('#blength').val(),
+//        AnchoringDetails: $('#anchordetails').val(),
+//        Isapermittobreakgroundrequired: $('#bpermitreq').val(),
+//        ChainLiftingequipmenttobeused: $('#bpermitreqchain').val(),
+//        IncidentReporting: $('#Incidentreporting').val(),
+//        OtherResourcesEquipmentUsed: $('#txtresources').val(),
+//        AllRelevantActivityRams: $('#txtrelevantactivity').val(),
+//        AnySpecialInstructions: $('#txtspecialinstruction').val(),
+//        ActivityId: id,
+//        Id: $('#Id').val(),
+
+//        // Add other form fields here
+//    };
+
+//    var formData = new FormData();
+//    // Append all files selected to the formData
+//    //let siteid = $('#Id').val();
+
+
+
+
+//    //if (siteid == 0) {
+//    //    if ($('#fileInput')[0].files.length === 0) {
+//    //        $('#fileInputError').text('Site/Layout drawings/site images is required.');
+//    //        isValid = false;
+//    //    } else {
+//    //        // Append files to formData
+//    //        $.each($('#fileInput')[0].files, function (index, file) {
+//    //            formData.append('SiteImages', file);
+//    //        });
+//    //        $('#fileInputError').text('');
+//    //    }
+//    //} else {
+
+//    //    if ($(this).is('#fileInput')) {
+//    //        if ($(this)[0].files.length === 0) {
+//    //            $('#fileInputError').text('Site/Layout drawings/site images is required.');
+//    //            isValid = false;
+//    //        } else {
+//    //            $.each($('#fileInput')[0].files, function (index, file) {
+//    //                formData.append('SiteImages', file);
+//    //            });
+//    //            $('#fileInputError').text('');
+//    //        }
+//    //    } else {
+
+//    //    }
+        
+
+//    //}
+
+
+
+
+
+
+
+//    // Append other form data fields to the formData
+//    $.each(Siteformdata, function (key, value) {
+//        formData.append('Sitedata.' + key, value);
+//    });
+
+//    $.each(Siteformdata, function (key, value) {
+//        // Check if the value is empty or null
+//        if (!value) {
+//            // Set error message based on the field
+//            switch (key) {
+//                case 'MeetingSite':
+//                    $('#sitemeetingError').text('Meeting Site is required.');
+//                    break;
+//                case 'LabourSupplier':
+//                    $('#sitelabourSupplierError').text('Labour Supplier is required.');
+//                    break;
+//                case 'SupplierContact':
+//                    $('#sitesupplierError').text('Supplier Contact is required.');
+//                    break;
+//                case 'NoOfPersoneSupplied':
+//                    $('#numofpersonserror').text('Number of Persons Supplied is required.');
+//                    break;
+//                case 'BarrierType':
+//                    $('#btypeerror').text('Barrier Type is required.');
+//                    break;
+//                case 'BarrierQty':
+//                    $('#qtyBarriersError').text('Barrier Qty is required.');
+//                    break;
+//                case 'BarrierStartAndFinishLocation':
+//                    $('#blocationError').text('Barrier start and finish location is required.');
+//                    break;
+//                case 'BarrierPerformance':
+//                    $('#bperformanceError').text('Barrier Performance is required.');
+//                    break;
+//                case 'LengthOfRuns':
+//                    $('#blengthError').text('Length of runs is required.');
+//                    break;
+//                case 'AnchoringDetails':
+//                    $('#anchodetailsError').text('Anchoring details is required.');
+//                    break;
+//                case 'Isapermittobreakgroundrequired':
+//                    $('#permitreqError').text('Is a permit to break ground required is required.');
+//                    break;
+//                case 'ChainLiftingequipmenttobeused':
+//                    $('#permitreqchainError').text('Chain / lifting equipment to be used is required.');
+//                    break;
+//                case 'IncidentReporting':
+//                    $('#IncidentreportingError').text('Incident reporting is required.');
+//                    break;
+//                case 'OtherResourcesEquipmentUsed':
+//                    $('#txtresourcesError').text('Other resources / equipment used is required.');
+//                    break;
+//                case 'AllRelevantActivityRams':
+//                    $('#txtrelevantactivityError').text('All relevant activity RAMS, lift plans and SSOW is required.');
+//                    break;
+//                case 'AnySpecialInstructions':
+//                    $('#txtspecialinstructionError').text('Any special instructions / site restrictions / specific PPE is required');
+//                    break;
+//                // Add cases for other fields
+//                default:
+//                    break;
+//            }
+//            isValid = false; // Set isValid to false
+//        } else {
+//            // Clear error message if the field is not empty
+//            switch (key) {
+//                case 'MeetingSite':
+//                    $('#sitemeetingError').text('');
+//                    break;
+//                case 'LabourSupplier':
+//                    $('#sitelabourSupplierError').text('');
+//                    break;
+//                case 'SupplierContact':
+//                    $('#sitesupplierError').text('');
+//                    break;
+//                case 'NoOfPersoneSupplied':
+//                    $('#numofpersonserror').text('');
+//                    break;
+//                case 'BarrierType':
+//                    $('#btypeerror ').text('');
+//                    break;
+//                case 'BarrierQty':
+//                    $('#qtyBarriersError').text('');
+//                    break;
+//                case 'BarrierStartAndFinishLocation':
+//                    $('#blocationError').text('');
+//                    break;
+//                case 'BarrierPerformance':
+//                    $('#bperformanceError').text('');
+//                    break;
+//                case 'LengthOfRuns':
+//                    $('#blengthError').text('');
+//                    break;
+//                case 'AnchoringDetails':
+//                    $('#anchodetailsError').text('');
+//                    break;
+//                case 'Isapermittobreakgroundrequired':
+//                    $('#permitreqError').text('');
+//                    break;
+//                case 'ChainLiftingequipmenttobeused':
+//                    $('#permitreqchainError').text('');
+//                    break;
+//                case 'IncidentReporting':
+//                    $('#IncidentreportingError').text('');
+//                    break;
+//                case 'OtherResourcesEquipmentUsed':
+//                    $('#txtresourcesError').text('');
+//                    break;
+//                case 'AllRelevantActivityRams':
+//                    $('#txtrelevantactivityError').text('');
+//                    break;
+//                case 'AnySpecialInstructions':
+//                    $('#txtspecialinstructionError').text('');
+//                    break;
+//                // Add cases for other fields
+//                default:
+//                    break;
+//            }
+//        }
+//    });
+
+
+
+//    if (isValid) {
+//        $.each(Siteformdata, function (key, value) {
+//            formData.append('Sitedata.' + key, value);
+//        });
+
+//        $.ajax({
+//            url: '/Activity/SaveDataactivitydetails',
+//            method: 'post',
+//            processData: false, // Prevent jQuery from processing the data
+//            contentType: false, // Prevent jQuery from setting contentType
+//            data: formData,
+//            success: function (response) {
+//                if (response.success) {
+//                    alert(response.errorMessage); // or response.message if you want to display a message
+//                    window.location.href = '/Activity/CreateActivity/' + response.activityId;
+//                }
+//            },
+//            error: function (xhr, status, error) {
+//                console.error('error saving data:', error);
+//            }
+//        });
+//    }
+
+//});
 
 
 //for Login toster
@@ -1023,28 +1042,7 @@ $(document).on('blur', '#content1 .panel-default.customer input:not(.add-custome
             ContactNo: contactNo
         };
 
-        // Proceed with AJAX request to save the data
-        //$.ajax({
 
-        //    url: '/activity/Customersavedata',
-        //    method: 'POST',
-        //    data: requestData,
-        //    success: function (response) {
-
-        //        // Handle success response
-        //        if (response.success) {
-        //            document.getElementById("custid").value = response.activityId;
-        //            $currentRow.find('input').prop('disabled', true);
-        //            $('#addcustomer').prop('disabled', false);
-        //            // Display success message
-        //            alert(response.errorMessage); // or response.message if you want to display a message
-        //        }
-        //    },
-        //    error: function (xhr, status, error) {
-        //        // Handle error response
-        //        console.error('Error saving data:', error);
-        //    }
-        //});
         $('#addcustomer').on('click', function () {
             // Perform AJAX request to save data
             $.ajax({
@@ -1558,7 +1556,7 @@ function SaveInBoundTrailerData() {
                         alert('Trailer Details Out Bound Saved successfully.');
                     }
 
-                  
+
                     else {
                         var rowcount2 = $('#TrailerDetails2 tbody tr').length;
                         var nextId1 = rowcount2 + 1;
@@ -1575,7 +1573,7 @@ function SaveInBoundTrailerData() {
                         alert('Tripping Details Return Saved successfully.')
                     }
 
-                   
+
 
                     // Clear input fields
                     $('#Trailersupplier').val('');
@@ -1637,28 +1635,32 @@ function dataURItoBlob(dataURI) {
     }
     return new Blob([ab], { type: mimeString });
 }
-$('.yardLoading').on('blur', 'input, select,textarea,button', function () {
-  
+$('.yardLoading').on('blur', 'input, select,textarea,button', function (e) {
+
+    const target = e.target || e.srcElement;
+
+    // Check if the target element or any of its ancestors is the file input
+    if (target.id === 'fileInputloding' || $(target).closest('#fileInputloding').length > 0) {
+        return; // Do nothing if the file input or its child elements triggered the event
+    }
+
+    var actid = globalactivityId;
+    //var fileInputValue;
+    if (actid == "" || actid == null || actid == undefined || actid == 0) {
+        actid = $('#activityid').val();
+
+        var filesInput = document.getElementById('fileInputloding');
+        if (filesInput && filesInput.files && filesInput.files.length > 0) {
+            fileInputValue = filesInput.files;
+        }
+        else {
+
+        }
+    }
     var isValid = true;
-
-    // Check if the changed element is an input or select within the .siteInstallation panel
-
-    var id = globalactivityId;
-    var fileInputYardL;
-    if (id == "" || id == null || id == undefined || id == 0) {
-        id = $('#activityid').val();
-    }
-
-    if ($(this).is('#fileInputloding')) {
-        fileInputYardL = $('#fileInputloding')[0].files[0];
-
-    }
-
-    var formData = new FormData();
-    // Append all files selected to the formData
-    $.each($('#fileInputloding')[0].files, function (index, file) {
-        formData.append('SiteImages', file);
-    });
+    //if ($(this).is('#fileInput')) {
+    //    fileInputValue = $('#fileInput')[0].files[0];
+    //}
 
     var Yardformdata = {
         Startandfinishtime: $('#bstartfinishTime').val(),
@@ -1668,17 +1670,28 @@ $('.yardLoading').on('blur', 'input, select,textarea,button', function () {
         AnyNearMissOccurrences: $('#txtanymissoccure').val(),
         BarrierConditionChecks: $('#conditions').val(),
         AllRelevantActivityRams: $('#Rams').val(),
-        ActivityId: id,
-        Id: $('#id').val(),
+        ActivityId: actid,
+        Id: $('#Id').val(),
 
         // Add other form fields here
     };
+    var formData = new FormData();
+    // Append all files selected to the formData
+
+    if (filesInput.files.length > 0) {
+        for (var i = 0; i < filesInput.files.length; i++) {
+            formData.append('SiteImages', filesInput.files[i]);
+        }
+    }
+    //$.each($('#fileInput')[0].files, function (index, file) {
+    //    formData.append('SiteImages', file);
+    //});
+
+
     // Append other form data fields to the formData
     $.each(Yardformdata, function (key, value) {
         formData.append('Sitedata.' + key, value);
     });
-   /* formData.append('Sitedata', Yardformdata);*/
-
 
     $.each(Yardformdata, function (key, value) {
         // Check if the value is empty or null
@@ -1740,9 +1753,16 @@ $('.yardLoading').on('blur', 'input, select,textarea,button', function () {
         }
     });
 
-    if (!fileInputYardL) {
-        $('#fileInputlError').text('Site/Layout drawings/site images is required.');
-        isValid = false;
+
+    if (filesInput.files.length == 0) {
+        var IsimageCount = document.querySelectorAll('#UploadPath');
+        if (IsimageCount.length > 0) {
+            $('#fileInputlError').text('');
+        }
+        else {
+            $('#fileInputlError').text('Site/Layout drawings/site images is required.');
+            isValid = false;
+        }
     } else {
         $('#fileInputlError').text('');
     }
