@@ -274,6 +274,18 @@ namespace Domaincasepro.Repository
             }
         }
 
+        public ActivityTable updateactivitystatus(string status, int activityid)
+        {
+            var updaterow = _context.ActivityTables.FirstOrDefault(x => x.Id == activityid); 
+            if (updaterow != null)
+            {
+                updaterow.ActivityStatus = status;
 
+                _context.SaveChanges();
+            }
+            
+
+            return updaterow;
+        }
     }
 }

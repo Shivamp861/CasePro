@@ -40,7 +40,10 @@ public partial class CaseproDbContext : DbContext
     public virtual DbSet<InstructorName> InstructorNames { get; set; }
 
     public virtual DbSet<UsersTable> UsersTables { get; set; }
-  
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=localhost;Database=caseproDB;Trusted_Connection=True;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -187,6 +190,10 @@ public partial class CaseproDbContext : DbContext
             entity.Property(e => e.ActivitType)
                 .HasMaxLength(50)
                 .HasColumnName("Activit_Type");
+            entity.Property(e => e.ActivityStatus)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("Activity_Status");
             entity.Property(e => e.CustomerId).HasColumnName("customerId");
             entity.Property(e => e.CustomerOrderNumber)
                 .HasMaxLength(50)

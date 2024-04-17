@@ -24,6 +24,6 @@ namespace Domaincasepro.Repository
         bool DeleteActivity(int activityId);
 		public (bool,bool) Create(ActivityNote notes);
         public ActivityTable getActivityId(ActivityTable activityid);
-        
+        public ActivityTable updateactivitystatus(string status, int activityid);
     }
 }

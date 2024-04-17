@@ -30,8 +30,11 @@ namespace Domaincasepro.Commands
                 ActivityDetail activityEntity = MapToEntitySite(siterequestModel);
                 
                 ActivityDetail addedActivity = _repo.AddOrUpdateActivitydetails(activityEntity);
-                ActivityImage activityImage = MapToEntityImage(SiteImage, siterequestModel.ActivityId ?? 0);
-                ActivityImage addactivityImage = _repo.AddOrUpdateActivityImage(activityImage);
+                if (SiteImage != null)
+                {
+                    ActivityImage activityImage = MapToEntityImage(SiteImage, siterequestModel.ActivityId ?? 0);
+                    ActivityImage addactivityImage = _repo.AddOrUpdateActivityImage(activityImage);
+                }
 
                 if (addedActivity != null)
                 {

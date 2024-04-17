@@ -19,5 +19,5 @@ public partial class InstructorFormDetail
 
     public bool? HasSubmitted { get; set; }
 
-    public int ActivityId { get; set; }
+    public int? ActivityId { get; set; }
 }

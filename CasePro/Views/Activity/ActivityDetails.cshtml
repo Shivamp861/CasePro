@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-sm-6 col-md-3">
                     <div class="form-group clearfix">
-                        @Html.HiddenFor(model => model.Id, new { @class = "form-control", id="id"})
+                        <input type="hidden" id="Id" name="Id" value="@Model.Id" />
                         @Html.HiddenFor(model => model.ActivityId, new { @class = "form-control", id="activityid"})
                         <label for="sitemeetingDate">Meeting site:</label>
                         @Html.TextBoxFor(x => x.MeetingSite, new { @class = "form-control", id="sitemeetingDate"})
@@ -191,7 +191,7 @@
                             for (int i = 0; i < Model.activityImages.Count; i++)
                             {
                                 <div>
-                                    <img src="@Model.activityImages[i].UploadPath" alt="Display" style="max-width: 100px; max-height: 100px;" />
+                                    <img src="@Model.activityImages[i].UploadPath" alt="Display" id="UploadPath" style="max-width: 100px; max-height: 100px;" />
                                     @Html.HiddenFor(model => model.activityImages[i].Imgid)
                                     @Html.HiddenFor(model => model.activityImages[i].UploadPath)
                                 </div>
@@ -199,7 +199,7 @@
                         }
                         @Html.TextBoxFor(Model => Model.UploadPath, new { @class = "form-control-file Installation", type = "file", id = "fileInput",name = "SiteImages[]", @multiple = "multiple",onchange="displayThumbnails(event)"})
                         <span id="fileInputError" class="text-danger fileError"></span>
-                        @Html.HiddenFor(model => model.Imgid, new { @class = "form-control", id="id"})
+                        @Html.HiddenFor(model => model.Imgid, new { @class = "form-control", id="Imgid"})
                     </div>
                 </div>
                 <div id="thumbnails" style="display:flex;"></div>
@@ -221,7 +221,7 @@ else if (Model.Type == "Yard Loading")
             <div class="row">
                 <div class="col-sm-6 col-md-3">
                     <div class="form-group clearfix">
-                        @Html.HiddenFor(model => model.Id, new { @class = "form-control", id="id"})
+                        <input type="hidden" id="Id" name="Id" value="@Model.Id" />
                         @Html.HiddenFor(model => model.ActivityId, new { @class = "form-control", id="activityid"})
                         <label for="bstartfinishTime">Start & finish Time:</label>
                         @Html.TextBoxFor(x => x.Startandfinishtime, new { @class = "form-control", id="bstartfinishTime"})
@@ -304,7 +304,7 @@ else if (Model.Type == "Yard Loading")
                                 for (int i = 0; i < Model.activityImages.Count; i++)
                                 {
                                     <div>
-                                        <img src="@Model.activityImages[i].UploadPath" alt="Display" style="max-width: 100px; max-height: 100px;" />
+                                        <img src="@Model.activityImages[i].UploadPath" alt="Display" id="UploadPath" style="max-width: 100px; max-height: 100px;" />
                                         @Html.HiddenFor(model => model.activityImages[i].Imgid)
                                         @Html.HiddenFor(model => model.activityImages[i].UploadPath)
                                     </div>
@@ -313,7 +313,7 @@ else if (Model.Type == "Yard Loading")
                             @Html.TextBoxFor(Model => Model.UploadPath, new { @class = "form-control-file loading", type = "file", id = "fileInputloding",name = "SiteImages[]", @multiple = "multiple",onchange="displayThumbnails(event)"})
 
                             <span id="fileInputlError" class="text-danger fileError"></span>
-                            @Html.HiddenFor(model => model.Imgid, new { @class = "form-control", id="id"})
+                            @Html.HiddenFor(model => model.Imgid, new { @class = "form-control", id="Imgid"})
                         </div>
                     </div>
                 </div>
@@ -525,7 +525,7 @@ else if (Model.Type == "Yard Tipping")
                 <div class="row">
                     <div class="col-sm-6 col-md-3">
                         <div class="form-group clearfix">
-                            @Html.HiddenFor(model => model.Id, new { @class = "form-control", id="id"})
+                            <input type="hidden" id="Id" name="Id" value="@Model.Id" />
                             @Html.HiddenFor(model => model.ActivityId, new { @class = "form-control", id="activityid"})
                             @Html.HiddenFor(model => model.ActivityId, new { @class = "form-control", id="activityid"})
                             <label for="bstartfinishTime">Start & finish Time:</label>
@@ -609,7 +609,7 @@ else if (Model.Type == "Yard Tipping")
                                 for (int i = 0; i < Model.activityImages.Count; i++)
                                 {
                                     <div>
-                                        <img src="@Model.activityImages[i].UploadPath" alt="Display" style="max-width: 100px; max-height: 100px;" />
+                                        <img src="@Model.activityImages[i].UploadPath" alt="Display" id="UploadPath" style="max-width: 100px; max-height: 100px;" />
                                         @Html.HiddenFor(model => model.activityImages[i].Imgid)
                                         @Html.HiddenFor(model => model.activityImages[i].UploadPath)
                                     </div>
@@ -617,7 +617,7 @@ else if (Model.Type == "Yard Tipping")
                             }
                             @Html.TextBoxFor(Model => Model.UploadPath, new { @class = "form-control-file Tipping", type = "file", id = "fileInputyard", name = "SiteImages[]", @multiple = "multiple",onchange="displayThumbnails(event)"})
                             <span id="yardfileInputyardError" class="text-danger fileError"></span>
-                            @Html.HiddenFor(model => model.Imgid, new { @class = "form-control", id="id"})
+                            @Html.HiddenFor(model => model.Imgid, new { @class = "form-control", id="Imgid"})
                         </div>
                     </div>
                     <div id="thumbnails" style="display:flex;"></div>

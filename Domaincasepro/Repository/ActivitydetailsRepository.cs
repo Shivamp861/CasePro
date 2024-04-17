@@ -35,7 +35,7 @@ namespace Domaincasepro.Repository
                 existing.AnchoringDetails = data.AnchoringDetails;
                 existing.AnyNearMissOccurrences = data.AnyNearMissOccurrences;
                 existing.AnySpecialInstructions = data.AnySpecialInstructions;
-                existing.BarrierStartAndFinishLocation = data.BarrierConditionChecks;
+                existing.BarrierStartAndFinishLocation = data.BarrierStartAndFinishLocation;
                 existing.BarrierType = data.BarrierType;
                 existing.ChainLiftingequipmenttobeused = data.ChainLiftingequipmenttobeused;
                 existing.IncidentReporting = data.IncidentReporting;
