@@ -12,7 +12,7 @@ $('.Installation, .loading, .Tipping').change(function () {
     var ext = fileName.split('.').pop().toLowerCase();
     var errorMessageElement = $(this).closest('.form-group').find('.fileError');
 
-    if ($.inArray(ext, ['jpg', 'jpeg', 'gif', 'img']) == -1) {
+    if ($.inArray(ext, ['jpg', 'jpeg', 'gif', 'img','png']) == -1) {
         errorMessageElement.html('Invalid file type. Only JPEG, JPG, GIF, or IMG files are allowed.');
         $(this).val('');
     } else {
