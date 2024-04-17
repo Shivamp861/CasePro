@@ -8,12 +8,12 @@
     <div class="panel panel-default activitysummary">
 
         <div class="container-fluid">
-            <div class="main-table table-responsive">
+        <div class="main-table table-responsive" style="padding:20px 10px;">
                 <!--Table 1 starts-->
 
                 <div class=" clearfix table1 " id="" pt-5>
                     <table class="table table-bordered">
-                        <thead>
+                    <thead style="background-color:lightgray;">
                             <tr>
 
                                 <th data-field="Activity Dates">Activity Dates</th>
@@ -31,7 +31,7 @@
                             @foreach (var item in Model.Activity)
                             {
                                 <tr>
-                                    <td>@item.ActivityDate</td>
+                                <td>@item.ActivityDate.ToString("yyyy-MM-dd")</td>
                                     <td>@item.Dayornight</td>
                                     <td>@item.customer</td>
                                     <td>@item.Type</td>
@@ -50,7 +50,7 @@
                 <!--Table 2 starts-->
                 <div class="clearfix table1 " id="" pt-5>
                     <table class="table table-bordered ">
-                        <thead>
+                    <thead style="background-color:lightgray;">
                             <tr>
 
                                 <th data-field="Vehicle Reg">Vehicle Reg</th>
@@ -84,9 +84,9 @@
                 <!--Table 2 ends-->
                 <!--Table 3 starts-->
                 <div class="clearfix table1 " id="" pt-5>
-                    <h5><b>Trailer Detail Out Bound</b></h5>
+                <h5 style="padding-left:7px;"><b>Trailer Detail Out Bound</b></h5>
                     <table class="table table-bordered ">
-                        <thead>
+                    <thead style="background-color:lightgray;">
                             <tr>
 
                                 <th data-field="Labour Supplier">Trailer Number</th>
@@ -107,7 +107,7 @@
                                     <tr>
                                         <td>@item.TrailerNumber</td>
                                         <td>@item.LoadDepot</td>
-                                        <td>@item.Date</td>
+                                    <td>@(item.Date.HasValue ? item.Date.Value.Date.ToString("dd-MM-yyyy") : "")</td>
                                         <td>@item.LoadedTippedBy</td>
                                     </tr>
                                 }
@@ -120,9 +120,9 @@
                 <!--Table 3 ends-->
                 <!--Table 4 starts-->
                 <div class=" clearfix table1" id="">
-                    <h5><b>Trailer Detail Return</b></h5>
+                <h5 style="padding-left:7px;"><b>Trailer Detail Return</b></h5>
                     <table class="table table-bordered ">
-                        <thead>
+                    <thead style="background-color:lightgray;">
                             <tr>
                                 <th data-field="Trailer supplier">Trailer supplier</th>
                                 <th data-field="Trailer Number">Trailer Number</th>
