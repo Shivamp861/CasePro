@@ -118,6 +118,8 @@ namespace CasePro.Controllers
         {
             try
             {
+                int actid = 0;
+                var message = "";
                 if (Sitedata != null)
                 {
                     foreach (var siteImage in SiteImages)
@@ -129,14 +131,16 @@ namespace CasePro.Controllers
                         {
                             return Json(new { success = false, errorMessage = response.Message }); // Or return appropriate error response
                         }
+                        actid = (int)response.ActivityId;
+                        message = (string)response.Message;
                     }
 
                     // If all images were successfully processed
-                    return Json(new { success = true, activityId = "whatever_activity_id", errorMessage = "" });
+                    return Json(new { success = true, activityId = actid, errorMessage = message });
                 }
                 else
                 {
-                    return Json(new { success = true, errorMessage = "" });
+                    return Json(new { success = true, errorMessage = message });
                 }
             }
             catch (Exception ex)
