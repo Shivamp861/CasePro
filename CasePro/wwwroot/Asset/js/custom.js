@@ -155,7 +155,6 @@ $(document).ready(function () {
     });
 
     $('#myTable1').on('blur', 'input[type="text"], select', function () {
-        debugger;
         var $currentRow = $(this).closest('tr');
         var aid = $('#activityid').val();
 
