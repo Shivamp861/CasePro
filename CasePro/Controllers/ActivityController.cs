@@ -246,7 +246,7 @@ namespace CasePro.Controllers
                     var res = _productCommandHandler.update(pid, PD);
                     if (res.IsSuccess)
                     {
-                        return Json(new { success = true });
+                        return Json(new { pid = pid,  success = true });
                     }
                     else
                     {
@@ -258,7 +258,7 @@ namespace CasePro.Controllers
                     var response = _productCommandHandler.Create(PD);
                     if (response.IsSuccess)
                     {
-                        return Json(new { success = true });
+                        return Json(new { pid = response.Pid.ToString(), success = true });
                     }
                     else
                     {
