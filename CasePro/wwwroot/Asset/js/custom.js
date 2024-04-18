@@ -147,23 +147,17 @@ $('.yardTipping').on('blur', 'input, select,textarea,button', function (e) {
     }
 });
 
-
-
 $(document).ready(function () {
     var isDropdownOrTextboxFocused = false;
-    
-
 
     $('#myTable1').on('focus', 'input[type="text"], select', function () {
         isDropdownOrTextboxFocused = true;
     });
 
     $('#myTable1').on('blur', 'input[type="text"], select', function () {
-
-        var currentInput = $(this);
-        var $currentRow = currentInput.closest('tr');
+        debugger;
+        var $currentRow = $(this).closest('tr');
         var aid = $('#activityid').val();
-        var isValid = true;
 
         if (!aid) {
             alert("Please fill basic details");
@@ -172,33 +166,15 @@ $(document).ready(function () {
 
         clearValidationErrors($currentRow);
 
-        //var isValid = validateInputFields($currentRow);
+        var isValid = validateInputFields($currentRow);
 
-        var shift = $currentRow.find('select[name="Shift"]').val();
-        if (!shift.trim()) {
-            isValid = false;
-            $currentRow.find('#ShiftError').text('Shift is required');
-        } 
-
-        var date = $currentRow.find('input[name="Date"]').val();
-        if (!date.trim()) {
-            isValid = false;
-            $currentRow.find('#DateError').text('date is required');
-        }
-        var summaryOfWorks = $currentRow.find('input[name="SummaryOfWorks"]').val();
-        if (!summaryOfWorks.trim()) {
-            isValid = false;
-            $currentRow.find('#SummaryError').text('summary is required');
-        } 
-        var pid = $currentRow.find('input[id="pid"]').val();
-        //var newpid = $('#pid').val();
-        if (isValid && isDropdownOrTextboxFocused) {
+        if (isValid && !isDropdownOrTextboxFocused) {
             var requestData = {
                 aid: aid,
-                shift: shift,
-                date: date,
-                summaryOfWorks: summaryOfWorks,
-                pid: pid
+                shift: $currentRow.find('select[name="Shift"]').val(),
+                date: $currentRow.find('input[name="Date"]').val(),
+                summaryOfWorks: $currentRow.find('input[name="SummaryOfWorks"]').val(),
+                pid: $currentRow.find('#pid').val()
             };
 
             $.ajax({
@@ -206,7 +182,6 @@ $(document).ready(function () {
                 method: 'POST',
                 data: requestData,
                 success: function (response) {
-                    $currentRow.find('input[id="pid"]').val(response.pid);
                     alert("Product Data Saved Successfully");
                 },
                 error: function (xhr, status, error) {
@@ -217,66 +192,161 @@ $(document).ready(function () {
         }
     });
 
-    //$(document).on('click', function () {
-    //    isDropdownOrTextboxFocused = false;
-    //    $('.text-danger').empty();
-    //});
+    $('#myTable1').on('click', function () {
+        isDropdownOrTextboxFocused = false;
+        $('.text-danger').empty();
+    });
 
     function clearValidationErrors($row) {
         $row.find('.text-danger').empty();
     }
 
-    
-});
+    function validateInputFields($row) {
+        var isValid = true;
 
-$(document).on('blur', '#myTable input[type="text"], #myTable select', function () {
+        $row.find('input[name="SummaryOfWorks"], input[name="Date"] ,select').each(function () {
+            var $input = $(this);
+            var fieldName = $input.attr('name');
+            var fieldValue = $input.val();
 
-    var $currentRow = $(this).closest('tr');
-
-    var isValid = true;
-    var aid = $('#activityid').val(); // Assuming you have an element with id="activityid" to get the ActivityId
-    if (aid == null || aid == '') {
-        alert("Please fill basic details");
-        return;
-    }
-
-    // Perform validation for each input field in the row
-    $currentRow.find('input[type="text"], select').each(function () {
-        var value = $(this).val().trim();
-        if (!value) {
-            isValid = false;
-            $(this).addClass('error'); // Add a class to highlight the invalid input
-        } else {
-            $(this).removeClass('error');
-        }
-    });
-
-    // Proceed only if all input fields are valid
-    if (isValid) {
-        var requestData = {
-            resourcetype: $currentRow.find('#type').val(),
-            shift: $currentRow.find('#Shift').val(),
-            daynight: $currentRow.find('#daynight').val(),
-            name: $currentRow.find('#name').val(),
-            comment: $currentRow.find('#comment').val(),
-            rid: $currentRow.find('#rid').val(),
-            aid: aid
-        };
-
-        // Perform AJAX request to save the data
-        $.ajax({
-            url: '/activity/ResourseData',
-            method: 'POST',
-            data: requestData,
-            success: function (response) {
-                alert("Resourse Data Saved Successfully")
-            },
-            error: function (xhr, status, error) {
-                console.error('Error saving data:', error);
+            if (!fieldValue.trim()) {
+                isValid = false;
+                $row.find('#' + fieldName + 'Error').text(fieldName + ' is required');
             }
         });
+
+        return isValid;
     }
 });
+
+
+
+
+$(document).ready(function () {
+    var isDropdownOrTextboxFocused = false;
+
+    $('#myTable').on('focus', 'input[type="text"], select', function () {
+        isDropdownOrTextboxFocused = true;
+    });
+
+    $('#myTable').on('blur', ' input[type="text"], select', function () {
+        var $currentRow = $(this).closest('tr');
+        var aid = $('#activityid').val();
+
+        if (!aid) {
+            alert("Please fill basic details");
+            return;
+        }
+
+        clearValidationErrors($currentRow);
+
+        var isValid = validateInputFields($currentRow);
+
+        if (isValid && !isDropdownOrTextboxFocused) {
+            var requestData = {
+                resourcetype: $currentRow.find('select[name="ResourceType"]').val(),
+                shift: $currentRow.find('select[name="Shift"]').val(),
+                daynight: $currentRow.find('select[name="DayNight"]').val(),
+                name: $currentRow.find('input[name="Name"]').val(),
+                comment: $currentRow.find('input[name="Comments"]').val(),
+                rid: $currentRow.find('#rid').val(),
+                aid: aid
+            };
+
+            // Perform AJAX request to save the data
+            $.ajax({
+                url: '/activity/ResourseData',
+                method: 'POST',
+                data: requestData,
+                success: function (response) {
+                    alert("Resourse Data Saved Successfully")
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error saving data:', error);
+                }
+            });
+        }
+
+    });
+
+
+    $('#myTable').on('click', function () {
+        isDropdownOrTextboxFocused = false;
+        $('.text-danger').empty();
+    });
+
+    function clearValidationErrors($row) {
+        $row.find('.text-danger').empty();
+    }
+
+    function validateInputFields($row) {
+        var isValid = true;
+
+        $row.find('select ,input[name="Name"], input[name="Comments"]').each(function () {
+            var $input = $(this);
+            var fieldName = $input.attr('name');
+            var fieldValue = $input.val();
+
+            if (!fieldValue.trim()) {
+                isValid = false;
+                $row.find('#' + fieldName ).text(fieldName + ' is required');
+            }
+        });
+
+        return isValid;
+    }
+
+
+})
+
+//$(document).on('blur', '#myTable input[type="text"], #myTable select', function () {
+
+//    var $currentRow = $(this).closest('tr');
+
+//    var isValid = true;
+//    var aid = $('#activityid').val(); // Assuming you have an element with id="activityid" to get the ActivityId
+//    if (aid == null || aid == '') {
+//        alert("Please fill basic details");
+//        return;
+//    }
+
+//    // Perform validation for each input field in the row
+//    $currentRow.find('input[type="text"], select').each(function () {
+//        var value = $(this).val().trim();
+//        if (!value) {
+//            isValid = false;
+//            $(this).addClass('error'); // Add a class to highlight the invalid input
+//        } else {
+//            $(this).removeClass('error');
+//        }
+//    });
+
+//    // Proceed only if all input fields are valid
+//    if (isValid) {
+//        var requestData = {
+//            resourcetype: $currentRow.find('#type').val(),
+//            shift: $currentRow.find('#Shift').val(),
+//            daynight: $currentRow.find('#daynight').val(),
+//            name: $currentRow.find('#name').val(),
+//            comment: $currentRow.find('#comment').val(),
+//            rid: $currentRow.find('#rid').val(),
+//            aid: aid
+//        };
+
+//        // Perform AJAX request to save the data
+//        $.ajax({
+//            url: '/activity/ResourseData',
+//            method: 'POST',
+//            data: requestData,
+//            success: function (response) {
+//                alert("Resourse Data Saved Successfully")
+//            },
+//            error: function (xhr, status, error) {
+//                console.error('Error saving data:', error);
+//            }
+//        });
+//    }
+//});
 
 // Function to add a new row to the table
 
@@ -337,7 +407,7 @@ function addRowformanage(button) {
 
 
 function addRow(button) {
-
+    var aid = $('#activityid').val();
     var table = document.getElementById("myTable");
     var currentRow = button.parentNode.parentNode; // Get the current row
     var inputs = currentRow.querySelectorAll('.form-control');
@@ -383,7 +453,7 @@ function addRow(button) {
         var cell5 = newRow.insertCell(4);
         var cell6 = newRow.insertCell(5);
 
-        cell1.innerHTML = '<select class="form-control" id="type">' +
+        cell1.innerHTML = '<select class="form-control" id="type" name="ResourceType">' +
             '<option value="">Select an Resource Type</option>' +
             '<option>Supervisor</option>' +
             '<option>Operative</option>' +
@@ -393,8 +463,9 @@ function addRow(button) {
             '<option>Trailer</option>' +
             '<option>Loader</option>' +
             '<option>Work Van</option>' +
-            '</select>';
-        cell2.innerHTML = '<select class="form-control" id="Shift">' +
+            '</select>' +
+            '<span id="ResourceType" class="text-danger"></span>';
+        cell2.innerHTML = '<select class="form-control" id="ReShift" name="Shift">' +
             '<option value="">Select an Shift type</option>' +
             '<option>Shift 1</option>' +
             '<option>Shift 2</option>' +
@@ -404,14 +475,16 @@ function addRow(button) {
             '<option>Shift 6</option>' +
             '<option>Shift 7</option>' +
             '<option>Shift 8</option>' +
-            '</select>';
-        cell3.innerHTML = '<select class="form-control" id="daynight">' +
+            '</select>' +
+            '<span id="Shift" class="text-danger"></span>';
+        cell3.innerHTML = '<select class="form-control" id="daynight" name="DayNight">' +
             '<option value="">Select an Shift</option>' +
             '<option>Day</option>' +
             '<option>Night</option>' +
-            '</select>';
-        cell4.innerHTML = '<input value="" type="text" class="form-control" id="name">';
-        cell5.innerHTML = '<input type="text" class="form-control" width="500" id="comment">';
+            '</select>' +
+            '<span id="DayNight" class="text-danger"></span>';
+        cell4.innerHTML = '<input value="" type="text" class="form-control" id="name" name="Name">' +'<span id="Name" class="text-danger"></span>';
+        cell5.innerHTML = '<input type="text" class="form-control" width="500" id="comment" name="Comments">' +'<span id="Comments" class="text-danger"></span>';
         cell6.innerHTML = '<input value="0" type="text" id="rid" style="display: none;">' + '<input value="' + aid + '" type="text" id="activityid" style="display: none;" /> ';
     }
 
@@ -877,7 +950,7 @@ function addCustRow(button) {
         </div>
         <div class="col-sm-4 col-md-4">
         <div class="form-group clearfix">
-        <input type="text" value="" name="ContactNo" class="form-control contact-no" id="SAGEOrder">
+        <input type="text" value="" name="ContactNo" pattern ="\d{10}" class="form-control contact-no" id="SAGEOrder">
         <span class="text-danger validation-error" id="contactNoError"></span>
         </div>
         </div>

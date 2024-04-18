@@ -258,7 +258,7 @@ namespace CasePro.Controllers
                     var response = _productCommandHandler.Create(PD);
                     if (response.IsSuccess)
                     {
-                        return Json(new { pid = response.Pid.ToString(), success = true });
+                        return Json(new { pid = pid.ToString(), success = true });
                     }
                     else
                     {
