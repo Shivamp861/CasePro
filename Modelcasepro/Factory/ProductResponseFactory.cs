@@ -14,7 +14,8 @@ namespace Modelcasepro.Factory
             return new ActivityResponseModel
             {
                 IsSuccess = isSuccess,
-                Message = errorMessage
+                Message = errorMessage,
+                Pid = id
             };
 
         }

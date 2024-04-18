@@ -38,7 +38,7 @@
                         <td>
                             @Html.TextBox("SummaryOfWorks", item.SummaryOfWorks, new { @class = "form-control", type = "text", id = "Summaryforproduct" })
                             <span id="SummaryError" class="text-danger"></span>
-                            @Html.HiddenFor(modelItem => item.Id, new { @class = "form-control", id = "pid" })
+                            @Html.HiddenFor(modelItem => item.Id, new { @class = "form-control pid", id = "pid" })
                             @Html.HiddenFor(modelItem => item.ActivityId, new { @class = "form-control", id = "activityid" })
                         </td>
                         <td>
@@ -57,6 +57,7 @@
                     <td>
                         @Html.DropDownList("Shift", new List<SelectListItem>
                     {
+                    new SelectListItem { Text = "Select an Shift type", Value = "" },
                     new SelectListItem { Text = "Shift 1", Value = "Shift 1" },
                     new SelectListItem { Text = "Shift 2", Value = "Shift 2" },
                     new SelectListItem { Text = "Shift 3", Value = "Shift 3" },
@@ -75,7 +76,7 @@
                     <td>
                         @Html.TextBox("SummaryOfWorks", null, new { @class = "form-control", type = "text", id = "Summaryforproduct" })
                         <span id="SummaryError" class="text-danger"></span>
-                        <input type="hidden" id="pid" value="0" />
+                        <input type="hidden" class="pid" name="pid" id="pid" value="0" />
                         @Html.Hidden("Id", null, new { id = "activityid" })
                     </td>
                     <td>

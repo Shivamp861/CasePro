@@ -12,5 +12,6 @@ namespace Modelcasepro.ResponseModel
         public string ActivityType { get; set; }
         public bool IsSuccess { get; set; }
         public string Message { get; set; }
+        public int Pid { get; set; }
     }
 }

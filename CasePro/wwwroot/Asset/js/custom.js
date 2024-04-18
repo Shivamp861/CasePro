@@ -148,70 +148,85 @@ $('.yardTipping').on('blur', 'input, select,textarea,button', function (e) {
 });
 
 
-$(document).on('blur', '#myTable1 input[type="text"], #myTable1 select', function () {
 
-    if (!handleBlurEvent) {
-        return; // Exit the event handler if handleBlurEvent is false
+$(document).ready(function () {
+    var isDropdownOrTextboxFocused = false;
+    
+
+
+    $('#myTable1').on('focus', 'input[type="text"], select', function () {
+        isDropdownOrTextboxFocused = true;
+    });
+
+    $('#myTable1').on('blur', 'input[type="text"], select', function () {
+
+        var currentInput = $(this);
+        var $currentRow = currentInput.closest('tr');
+        var aid = $('#activityid').val();
+        var isValid = true;
+
+        if (!aid) {
+            alert("Please fill basic details");
+            return;
+        }
+
+        clearValidationErrors($currentRow);
+
+        //var isValid = validateInputFields($currentRow);
+
+        var shift = $currentRow.find('select[name="Shift"]').val();
+        if (!shift.trim()) {
+            isValid = false;
+            $currentRow.find('#ShiftError').text('Shift is required');
+        } 
+
+        var date = $currentRow.find('input[name="Date"]').val();
+        if (!date.trim()) {
+            isValid = false;
+            $currentRow.find('#DateError').text('date is required');
+        }
+        var summaryOfWorks = $currentRow.find('input[name="SummaryOfWorks"]').val();
+        if (!summaryOfWorks.trim()) {
+            isValid = false;
+            $currentRow.find('#SummaryError').text('summary is required');
+        } 
+        var pid = $currentRow.find('input[id="pid"]').val();
+        //var newpid = $('#pid').val();
+        if (isValid && isDropdownOrTextboxFocused) {
+            var requestData = {
+                aid: aid,
+                shift: shift,
+                date: date,
+                summaryOfWorks: summaryOfWorks,
+                pid: pid
+            };
+
+            $.ajax({
+                url: '/activity/ProductData',
+                method: 'POST',
+                data: requestData,
+                success: function (response) {
+                    $currentRow.find('input[id="pid"]').val(response.pid);
+                    alert("Product Data Saved Successfully");
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error saving data:', error);
+                    alert("An error occurred while saving data. Please try again.");
+                }
+            });
+        }
+    });
+
+    //$(document).on('click', function () {
+    //    isDropdownOrTextboxFocused = false;
+    //    $('.text-danger').empty();
+    //});
+
+    function clearValidationErrors($row) {
+        $row.find('.text-danger').empty();
     }
 
-    var isValid = true;
-    var $currentRow = $(this).closest('tr');
-    var aid = $('#activityid').val(); // Assuming you have an element with id="activityid" to get the ActivityId
-    if (aid == null || aid == '') {
-        alert("Please fill basic details");
-        return;
-    }
-
-    $currentRow.find('.text-danger').empty();
-
-    // Get data from the current row
-    var shift = $currentRow.find('select[name="Shift"]').val();
-    var date = $currentRow.find('input[name="Date"]').val();
-    var summaryOfWorks = $currentRow.find('input[name="SummaryOfWorks"]').val();
-    var pid = $currentRow.find('#pid').val();
-
-    // Validation for shift
-    if (!shift.trim()) {
-        isValid = false;
-        $currentRow.find('#ShiftError').text('Shift is required');
-    }
-
-    // Validation for date
-    if (!date.trim()) {
-        isValid = false;
-        $currentRow.find('#DateError').text('Date is required');
-    }
-
-    // Validation for summary of works
-    if (!summaryOfWorks.trim()) {
-        isValid = false;
-        $currentRow.find('#SummaryError').text('Summary of Works is required');
-    }
-
-    // Proceed only if the data is valid
-    if (isValid) {
-        var requestData = {
-            aid: aid,
-            shift: shift,
-            date: date,
-            summaryOfWorks: summaryOfWorks,
-            pid: pid
-        };
-
-        // Perform AJAX request to save data
-        $.ajax({
-            url: '/activity/ProductData',
-            method: 'POST',
-            data: requestData,
-            success: function (response) {
-                alert("Product Data Saved Successfully"); // Display success message
-            },
-            error: function (xhr, status, error) {
-                // Handle error response
-                console.error('Error saving data:', error);
-            }
-        });
-    }
+    
 });
 
 $(document).on('blur', '#myTable input[type="text"], #myTable select', function () {
@@ -266,30 +281,38 @@ $(document).on('blur', '#myTable input[type="text"], #myTable select', function 
 // Function to add a new row to the table
 
 function addRowformanage(button) {
-    debugger;
+   
     var table = document.getElementById("manageTable");
-    var currentRow = button.parentNode.parentNode; // Get the current row
-    var inputs = currentRow.querySelectorAll('.form-control');
-    var errorSpans = currentRow.querySelectorAll('.text-danger');
+    var currentRow = button.closest('table').rows;
+    var latestRow = currentRow[currentRow.length - 1];
+    var inputs = latestRow.querySelectorAll('.form-control');
+    var errorSpans = latestRow.querySelectorAll('.text-danger');
     var canAddRow = true;
+    var instruid = $('#InstructorId').val();
 
     inputs.forEach(function (input, index) {
+        var errorSpan = input.parentNode.querySelector('.text-danger');
+
         if (input.value.trim() === '') {
-            canAddRow = false;
-            if (errorSpans[index]) {
-                errorSpans[index].innerText = "Please fill out this field.";
-            } else {
-                var errorSpan = document.createElement('span');
+            // Input is empty, show error message
+            if (!errorSpan) {
+                // Create error span if it doesn't exist
+                errorSpan = document.createElement('span');
                 errorSpan.classList.add('text-danger');
-                errorSpan.innerText = "Please fill out this field.";
                 input.parentNode.appendChild(errorSpan);
             }
+            // Set error message text
+            errorSpan.innerText = "Please fill out this field.";
+            canAddRow = false; // Set flag to prevent further action
+
         } else {
-            if (errorSpans[index]) {
-                errorSpans[index].innerText = "";
+            // Input is not empty, remove error message if exists
+            if (errorSpan) {
+                input.parentNode.removeChild(errorSpan);
             }
         }
     });
+
 
     if (canAddRow) {
         var newRow = table.insertRow(-1); // Insert row at the top (reversed)
@@ -301,14 +324,13 @@ function addRowformanage(button) {
         cell1.innerHTML = '<input type="date" class="form-control" id="Completeion1Date1">';
         cell2.innerHTML = '<input type="text" class="form-control" id="Signature1">';
         cell3.innerHTML = '<input type="text" class="form-control" id="Name1">';
-        cell4.innerHTML = '<input type="date" class="form-control" id="Date1">' + '<input type="text" hidden="" id="InstructorId" value="1013">';
+        cell4.innerHTML = '<input type="date" class="form-control" id="Date1">' + '<input type="text" hidden="" id="InstructorId" value="' + instruid + '">';
 
-        // Reapply validation logic to the new row inputs
-        var newInputs = newRow.querySelectorAll('.form-control');
-        newInputs.forEach(function (input) {
-            input.addEventListener('blur', function () {
-                // Your validation logic here
-            });
+        inputs.forEach(function (input, index) {
+            var errorSpan = input.parentNode.querySelector('.text-danger');
+            if (errorSpan) {
+                input.parentNode.removeChild(errorSpan);
+            }
         });
     }
 }
@@ -362,6 +384,7 @@ function addRow(button) {
         var cell6 = newRow.insertCell(5);
 
         cell1.innerHTML = '<select class="form-control" id="type">' +
+            '<option value="">Select an Resource Type</option>' +
             '<option>Supervisor</option>' +
             '<option>Operative</option>' +
             '<option>Labour Man</option>' +
@@ -372,6 +395,7 @@ function addRow(button) {
             '<option>Work Van</option>' +
             '</select>';
         cell2.innerHTML = '<select class="form-control" id="Shift">' +
+            '<option value="">Select an Shift type</option>' +
             '<option>Shift 1</option>' +
             '<option>Shift 2</option>' +
             '<option>Shift 3</option>' +
@@ -382,6 +406,7 @@ function addRow(button) {
             '<option>Shift 8</option>' +
             '</select>';
         cell3.innerHTML = '<select class="form-control" id="daynight">' +
+            '<option value="">Select an Shift</option>' +
             '<option>Day</option>' +
             '<option>Night</option>' +
             '</select>';
@@ -393,7 +418,7 @@ function addRow(button) {
 }
 function addRow1(button) {
 
-
+    var aid = $('#activityid').val();
     var table = document.getElementById("myTable1");
     var currentRow = button.parentNode.parentNode; // Get the current row
     var inputs = currentRow.querySelectorAll('.form-control');
@@ -441,6 +466,7 @@ function addRow1(button) {
 
 
         cell1.innerHTML = '<select class="form-control" name="Shift" id="Shift">' +
+            '<option value="">Select an Shift type</option>' +
             '<option>Shift 1</option>' +
             '<option>Shift 2</option>' +
             '<option>Shift 3</option>' +
@@ -449,9 +475,11 @@ function addRow1(button) {
             '<option>Shift 6</option>' +
             '<option>Shift 7</option>' +
             '<option>Shift 8</option>' +
-            '</select>';
-        cell2.innerHTML = '<input value="" type="date" class="form-control" name="Date" id="Date" style="width: 150px;">';
-        cell3.innerHTML = '<input value="" type="text" class="form-control" name="SummaryOfWorks" id="SummaryOfWorks">';
+            '</select>' +
+            '<span id="ShiftError" class="text-danger"></span>';
+        cell2.innerHTML = '<input value="" type="date" class="form-control" name="Date" id="Date" style="width: 150px;"> ' +
+            '<span id="DateError" class="text-danger"></span>';
+        cell3.innerHTML = '<input value="" type="text" class="form-control" name="SummaryOfWorks" id="SummaryOfWorks">' + '<span id="SummaryError" class="text-danger"></span>';
 
         cell4.innerHTML = '<input value="0" type="text" id="pid" style="display: none;" />' + '<input value="' + aid + '" type="text" id="activityid" style="display: none;" /> ';
 
@@ -579,12 +607,7 @@ $('.siteInstallation').on('blur', 'input, select,textarea,button', function (e) 
             formData.append('SiteImages', filesInput.files[i]);
         }
     }
-    //$.each($('#fileInput')[0].files, function (index, file) {
-    //    formData.append('SiteImages', file);
-    //});
-
-
-    // Append other form data fields to the formData
+    
     $.each(Siteformdata, function (key, value) {
         formData.append('Sitedata.' + key, value);
     });
@@ -744,233 +767,7 @@ $('.siteInstallation').on('blur', 'input, select,textarea,button', function (e) 
 });
 
 
-//$('.siteInstallation').on('blur', 'input, select,textarea,button', function () {
-//     debugger;
-//    var id = globalactivityId;
-//    var fileInputValue;
-//    if (id == "" || id == null || id == undefined || id == 0) {
-//        id = $('#activityid').val();
-//    }
-//    var isValid = true;
-//    //if ($(this).is('#fileInput')) {
-//    //    fileInputValue = $('#fileInput')[0].files[0];
-//    //}
-//    var Siteformdata = {
-//        MeetingSite: $('#sitemeetingDate').val(),
-//        LabourSupplier: $('#sitelabourSupplier').val(),
-//        SupplierContact: $('#sitesupplierContact').val(),
-//        NoOfPersoneSupplied: $('#Numberofpersons').val(),
-//        BarrierType: $('#btype').val(),
-//        BarrierQty: $('#bquantity').val(),
-//        BarrierStartAndFinishLocation: $('#blocations').val(),
-//        BarrierPerformance: $('#bPerformance').val(),
-//        LengthOfRuns: $('#blength').val(),
-//        AnchoringDetails: $('#anchordetails').val(),
-//        Isapermittobreakgroundrequired: $('#bpermitreq').val(),
-//        ChainLiftingequipmenttobeused: $('#bpermitreqchain').val(),
-//        IncidentReporting: $('#Incidentreporting').val(),
-//        OtherResourcesEquipmentUsed: $('#txtresources').val(),
-//        AllRelevantActivityRams: $('#txtrelevantactivity').val(),
-//        AnySpecialInstructions: $('#txtspecialinstruction').val(),
-//        ActivityId: id,
-//        Id: $('#Id').val(),
 
-//        // Add other form fields here
-//    };
-
-//    var formData = new FormData();
-//    // Append all files selected to the formData
-//    //let siteid = $('#Id').val();
-
-
-
-
-//    //if (siteid == 0) {
-//    //    if ($('#fileInput')[0].files.length === 0) {
-//    //        $('#fileInputError').text('Site/Layout drawings/site images is required.');
-//    //        isValid = false;
-//    //    } else {
-//    //        // Append files to formData
-//    //        $.each($('#fileInput')[0].files, function (index, file) {
-//    //            formData.append('SiteImages', file);
-//    //        });
-//    //        $('#fileInputError').text('');
-//    //    }
-//    //} else {
-
-//    //    if ($(this).is('#fileInput')) {
-//    //        if ($(this)[0].files.length === 0) {
-//    //            $('#fileInputError').text('Site/Layout drawings/site images is required.');
-//    //            isValid = false;
-//    //        } else {
-//    //            $.each($('#fileInput')[0].files, function (index, file) {
-//    //                formData.append('SiteImages', file);
-//    //            });
-//    //            $('#fileInputError').text('');
-//    //        }
-//    //    } else {
-
-//    //    }
-        
-
-//    //}
-
-
-
-
-
-
-
-//    // Append other form data fields to the formData
-//    $.each(Siteformdata, function (key, value) {
-//        formData.append('Sitedata.' + key, value);
-//    });
-
-//    $.each(Siteformdata, function (key, value) {
-//        // Check if the value is empty or null
-//        if (!value) {
-//            // Set error message based on the field
-//            switch (key) {
-//                case 'MeetingSite':
-//                    $('#sitemeetingError').text('Meeting Site is required.');
-//                    break;
-//                case 'LabourSupplier':
-//                    $('#sitelabourSupplierError').text('Labour Supplier is required.');
-//                    break;
-//                case 'SupplierContact':
-//                    $('#sitesupplierError').text('Supplier Contact is required.');
-//                    break;
-//                case 'NoOfPersoneSupplied':
-//                    $('#numofpersonserror').text('Number of Persons Supplied is required.');
-//                    break;
-//                case 'BarrierType':
-//                    $('#btypeerror').text('Barrier Type is required.');
-//                    break;
-//                case 'BarrierQty':
-//                    $('#qtyBarriersError').text('Barrier Qty is required.');
-//                    break;
-//                case 'BarrierStartAndFinishLocation':
-//                    $('#blocationError').text('Barrier start and finish location is required.');
-//                    break;
-//                case 'BarrierPerformance':
-//                    $('#bperformanceError').text('Barrier Performance is required.');
-//                    break;
-//                case 'LengthOfRuns':
-//                    $('#blengthError').text('Length of runs is required.');
-//                    break;
-//                case 'AnchoringDetails':
-//                    $('#anchodetailsError').text('Anchoring details is required.');
-//                    break;
-//                case 'Isapermittobreakgroundrequired':
-//                    $('#permitreqError').text('Is a permit to break ground required is required.');
-//                    break;
-//                case 'ChainLiftingequipmenttobeused':
-//                    $('#permitreqchainError').text('Chain / lifting equipment to be used is required.');
-//                    break;
-//                case 'IncidentReporting':
-//                    $('#IncidentreportingError').text('Incident reporting is required.');
-//                    break;
-//                case 'OtherResourcesEquipmentUsed':
-//                    $('#txtresourcesError').text('Other resources / equipment used is required.');
-//                    break;
-//                case 'AllRelevantActivityRams':
-//                    $('#txtrelevantactivityError').text('All relevant activity RAMS, lift plans and SSOW is required.');
-//                    break;
-//                case 'AnySpecialInstructions':
-//                    $('#txtspecialinstructionError').text('Any special instructions / site restrictions / specific PPE is required');
-//                    break;
-//                // Add cases for other fields
-//                default:
-//                    break;
-//            }
-//            isValid = false; // Set isValid to false
-//        } else {
-//            // Clear error message if the field is not empty
-//            switch (key) {
-//                case 'MeetingSite':
-//                    $('#sitemeetingError').text('');
-//                    break;
-//                case 'LabourSupplier':
-//                    $('#sitelabourSupplierError').text('');
-//                    break;
-//                case 'SupplierContact':
-//                    $('#sitesupplierError').text('');
-//                    break;
-//                case 'NoOfPersoneSupplied':
-//                    $('#numofpersonserror').text('');
-//                    break;
-//                case 'BarrierType':
-//                    $('#btypeerror ').text('');
-//                    break;
-//                case 'BarrierQty':
-//                    $('#qtyBarriersError').text('');
-//                    break;
-//                case 'BarrierStartAndFinishLocation':
-//                    $('#blocationError').text('');
-//                    break;
-//                case 'BarrierPerformance':
-//                    $('#bperformanceError').text('');
-//                    break;
-//                case 'LengthOfRuns':
-//                    $('#blengthError').text('');
-//                    break;
-//                case 'AnchoringDetails':
-//                    $('#anchodetailsError').text('');
-//                    break;
-//                case 'Isapermittobreakgroundrequired':
-//                    $('#permitreqError').text('');
-//                    break;
-//                case 'ChainLiftingequipmenttobeused':
-//                    $('#permitreqchainError').text('');
-//                    break;
-//                case 'IncidentReporting':
-//                    $('#IncidentreportingError').text('');
-//                    break;
-//                case 'OtherResourcesEquipmentUsed':
-//                    $('#txtresourcesError').text('');
-//                    break;
-//                case 'AllRelevantActivityRams':
-//                    $('#txtrelevantactivityError').text('');
-//                    break;
-//                case 'AnySpecialInstructions':
-//                    $('#txtspecialinstructionError').text('');
-//                    break;
-//                // Add cases for other fields
-//                default:
-//                    break;
-//            }
-//        }
-//    });
-
-
-
-//    if (isValid) {
-//        $.each(Siteformdata, function (key, value) {
-//            formData.append('Sitedata.' + key, value);
-//        });
-
-//        $.ajax({
-//            url: '/Activity/SaveDataactivitydetails',
-//            method: 'post',
-//            processData: false, // Prevent jQuery from processing the data
-//            contentType: false, // Prevent jQuery from setting contentType
-//            data: formData,
-//            success: function (response) {
-//                if (response.success) {
-//                    alert(response.errorMessage); // or response.message if you want to display a message
-//                    window.location.href = '/Activity/CreateActivity/' + response.activityId;
-//                }
-//            },
-//            error: function (xhr, status, error) {
-//                console.error('error saving data:', error);
-//            }
-//        });
-//    }
-
-//});
-
-
-//for Login toster
 document.addEventListener('DOMContentLoaded', function () {
     // Find the error message element
     var errorMessageElement = document.getElementById('errorMessage');
@@ -983,192 +780,113 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 3000); // 3000 milliseconds = 3 seconds
     }
 });
-//for add save and Update Product data
 
 
-//for add row save and Update Resource data
-
-
-//for save customer data
 $(document).on('blur', '#content1 .panel-default.customer input:not(.add-customer), #content1 .panel-default.customer textarea:not(.add-customer)', function () {
-
+    
     if (!handleBlurEvent) {
-        return; // Exit the event handler if handleBlurEvent is false
+        return;
     }
-
-
     var isValid = true;
-    var $currentRow = $(this).closest('.original-row');
-    // Assuming you have an element with id="id" to get the ActivityId
-    var activityId = globalactivityId;
-    if (activityId == null) {
-        activityId = $('#id').val();
+    var $currentRow = $(this).closest('.original-row'); // Corrected selector
+    var aid = $('#activityid').val();
+    if (aid == null || aid == '') {
+        alert("Please fill basic details");
+        return;
     }
-    if (activityId == '') {
-        alert("Please fill basic details")
-    }
-
-    // Get data from the current row
-    var customerName = $currentRow.find('.customer-name').val();
-    var contactNo = $currentRow.find('.contact-no').val();
-    var Custid = $currentRow.find('#custid').val();
     $currentRow.find('.text-danger').empty();
 
-    // Validation for customerName
-    if (!customerName.trim()) {
+    var index = $('.original-row').index($currentRow);
+
+    var CustomerName = $('.customer-name').eq(index).val(); // Use eq(index) to get the value of specific row
+    var ContactNo = $('.contact-no').eq(index).val(); // Use eq(index) to get the value of specific row
+    var custid = $('.custid').eq(index).val(); 
+
+
+    if (!CustomerName || !CustomerName.trim()) { // Check for null or empty string
         isValid = false;
-        // Display error message for customerName
-        $currentRow.find('.customer-name').siblings('.text-danger').text('Customer Name is required');
+        $currentRow.find('#customerNameError').text('Customer Name is required'); // Corrected selector
+    }
+    if (!ContactNo || !ContactNo.trim()) { // Check for null or empty string
+        isValid = false;
+        $currentRow.find('#contactNoError').text('Contact No is required'); // Corrected selector
     }
 
-    // Validation for contactNo
-    if (!contactNo.trim()) {
-        isValid = false;
-        // Display error message for contactNo
-        $currentRow.find('.contact-no').siblings('.text-danger').text('Contact Number is required');
-    }
-    if (!contactNo.trim() || isNaN(contactNo) || contactNo.length !== 10 || !/^\d{10}$/.test(contactNo)) {
-        isValid = false;
-        // Display error message for contactNo
-        $currentRow.find('.contact-no').siblings('.text-danger').text('Contact Number must be a 10-digit number');
-    }
-
-    // Proceed only if the data is valid
     if (isValid) {
-        var requestData = {
-            ActivityId: activityId,
-            custid: Custid,
-            CustomerName: customerName,
-            ContactNo: contactNo
+        var custData = {
+            ActivityId: aid,
+            CustomerName: CustomerName,
+            ContactNo: ContactNo,
+            custid: custid
         };
 
-
-        $('#addcustomer').on('click', function () {
-            // Perform AJAX request to save data
-            $.ajax({
-                url: '/activity/Customersavedata',
-                method: 'POST',
-                data: requestData,
-                success: function (response) {
-                    // Handle success response
-                    if (response.success) {
-                        document.getElementById("custid").value = response.activityId;
-                        $('.original-row input').prop('disabled', false);
-                        $('#addcustomer').prop('disabled', false); // Disable button after successful submission
-                        // Display success message
-                        alert(response.errorMessage); // or response.message if you want to display a message
-                    }
-                },
-                error: function (xhr, status, error) {
-                    // Handle error response
-                    console.error('Error saving data:', error);
-                }
-            });
+        $.ajax({
+            url: '/activity/Customersavedata',
+            method: 'POST',
+            data: custData,
+            success: function (response) {
+                alert("Customer Data Saved Successfully"); // Display success message
+            },
+            error: function (xhr, status, error) {
+                // Handle error response
+                console.error('Error saving data:', error);
+            }
         });
-
-
-
     }
 });
-//for add customer row
-//$(document).on('click', ".add-customer", function () {
-//    handleBlurEvent = false;
-//    // Validate all existing rows before adding a new one
-//    var isValid = true;
-//    $('.original-row').each(function () {
-//        var $row = $(this);
-//        var customerName = $row.find('.customer-name').val();
-//        var contactNo = $row.find('.contact-no').val();
 
-//        // Check if any required field is empty
-//        if (!customerName.trim() || !contactNo.trim()) {
-//            isValid = false;
-//            return false; // Exit the loop early if any row is invalid
-//        }
-//    });
 
-//    if (isValid) {
-//        // Proceed to add a new row
-//        var $originalRow = $(this).closest('.original-row');
-//        var $clonedRow = $originalRow.clone();
+function addCustRow(button) {
+    
+    var aid = $('#activityid').val();
+    var currentRow = button.closest('.original-row');
+    var inputs = currentRow.querySelectorAll('.form-control');
+    var errorSpans = currentRow.querySelectorAll('.text-danger');
+    var canAddRow = true;
 
-//        // Clear the custid value for the cloned row
-//        $clonedRow.find('#custid').val('0');
-//        // Update IDs in the cloned row with unique indices
-//        var rowCount = $('.original-row').length + 1;
-//        $clonedRow.find('.customer-name').attr('id', 'CustomerName_' + rowCount);
-//        $clonedRow.find('.contact-no').attr('id', 'contactno_' + rowCount);
-
-//        // Add hidden class to the custid input field in the cloned row
-//        $clonedRow.find('.custid').addClass('hidden');
-
-//        // Append error spans below the cloned row
-//        $clonedRow.find('.customer-name').after('<span class="text-danger validation-error" id="customerNameError_' + rowCount + '"></span>');
-//        $clonedRow.find('.contact-no').after('<span class="text-danger validation-error" id="contactNoError_' + rowCount + '"></span>');
-
-//        $clonedRow.find('.customer-name, .contact-no').removeAttr('disabled');
-//        $clonedRow.find('.add-customer').removeAttr('disabled');
-
-//        rowCount++;
-
-//        $originalRow.after($clonedRow);
-//        $clonedRow.find('.customer-name').val('');
-//        $clonedRow.find('.contact-no').val('');
-//        //$originalRow.find('.add-customer').prop('disabled', true);
-//        handleBlurEvent = true;
-//    } else {
-//        alert("Please fill in all required fields in the existing rows before adding a new one.");
-//    }
-//});
-$(document).on('click', ".add-customer", function () {
-    handleBlurEvent = false;
-    // Validate all existing rows before adding a new one
-    var isValid = true;
-    $('.original-row').each(function () {
-        var $row = $(this);
-        var customerName = $row.find('.customer-name').val();
-        var contactNo = $row.find('.contact-no').val();
-
-        // Check if any required field is empty
-        if (!customerName.trim() || !contactNo.trim()) {
-            isValid = false;
-            return false; // Exit the loop early if any row is invalid
+    inputs.forEach(function (input, index) {
+        if (input.value.trim() === '' && (input.getAttribute('name') === 'ContactNo' || input.getAttribute('name') === 'CustomerName')) {
+            canAddRow = false;
+            if (errorSpans[index]) {
+                errorSpans[index].innerText = "Please fill out this field.";
+            } else {
+                var errorSpan = document.createElement('span');
+                errorSpan.classList.add('text-danger');
+                errorSpan.innerText = "Please fill out this field.";
+                input.parentNode.appendChild(errorSpan);
+            }
+        } else {
+            if (errorSpans[index]) {
+                errorSpans[index].innerText = "";
+            }
         }
     });
 
-    if (isValid) {
-        // Proceed to add a new row
-        var $originalRow = $(this).closest('.original-row');
-        var $clonedRow = $originalRow.clone();
 
-        // Clear the custid value for the cloned row
-        $clonedRow.find('#custid').val('0');
-        // Update IDs in the cloned row with unique indices
-        var rowCount = $('.original-row').length + 1;
-        $clonedRow.find('.customer-name').attr('id', 'CustomerName_' + rowCount);
-        $clonedRow.find('.contact-no').attr('id', 'contactno_' + rowCount);
+    if (canAddRow) {
+        var newRow = document.createElement('div');
+        newRow.classList.add('panel-body', 'original-row');
+        newRow.innerHTML = `
+        <div class="row">
+        <div class="col-sm-4 col-md-4">
+        <div class="form-group clearfix">
+        <input type="text" class="form-control custid hidden" name="custid" id="custid">
+        <input type="text" class="form-control customer-name" name="CustomerName" id="CustomerName">
+        <span class="text-danger validation-error" id="customerNameError"></span>
+        </div>
+        </div>
+        <div class="col-sm-4 col-md-4">
+        <div class="form-group clearfix">
+        <input type="text" value="" name="ContactNo" class="form-control contact-no" id="SAGEOrder">
+        <span class="text-danger validation-error" id="contactNoError"></span>
+        </div>
+        </div>
+        </div>
+        `;
 
-        // Add hidden class to the custid input field in the cloned row
-        $clonedRow.find('.custid').addClass('hidden');
-
-        // Append error spans below the cloned row
-        $clonedRow.find('.customer-name').after('<span class="text-danger validation-error" id="customerNameError_' + rowCount + '"></span>');
-        $clonedRow.find('.contact-no').after('<span class="text-danger validation-error" id="contactNoError_' + rowCount + '"></span>');
-
-        // Enable fields for the new row
-        $clonedRow.find('.customer-name, .contact-no').removeAttr('disabled');
-
-        rowCount++;
-
-        $originalRow.after($clonedRow);
-        $clonedRow.find('.customer-name').val('');
-        $clonedRow.find('.contact-no').val('');
-        //$originalRow.find('.add-customer').prop('disabled', true);
-        handleBlurEvent = true;
-    } else {
-        alert("Please fill in all required fields in the existing rows before adding a new one.");
+        currentRow.parentNode.appendChild(newRow);
     }
-});
+}
 
 function Savedate() {
     var isValid = true;
@@ -1515,22 +1233,7 @@ function SaveInBoundTrailerData() {
             data: loadingData,
             success: function (response) {
                 if (response != null) {
-                    //if (response.isOutBound == 'on') {
-                    //    var rowCount = $('#TrailerDetails1 tbody tr').length;
-                    //    var nextId = rowCount + 1;
-                    //    var newRow = '<tr>' +
-                    //        '<td>' + nextId + '</td>' +
-                    //        '<td>' + response.trailerSupplier + '</td>' +
-                    //        '<td>' + response.trailerNumber + '</td>' +
-                    //        '<td>' + response.quantity + '</td>' +
-                    //        '<td>' + response.loadDepot + '</td>' +
-                    //        '<td>' + response.departFrom + '</td>' +
-                    //        '<td>' + response.date + '</td>' +
-                    //        '<td>' + response.loadedTippedBy + '</td>' +
-                    //        '</tr>';
-                    //    $('#TrailerDetails1 tbody').append(newRow);
-                    //    alert('Trailer Details Out Bound Saved successfully.');
-                    //}
+                   
                     if (response.isOutBound == 'on') {
                         var rowCount = $('#TrailerDetails1 tbody tr').length;
                         var nextId = rowCount + 1;
