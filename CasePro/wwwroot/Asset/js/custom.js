@@ -551,7 +551,7 @@ function addRow1(button) {
             '<span id="ShiftError" class="text-danger"></span>';
         cell2.innerHTML = '<input value="" type="date" class="form-control" name="Date" id="Date" style="width: 150px;"> ' +
             '<span id="DateError" class="text-danger"></span>';
-        cell3.innerHTML = '<input value="" type="text" class="form-control" name="SummaryOfWorks" id="SummaryOfWorks">' + '<span id="SummaryError" class="text-danger"></span>';
+        cell3.innerHTML = '<input value="" type="text" class="form-control" name="SummaryOfWorks" id="SummaryOfWorks">' + '<span id="SummaryOfWorksError" class="text-danger"></span>';
 
         cell4.innerHTML = '<input value="0" type="text" id="pid" style="display: none;" />' + '<input value="' + aid + '" type="text" id="activityid" style="display: none;" /> ';
 
