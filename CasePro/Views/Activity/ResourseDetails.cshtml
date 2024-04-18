@@ -37,7 +37,8 @@
 
                     },
                     new { @class = "form-control", id = "type" }
-                    )
+                    )                        
+                    <span id="ResourceTypeError" class="text-danger"></span>
                         </td>
 
                         <td>
@@ -52,7 +53,9 @@
                     new SelectListItem { Text = "Shift 6", Value = "Shift 6", Selected = (item.Shift == "Shift 6") },
                     new SelectListItem { Text = "Shift 7", Value = "Shift 7", Selected = (item.Shift == "Shift 7") },
                     new SelectListItem { Text = "Shift 8", Value = "Shift 8", Selected = (item.Shift == "Shift 8") }
-                    }, new { @class = "form-control", id = "Shift" })
+                    }, new { @class = "form-control", id = "ReShift" })
+                            <span id="Shift" class="text-danger"></span>
+
                         </td>
 
 
@@ -65,14 +68,20 @@
                     },
                     new { @class = "form-control", id = "daynight" }
                     )
+                            <span id="DayNight" class="text-danger"></span>
+
                         </td>
                         <td>
                             @Html.TextBox("Name", item.Name, new { @class = "form-control", type = "text", id = "name" })
+                            <span id="Name" class="text-danger"></span>
+
 
                         </td>
                         <td>
                             @Html.TextBox("Comments", item.Comments, new { @class = "form-control", type = "text", id = "comment" })
-                            @Html.HiddenFor(modelItem => item.Id, new { id = "rid" })
+                            @Html.HiddenFor(modelItem => item.Id, new {@class = "form-control rid" ,id = "rid" })
+                            @Html.HiddenFor(modelItem => item.ActivityId, new { @class = "form-control", id = "activityid" })
+                            <span id="Comments" class="text-danger"></span>
 
                         </td>
                         <td>
@@ -107,6 +116,8 @@
                     },
                     new { @class = "form-control", id = "type" }
                     )
+                        <span id="ResourceType" class="text-danger"></span>
+
                     </td>
 
                     <td>
@@ -121,7 +132,9 @@
                     new SelectListItem { Text = "Shift 6", Value = "Shift 6" },
                     new SelectListItem { Text = "Shift 7", Value = "Shift 7" },
                     new SelectListItem { Text = "Shift 8", Value = "Shift 8" }
-                    }, new { @class = "form-control", id = "Shift" })
+                    }, new { @class = "form-control", id = "ReShift" })
+                        <span id="Shift" class="text-danger"></span>
+
                     </td>
                     <td>
                         @Html.DropDownList("DayNight", new List<SelectListItem>
@@ -132,16 +145,20 @@
                     },
                     new { @class = "form-control", id = "daynight" }
                     )
+                        <span id="DayNight" class="text-danger"></span>
+
                     </td>
                     <td>
                         @Html.TextBox("Name", null, new { @class = "form-control", type = "text", id = "name" })
+                        <span id="Name" class="text-danger"></span>
                     </td>
                     <td>
                         @Html.TextBox("Comments",null, new { @class = "form-control", type = "text", id = "comment" })
+                        <span id="Comments" class="text-danger"></span>
 
 
 
-                        <input type="hidden" id="rid" value="0" />
+                        <input type="hidden" class="rid" name="rid" id="rid" value="0" />
                         @Html.Hidden("Id", null, new { id = "activityid" })
                     </td>
                     <td><input type="button" value="Add New Row" onclick="addRow(this)" class="btn btn-primary btn-primary" /> </td>

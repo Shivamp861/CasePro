@@ -37,7 +37,7 @@
                         </td>
                         <td>
                             @Html.TextBox("SummaryOfWorks", item.SummaryOfWorks, new { @class = "form-control", type = "text", id = "Summaryforproduct" })
-                            <span id="SummaryError" class="text-danger"></span>
+                            <span id="SummaryOfWorksError" class="text-danger"></span>
                             @Html.HiddenFor(modelItem => item.Id, new { @class = "form-control pid", id = "pid" })
                             @Html.HiddenFor(modelItem => item.ActivityId, new { @class = "form-control", id = "activityid" })
                         </td>
@@ -75,7 +75,7 @@
                     </td>
                     <td>
                         @Html.TextBox("SummaryOfWorks", null, new { @class = "form-control", type = "text", id = "Summaryforproduct" })
-                        <span id="SummaryError" class="text-danger"></span>
+                        <span id="SummaryOfWorksError" class="text-danger"></span>
                         <input type="hidden" class="pid" name="pid" id="pid" value="0" />
                         @Html.Hidden("Id", null, new { id = "activityid" })
                     </td>
