@@ -2,21 +2,59 @@
 @*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
+<style>
+    .donepopup {
+        border: 1px solid #00a65a;
+        padding: 15px 20px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: #00a65a;
+        color: #fff;
+    }
+
+
+    .errorpopup {
+        border: 1px solid red;
+        padding: 15px 20px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: red;
+        color: #fff;
+    }
+
+    .panel-heading p {
+        margin: 0;
+    }
+
+
+    .panel-default > .panel-heading {
+        position: relative;
+    }
+</style>
 @if (Model.Type == "Site Installation" || Model.Type == "Site Uplift")
 {
-
+    
     <div class="panel panel-default siteInstallation">
         <div class="panel-heading">
+
             <h4> Site Installation</h4>
-           @*  <b>
-                (Developer info only - This section will display only if Job Card ->ActivityType selected value will be site installation or Site uplift)
-            </b> *@
+            <div id="sitesuccessmessage" class="donepopup" style="display:none">
+                <p>Site Installation successfully saved</p>
+            </div>
+            <div id="sitesuccessupdatemessage" class="donepopup" style="display:none">
+                <p>Site Installation successfully Updated</p>
+            </div>
+            <div id="siteerrormessage" class="errorpopup" style="display:none">
+                <p>Error while saving data </p>
+            </div>
         </div>
         <div class="panel-body">
             <div class="row">
                 <div class="col-sm-6 col-md-3">
                     <div class="form-group clearfix">
-                        <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+                        <input type="hidden" id="Id" class="sid1" name="Id" value="@Model.Id" />
                         @Html.HiddenFor(model => model.ActivityId, new { @class = "form-control", id="activityid"})
                         <label for="sitemeetingDate">Meeting site:</label>
                         @Html.TextBoxFor(x => x.MeetingSite, new { @class = "form-control", id="sitemeetingDate"})
@@ -212,16 +250,23 @@ else if (Model.Type == "Yard Loading")
     <div class="panel panel-default ">
         <div class="panel-heading">
             <h4> Yard loading</h4>
-            @* <b>
-                (Developer info only - This section will display only if Job Card ->ActivityType selected value will be Yard loading )
-            </b> *@
+
+            <div id="loadsuccessmessage" class="donepopup" style="display:none">
+                <p>Yard Loading successfully saved</p>
+            </div>
+            <div id="loadesuccessupdatemessage" class="donepopup" style="display:none">
+                <p>Yard Loading successfully Updated</p>
+            </div>
+            <div id="loaderrormessage" class="errorpopup" style="display:none">
+                <p>Error while saving data </p>
+            </div>
         </div>
         <div class="panel-body yardLoading">
 
             <div class="row">
                 <div class="col-sm-6 col-md-3">
                     <div class="form-group clearfix">
-                        <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+                        <input type="hidden" id="Id" class="ylid" name="Id" value="@Model.Id" />
                         @Html.HiddenFor(model => model.ActivityId, new { @class = "form-control", id="activityid"})
                         <label for="bstartfinishTime">Start & finish Time:</label>
                         @Html.TextBoxFor(x => x.Startandfinishtime, new { @class = "form-control", id="bstartfinishTime"})
@@ -516,16 +561,22 @@ else if (Model.Type == "Yard Tipping")
     <div class="panel panel-default ">
         <div class="panel-heading">
             <h4> Yard Tipping</h4>
-            <b>
-                (Developer info only - This section will display only if Job Card ->ActivityType selected value will be Yard Tipping )
-            </b>
+            <div id="tipsuccessmessage" class="donepopup" style="display:none">
+                <p>Yard Tipping successfully saved</p>
+            </div>
+            <div id="tipesuccessupdatemessage" class="donepopup" style="display:none">
+                <p>Yard Tipping successfully Updated</p>
+            </div>
+            <div id="tiperrormessage" class="errorpopup" style="display:none">
+                <p>Error while saving data </p>
+            </div>
         </div>
         <form method="post" action="/Activity/SaveDataactivitydetails" enctype="multipart/form-data">
             <div class="panel-body yardTipping">
                 <div class="row">
                     <div class="col-sm-6 col-md-3">
                         <div class="form-group clearfix">
-                            <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+                            <input type="hidden" id="Id" class="ytid" name="Id" value="@Model.Id" />
                             @Html.HiddenFor(model => model.ActivityId, new { @class = "form-control", id="activityid"})
                             @Html.HiddenFor(model => model.ActivityId, new { @class = "form-control", id="activityid"})
                             <label for="bstartfinishTime">Start & finish Time:</label>

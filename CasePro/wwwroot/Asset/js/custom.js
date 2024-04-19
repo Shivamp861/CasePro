@@ -59,7 +59,7 @@ $('.yardTipping').on('blur', 'input, select,textarea,button', function (e) {
         BarrierConditionChecks: $('#txtbarriercondition').val(),
         AllRelevantActivityRams: $('#txtAllrelevant').val(),
         ActivityId: actid || 0,
-        Id: $('#Id').val(),
+        Id: $('.ytid').val(),
         // Add other form fields here
     };
 
@@ -136,16 +136,32 @@ $('.yardTipping').on('blur', 'input, select,textarea,button', function (e) {
             data: formData,
             success: function (response) {
                 if (response.success) {
-                    alert(response.errorMessage); // or response.message if you want to display a message
-                    window.location.href = '/Activity/CreateActivity/' + response.activityId;
+                    if ($('.ytid').val() != 0) {
+                        $('#tipesuccessupdatemessage').fadeIn(function () {
+                            // Once message is fully displayed, redirect after a delay
+                            setTimeout(function () {
+                                window.location.href = '/Activity/CreateActivity/' + response.activityId;
+                            }, 2000); // Adjust delay time as needed (in milliseconds)
+                        });
+                    } else {
+                        $('#tipsuccessmessage').fadeIn(function () {
+                            // Once message is fully displayed, redirect after a delay
+                            setTimeout(function () {
+                                window.location.href = '/Activity/CreateActivity/' + response.activityId;
+                            }, 2000); // Adjust delay time as needed (in milliseconds)
+                        });
+                    }
                 }
             },
             error: function (xhr, status, error) {
-                console.error('error saving data:', error);
+                $('#tiperrormessage').fadeIn().delay(2000).fadeOut();
             }
         });
     }
 });
+
+
+
 
 $(document).ready(function () {
     var isDropdownOrTextboxFocused = false;
@@ -620,7 +636,110 @@ function addsignoff(button) {
 
 
 }
+//$(document).ready(function () {
+//    var isDropdownOrTextboxFocused = false;
 
+//    $('.siteInstallation').on('focus', 'input, select,textarea,button', function () {
+//        isDropdownOrTextboxFocused = true;
+//    });
+//    $('.siteInstallation').on('blur', 'input, select,textarea,button', function (e) {
+//        debugger;
+//        const target = e.target || e.srcElement;
+
+//        // Check if the target element or any of its ancestors is the file input
+//        if (target.id === 'fileInput' || $(target).closest('#fileInput').length > 0) {
+//            return; // Do nothing if the file input or its child elements triggered the event
+//        }
+//        var $currentRow = $(this).closest('.row');
+//        var aid = $('#activityid').val();
+
+//        if (!aid) {
+//            alert("Please fill basic details");
+//            return;
+//        }
+//        clearValidationErrors($currentRow);
+//        var isValid = validateInputFields($currentRow);
+//        if (isValid && !isDropdownOrTextboxFocused) {
+
+//            var Siteformdata = {
+//                MeetingSite: $currentRow.find('input[name="MeetingSite"]').val(),
+//                LabourSupplier: $currentRow.find('input[name="MeetingSite"]').val(),
+//                SupplierContact: $currentRow.find('input[name="MeetingSite"]').val(),
+//                NoOfPersoneSupplied: $currentRow.find('input[name="MeetingSite"]').val(),
+//                BarrierType: $currentRow.find('input[name="MeetingSite"]').val(),
+//                BarrierQty: $currentRow.find('input[name="MeetingSite"]').val(),
+//                BarrierStartAndFinishLocation: $currentRow.find('input[name="MeetingSite"]').val(),
+//                BarrierPerformance: $currentRow.find('input[name="MeetingSite"]').val(),
+//                LengthOfRuns: $currentRow.find('input[name="MeetingSite"]').val(),
+//                AnchoringDetails: $currentRow.find('input[name="MeetingSite"]').val(),
+//                Isapermittobreakgroundrequired: $currentRow.find('input[name="MeetingSite"]').val(),
+//                ChainLiftingequipmenttobeused: $currentRow.find('input[name="MeetingSite"]').val(),
+//                IncidentReporting: $currentRow.find('input[name="MeetingSite"]').val(),
+//                OtherResourcesEquipmentUsed: $currentRow.find('input[name="MeetingSite"]').val(),
+//                AllRelevantActivityRams: $currentRow.find('input[name="MeetingSite"]').val(),
+//                AnySpecialInstructions: $currentRow.find('input[name="MeetingSite"]').val(),
+//                ActivityId: actid,
+//                Id: $('#Id').val(),
+
+//                // Add other form fields here
+//            };
+
+//            var formData = new FormData();
+//            // Append all files selected to the formData
+
+//            if (filesInput.files.length > 0) {
+//                for (var i = 0; i < filesInput.files.length; i++) {
+//                    formData.append('SiteImages', filesInput.files[i]);
+//                }
+//            }
+
+//            $.ajax({
+//                url: '/activity/SaveDataactivitydetails',
+//                method: 'post',
+//                processData: false, // Prevent jQuery from processing the data
+//                contentType: false, // Prevent jQuery from setting contentType
+//                data: formData,
+//                success: function (response) {
+//                    if (response.success) {
+//                        alert(response.errorMessage); // or response.message if you want to display a message
+//                        window.location.href = '/Activity/CreateActivity/' + response.activityId;
+//                    }
+//                },
+//                error: function (xhr, status, error) {
+//                    console.error('error saving data:', error);
+//                }
+//            });
+//        }
+//    });
+
+//    $('.siteInstallation').on('click', function () {
+//        isDropdownOrTextboxFocused = false;
+//        $('.text-danger').empty();
+//    });
+
+//    function clearValidationErrors($row) {
+//        $row.find('.text-danger').empty();
+//    }
+
+//    function validateInputFields($row) {
+//        var isValid = true;
+
+//        $row.find('input[name="MeetingSite"], input[name="LabourSupplier"],input[name="SupplierContact"],input[name="NoOfPersoneSupplied"] ,input[name="BarrierQty"],input[name="BarrierStartAndFinishLocation"],input[name="BarrierPerformance"],input[name="LengthOfRuns"],input[name="AnchoringDetails"],input[name="IncidentReporting"],select,textarea').each(function () {
+//            var $input = $(this);
+//            var fieldName = $input.attr('name');
+//            var fieldValue = $input.val();
+
+//            if (!fieldValue.trim()) {
+//                isValid = false;
+//                $row.find('#' + fieldName + 'Error').text(fieldName + ' is required');
+//            }
+//        });
+
+//        return isValid;
+//    }
+
+
+//});
 
 $('.siteInstallation').on('blur', 'input, select,textarea,button', function (e) {
 
@@ -645,9 +764,8 @@ $('.siteInstallation').on('blur', 'input, select,textarea,button', function (e) 
         }
     }
     var isValid = true;
-    //if ($(this).is('#fileInput')) {
-    //    fileInputValue = $('#fileInput')[0].files[0];
-    //}
+
+  
     var Siteformdata = {
         MeetingSite: $('#sitemeetingDate').val(),
         LabourSupplier: $('#sitelabourSupplier').val(),
@@ -666,7 +784,7 @@ $('.siteInstallation').on('blur', 'input, select,textarea,button', function (e) 
         AllRelevantActivityRams: $('#txtrelevantactivity').val(),
         AnySpecialInstructions: $('#txtspecialinstruction').val(),
         ActivityId: actid,
-        Id: $('#Id').val(),
+        Id: $('.sid1').val(),
 
         // Add other form fields here
     };
@@ -817,6 +935,7 @@ $('.siteInstallation').on('blur', 'input, select,textarea,button', function (e) 
         $.each(Siteformdata, function (key, value) {
             formData.append('Sitedata.' + key, value);
         });
+        
 
         $.ajax({
             url: '/activity/SaveDataactivitydetails',
@@ -826,12 +945,25 @@ $('.siteInstallation').on('blur', 'input, select,textarea,button', function (e) 
             data: formData,
             success: function (response) {
                 if (response.success) {
-                    alert(response.errorMessage); // or response.message if you want to display a message
-                    window.location.href = '/Activity/CreateActivity/' + response.activityId;
+                    if ($('.sid1').val() != 0) {
+                        $('#sitesuccessupdatemessage').fadeIn(function () {
+                            // Once message is fully displayed, redirect after a delay
+                            setTimeout(function () {
+                                window.location.href = '/Activity/CreateActivity/' + response.activityId;
+                            }, 2000); // Adjust delay time as needed (in milliseconds)
+                        });
+                    } else {
+                        $('#sitesuccessmessage').fadeIn(function () {
+                            // Once message is fully displayed, redirect after a delay
+                            setTimeout(function () {
+                                window.location.href = '/Activity/CreateActivity/' + response.activityId;
+                            }, 2000); // Adjust delay time as needed (in milliseconds)
+                        });
+                    }
                 }
             },
             error: function (xhr, status, error) {
-                console.error('error saving data:', error);
+                $('#siteerrormessage').fadeIn().delay(2000).fadeOut();
             }
         });
     }
@@ -863,7 +995,9 @@ $(document).on('blur', '#content1 .panel-default.customer input:not(.add-custome
     var $currentRow = $(this).closest('.original-row'); // Corrected selector
     var aid = $('#activityid').val();
     if (aid == null || aid == '') {
-        alert("Please fill basic details");
+        $currentRow.find('#customerNameError').text('Please fill basic details');
+        $currentRow.find('#contactNoError').text('Please fill basic details');
+
         return;
     }
     $currentRow.find('.text-danger').empty();
@@ -881,7 +1015,7 @@ $(document).on('blur', '#content1 .panel-default.customer input:not(.add-custome
     }
     if (!ContactNo || !ContactNo.trim()) { // Check for null or empty string
         isValid = false;
-        $currentRow.find('#contactNoError').text('Contact No is required'); // Corrected selector
+        $currentRow.find('#contactNoError').text('Customer No is required'); // Corrected selector
     }
 
     if (isValid) {
@@ -1446,7 +1580,7 @@ $('.yardLoading').on('blur', 'input, select,textarea,button', function (e) {
         BarrierConditionChecks: $('#conditions').val(),
         AllRelevantActivityRams: $('#Rams').val(),
         ActivityId: actid,
-        Id: $('#Id').val(),
+        Id: $('.ylid').val()
 
         // Add other form fields here
     };
@@ -1554,13 +1688,25 @@ $('.yardLoading').on('blur', 'input, select,textarea,button', function (e) {
             data: formData,
             success: function (response) {
                 if (response.success) {
-                    //alert('Data saved successfully.');
-                    alert(response.errorMessage); // or response.message if you want to display a message
-                    window.location.href = '/Activity/CreateActivity/' + response.activityId;
+                    if ($('.ylid').val() != 0) {
+                        $('#loadesuccessupdatemessage').fadeIn(function () {
+                            // Once message is fully displayed, redirect after a delay
+                            setTimeout(function () {
+                                window.location.href = '/Activity/CreateActivity/' + response.activityId;
+                            }, 2000); // Adjust delay time as needed (in milliseconds)
+                        });
+                    } else {
+                        $('#loadsuccessmessage').fadeIn(function () {
+                            // Once message is fully displayed, redirect after a delay
+                            setTimeout(function () {
+                                window.location.href = '/Activity/CreateActivity/' + response.activityId;
+                            }, 2000); // Adjust delay time as needed (in milliseconds)
+                        });
+                    }
                 }
             },
             error: function (xhr, status, error) {
-                console.error('error saving data:', error);
+                $('#loaderrormessage').fadeIn().delay(2000).fadeOut();
             }
         });
     }
