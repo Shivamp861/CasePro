@@ -95,7 +95,7 @@
                     <tr>
                         <td>@item.Id</td>
                         <td>@item.Name</td>
-                        <td>@item.Date</td>
+                        <td>@(item.Date.HasValue ? item.Date.Value.ToString("yyyy-MM-dd") : "No date")</td>
                         <td>@item.HasSubmitted</td>
                     </tr>
                 }

@@ -1007,7 +1007,11 @@ $(document).on('blur', '#content1 .panel-default.customer input:not(.add-custome
     var CustomerName = $('.customer-name').eq(index).val(); // Use eq(index) to get the value of specific row
     var ContactNo = $('.contact-no').eq(index).val(); // Use eq(index) to get the value of specific row
     var custid = $('.custid').eq(index).val(); 
-
+    // Validate Contact Number
+    if (!/^\d{10}$/.test(ContactNo.trim())) {
+        isValid = false;
+        $currentRow.find('#contactNoError').text('Contact number must be a 10-digit number');
+    }
 
     if (!CustomerName || !CustomerName.trim()) { // Check for null or empty string
         isValid = false;
@@ -1096,6 +1100,7 @@ function addCustRow(button) {
 
 function Savedate() {
     var isValid = true;
+
 
     if (!$('#Customer').val()) {
         $('#customerOrderNumberError').text('Customer Order Number is required.');

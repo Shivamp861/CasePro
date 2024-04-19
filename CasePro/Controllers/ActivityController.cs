@@ -324,7 +324,7 @@ namespace CasePro.Controllers
         public IActionResult SaveNote(JobCard jobcard)
         {
 
-            if (jobcard != null)
+            if (jobcard != null && jobcard.Notes != null)
             {
                 var noteresponse = _notescommandhandler.Create(jobcard);
                 if (noteresponse.IsSuccess)
@@ -340,6 +340,7 @@ namespace CasePro.Controllers
             } 
             else
             {
+                TempData["SuccessMessage"] = "Please fill up the notes";
                 return RedirectToAction("CreateActivity", "Activity", new { id = jobcard.ActivityId });
             }
 
