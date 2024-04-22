@@ -117,7 +117,8 @@
 	function CloneActivity(activityId) {
 
 		// Send an AJAX request to the controller action
-		window.location.href = '/Activity/CreateActivity/' + activityId;
+		var flag = true;
+		window.location.href = '/Activity/CreateActivity/' + activityId + '?flag=' + flag.toString();
 	}
     
 		function deleteActivity(activityId) {

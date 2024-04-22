@@ -1099,7 +1099,34 @@ function addCustRow(button) {
 }
 
 function Savedate() {
+
     var isValid = true;
+    var flagValue = null;
+    var currentUrl = window.location.href;
+    var urlParts = currentUrl.split('?');
+    var queryParamsPart = urlParts[1];
+    // Check if queryParamsPart exists and is not empty
+    if (queryParamsPart) {
+        // Split the query parameters into an array
+        var queryParams = queryParamsPart.split('&');
+
+        // Initialize a variable to store the value of the "flag" parameter
+        
+
+        // Loop through each parameter to find the "flag" parameter
+        for (var i = 0; i < queryParams.length; i++) {
+            var param = queryParams[i].split('=');
+            // Check if the parameter name is "flag"
+            if (param[0] === "flag") {
+                // Store the value of the "flag" parameter
+                flagValue = param[1];
+                break; // Exit the loop once "flag" parameter is found
+            }
+        }
+
+        // Output the value of the "flag" parameter to the console
+        console.log(flagValue);
+    }
 
 
     if (!$('#Customer').val()) {
@@ -1184,14 +1211,14 @@ function Savedate() {
             SiteAddress: $('#SiteAddress').val(),
             OutofhoursEmrgContact: $('#OutofHours').val(),
             NearestAE: $('#Nearest').val(),
-
+            flag : flagValue
         };
 
         $.ajax({
 
             url: '/activity/Savejobcard',
             method: 'post',
-            data: formdata,
+            data: formdata ,
             success: function (response) {
                 if (response.success) {
                     document.getElementById("id").value = response.activityId;

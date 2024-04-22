@@ -53,7 +53,39 @@ namespace Domaincasepro.Commands
             }
         }
 
-        public ActivityTable Updateactivitystatus(string status, int activityId)
+		public ActivityResponseModel cloneActivity(JobCard activityRequest)
+		{
+			try
+			{
+               
+				ActivityTable activityEntity = MapToEntity(activityRequest);
+				(ActivityTable addedActivity,int flag) = _repo.CloneAddOrUpdateActivity(activityEntity);
+
+				if (addedActivity != null)
+				{
+					if (flag == 1)
+					{
+						return ActivityResponseFactory.Create(true, "Activity Added successfully", addedActivity.Id, addedActivity.ActivitType);
+					}
+					else
+					{
+						return ActivityResponseFactory.Create(true, "Activity Updated successfully", addedActivity.Id, addedActivity.ActivitType);
+					}
+
+				}
+				else
+				{
+					// Something went wrong while adding the activity
+					return ActivityResponseFactory.Create(false, "Failed to add activity", 0, "");
+				}
+			}
+			catch (Exception ex)
+			{
+				throw new Exception("An error occurred while adding activity: " + ex.Message);
+			}
+		}
+
+		public ActivityTable Updateactivitystatus(string status, int activityId)
         {
             var updatestatus = _repo.updateactivitystatus(status, activityId);
             return updatestatus;
@@ -76,6 +108,7 @@ namespace Domaincasepro.Commands
                 ActivitType = requestModel.ActivityType,
                 Id = requestModel.ActivityId,
                 ActivityStatus = "Active",
+                
 
             };
         }

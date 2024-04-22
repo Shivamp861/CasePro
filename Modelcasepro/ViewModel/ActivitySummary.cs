@@ -19,6 +19,8 @@ namespace Modelcasepro.ViewModel
         public string Type { get; set; }
         public string BarrierType { get; set; }
         public string? BarrierQuntity { get; set; }
+        public string? MeetingSite { get; set; }
+
 
     }
     public class Trailerdetails

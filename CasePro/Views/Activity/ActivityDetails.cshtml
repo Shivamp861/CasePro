@@ -32,6 +32,62 @@
     .panel-default > .panel-heading {
         position: relative;
     }
+
+    .our_img {
+        display: inline-block;
+        grid-gap: 20px;
+        align-items: center;
+        flex-wrap: wrap;
+        column-count: 12;
+    }
+
+
+
+    .images_blog1 img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .Installation {
+        margin-top: 20px;
+    }
+
+    .loading{
+        margin-top: 20px;
+    }
+
+    .Tipping {
+        margin-top: 20px;
+    
+    }
+
+    .images_blog1 {
+        height: 100px;
+        width: 100px;
+        margin-bottom: 30px;
+    }
+
+    .our_thumbnails_img {
+        display: inline-flex;
+       
+        object-fit: cover;
+    }
+
+        .our_thumbnails_img img {
+            object-fit: cover;
+        }
+
+    .thumbnail {
+        height: 70px;
+    }
+
+    .our_thumbnails_img {
+        display: inline-flex;
+        object-fit: cover;
+        flex-wrap: wrap;
+        column-count: 8;
+    }
+
 </style>
 @if (Model.Type == "Site Installation" || Model.Type == "Site Uplift")
 {
@@ -221,26 +277,32 @@
             </div>
             <!--end row4-->
             <div class="row">
-                <div class="col-sm-6 col-md-3">
+                <div class="col-sm-12">
                     <div class="form-group clearfix">
                         @Html.Label("permitreq", "Site/Layout drawings/ site images :")
+                        <div class="our_img">
                         @if (Model.activityImages.Count > 0)
                         {
                             for (int i = 0; i < Model.activityImages.Count; i++)
                             {
-                                <div>
+                                <div class="images_blog1">
                                     <img src="@Model.activityImages[i].UploadPath" alt="Display" id="UploadPath" style="max-width: 100px; max-height: 100px;" />
                                     @Html.HiddenFor(model => model.activityImages[i].Imgid)
                                     @Html.HiddenFor(model => model.activityImages[i].UploadPath)
                                 </div>
                             }
                         }
+                        </div>
                         @Html.TextBoxFor(Model => Model.UploadPath, new { @class = "form-control-file Installation", type = "file", id = "fileInput",name = "SiteImages[]", @multiple = "multiple",onchange="displayThumbnails(event)"})
                         <span id="fileInputError" class="text-danger fileError"></span>
                         @Html.HiddenFor(model => model.Imgid, new { @class = "form-control", id="Imgid"})
                     </div>
                 </div>
-                <div id="thumbnails" style="display:flex;"></div>
+                </div>
+                <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="our_thumbnails_img" id="thumbnails"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -339,22 +401,24 @@ else if (Model.Type == "Yard Loading")
             </div>
             <!--end row4-->
             <div class="row">
-                <div class="col-sm-6 col-md-3">
+                <div class="col-sm-12">
                     
                     <div class="form-group clearfix">
                         <div class="form-group clearfix">
                             @Html.Label("permitreq", "Site/Layout drawings/ site images :")
+                            <div class="our_img">
                             @if (Model.activityImages.Count > 0)
                             {
                                 for (int i = 0; i < Model.activityImages.Count; i++)
                                 {
-                                    <div>
+                                        <div class="images_blog1">
                                         <img src="@Model.activityImages[i].UploadPath" alt="Display" id="UploadPath" style="max-width: 100px; max-height: 100px;" />
                                         @Html.HiddenFor(model => model.activityImages[i].Imgid)
                                         @Html.HiddenFor(model => model.activityImages[i].UploadPath)
                                     </div>
                                 }
                             }
+                            </div>
                             @Html.TextBoxFor(Model => Model.UploadPath, new { @class = "form-control-file loading", type = "file", id = "fileInputloding",name = "SiteImages[]", @multiple = "multiple",onchange="displayThumbnails(event)"})
 
                             <span id="fileInputlError" class="text-danger fileError"></span>
@@ -362,9 +426,14 @@ else if (Model.Type == "Yard Loading")
                         </div>
                     </div>
                 </div>
-                <div id="thumbnails" style="display:flex;"></div>
-            </div>
 
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div id="thumbnails" class="our_thumbnails_img" style="display:flex;"></div>
+
+                </div>
+            </div>
         </div> <div class="panel panel-default">
             <div class="panel-heading">
                 Trailer load details
@@ -652,29 +721,39 @@ else if (Model.Type == "Yard Tipping")
                 </div>
                 <!--end row4-->
                 <div class="row">
-                    <div class="col-sm-6 col-md-3">
+
+                    <div class="col-sm-12">
                         <div class="form-group clearfix">
+                            <div class="form-group clearfix">
                             @Html.Label("permitreq", "Site/Layout drawings/ site images :")
+                            <div class="our_img">
                             @if (Model.activityImages.Count > 0)
                             {
+                               
                                 for (int i = 0; i < Model.activityImages.Count; i++)
                                 {
-                                    <div>
+                                    <div class="images_blog1">
                                         <img src="@Model.activityImages[i].UploadPath" alt="Display" id="UploadPath" style="max-width: 100px; max-height: 100px;" />
                                         @Html.HiddenFor(model => model.activityImages[i].Imgid)
                                         @Html.HiddenFor(model => model.activityImages[i].UploadPath)
                                     </div>
                                 }
+                               
                             }
+                            </div>
                             @Html.TextBoxFor(Model => Model.UploadPath, new { @class = "form-control-file Tipping", type = "file", id = "fileInputyard", name = "SiteImages[]", @multiple = "multiple",onchange="displayThumbnails(event)"})
                             <span id="yardfileInputyardError" class="text-danger fileError"></span>
                             @Html.HiddenFor(model => model.Imgid, new { @class = "form-control", id="Imgid"})
                         </div>
                     </div>
-                    <div id="thumbnails" style="display:flex;"></div>
                 </div>
-
             </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <div id="thumbnails" class="our_thumbnails_img" style="display:flex;"></div>
+
+                    </div>
+                </div>
         </form>
         <div class="panel panel-default trailer-tipping-details">
             <div class="panel-heading">
@@ -795,6 +874,621 @@ else if (Model.Type == "Yard Tipping")
         </div>
 
     </div>
+}else
+{
+
+        <!--Section Site Installation-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4> Site Installation</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group clearfix">
+                            <label for="sitemeetingDate">Meeting site:</label>
+                            <input type="text" class="form-control" id="sitemeetingDate">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group clearfix">
+                            <label for="sitelabourSupplier">Labour Supplier:</label>
+                            <input type="text" class="form-control" id="sitelabourSupplier">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group clearfix">
+                            <label for="sitesupplierContact">Supplier Contact:</label>
+                            <input type="text" class="form-control" id="sitesupplierContact">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group clearfix">
+                            <label for="Numberofpersons">Number or persons supplied:</label>
+                            <input type="number" class="form-control" id="Numberofpersons">
+                        </div>
+                    </div>
+                </div>
+                <!--row2-->
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group clearfix">
+                            <label for="btype">Barrier Type :</label>
+                            <select class="form-control" id="btype">
+                                <option>Barrier 1</option>
+                                <option>Barrier 2</option>
+                                <option>Barrier 3</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group clearfix">
+                            <label for="quantity">Quantity of installed Barriers:</label>
+                            <input type="number" class="form-control" id="quantity">
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group clearfix">
+                            <label for="blocations">Barrier start and finish location:</label>
+                            <input type="text" class="form-control" id="blocations">
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group clearfix">
+                            <label for="bPerformance">Barrier Performance :</label>
+                            <input type="text" class="form-control" id="bPerformance" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group clearfix">
+                            <label for="blength">Length of runs:</label>
+                            <input type="text" class="form-control" id="blength">
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group clearfix">
+                            <label for="quantity">Anchoring details:</label>
+                            <input type="text" class="form-control" id="quantity">
+                        </div>
+                    </div>
+                </div>
+                <!--end row2-->
+                <!--row3-->
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group clearfix">
+                            <label for="permitreq">Is a permit to break ground required :</label>
+                            <select class="form-control" id="permitreq">
+                                <option>Yes</option>
+                                <option>No</option>
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group clearfix">
+                            <label for="permitreq">
+                                Chain / lifting equipment to be used
+                                :
+                            </label>
+                            <select class="form-control" id="permitreq">
+                                <option>Yes</option>
+                                <option>No</option>
+
+                            </select>
+                        </div>
+
+
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group clearfix">
+                            <label for="Incidentreporting">Incident reporting:</label>
+                            <input type="text" class="form-control" id="Incidentreporting">
+                        </div>
+                    </div>
+                </div>
+                <!--end row3-->
+                <!--row4-->
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group clearfix">
+                            <label for="blocations">Other resources / equipment used:</label>
+                            <textarea class="form-control" id="special" rows="5" cols="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group clearfix">
+                            <label for="special">
+                                Any special instructions / site restrictions / specific PPE
+                                :
+                            </label>
+                            <textarea class="form-control" id="special" rows="5" cols="5"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-24 col-md-12">
+                        <div class="form-group clearfix">
+                            <label for="blocations">All relevant activity RAMS, lift plans and SSOW:</label>
+                            <textarea class="form-control" id="special" rows="5" cols="10"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <!--end row4-->
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group clearfix">
+                            <label for="permitreq">Site/Layout drawings/ site images :</label>
+                            <input type="file" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End div-->
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4> Yard loading</h4>
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group clearfix">
+                            <label for="bstartfinishTime">Start & finish Time:</label>
+                            <input type="text" class="form-control" id="bstartfinishTime" />
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group clearfix">
+                            <label for="blifting">Lifting equipment used:</label>
+                            <input type="text" class="form-control" id="blifting">
+                        </div>
+                    </div>
+
+                </div>
+                <!--end row2-->
+                <!--row3-->
+                <div class="row">
+
+
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group clearfix">
+                            <label for="permitreq">
+                                Chain / lifting equipment to be used
+                                :
+                            </label>
+                            <input type="text" class="form-control" id="lifteq">
+                        </div>
+
+
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group clearfix">
+                            <label for="Incidentreporting">Incident reporting:</label>
+                            <input type="text" class="form-control" id="Incidentreporting">
+                        </div>
+                    </div>
+                </div>
+                <!--end row3-->
+                <!--row4-->
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group clearfix">
+                            <label for="blocations">Any Near Miss / N/C / I/O occurrences:</label>
+                            <textarea class="form-control" id="special" rows="5" cols="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group clearfix">
+                            <label for="special">
+                                Barrier condition checks / suitability / damage
+                                :
+                            </label>
+                            <textarea class="form-control" id="special" rows="5" cols="5"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-24 col-md-12">
+                        <div class="form-group clearfix">
+                            <label for="blocations">All relevant activity RAMS, lift plans and SSOW:</label>
+                            <textarea class="form-control" id="special" rows="5" cols="10"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <!--end row4-->
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group clearfix">
+                            <label for="permitreq">Site/Layout drawings/ site images :</label>
+                            <input type="file" />
+                        </div>
+                    </div>
+                </div>
+
+            </div> <div class="panel panel-default">
+                <div class="panel-heading">
+                    Trailer load details
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-3 col-md-2">
+                            <div class="form-group clearfix">
+                                <label for="barrierdateloaded">Barrier loaded date</label>
+                                <input type="text" class="form-control" id="barrierdateloaded">
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-md-2">
+                            <div class="form-group clearfix">
+                                <label for="tsupplier">Trailer supplier</label>
+                                <input type="text" class="form-control" id="tsupplier">
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-md-2">
+                            <div class="form-group clearfix">
+                                <label for="tsupplier">Trailer number</label>
+                                <select class="form-control">
+                                    <option>Trailer 1</option>
+                                    <option>Trailer 2</option>
+                                    <option>Trailer 3</option>
+                                    <option>Trailer 4</option>
+                                    <option>Trailer 5</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-md-2">
+                            <div class="form-group clearfix">
+                                <label for="LabourSupp">Load positioned :</label>
+                                <select class="form-control">
+                                    <option>A</option>
+                                    <option>B</option>
+                                    <option>C</option>
+                                    <option>D</option>
+                                    <option>E</option>
+                                    <option>F</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-md-2">
+                            <div class="form-group clearfix">
+                                <label for="TransportSup">Unit loaded:</label>
+                                <input type="number" class="form-control" id="TransportSup">
+                            </div>
+                        </div>
+
+                    </div>  <div class="row">
+                    </div>
+                    <!------./End Row---->
+                    <div class="row">
+                        <div class="col-sm-3 col-md-2">
+                            <div class="form-group clearfix">
+                                <label for="VehicleReg">Vehicle Reg:</label>
+                                <input type="text" class="form-control" id="VehicleReg">
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-md-2">
+                            <div class="form-group clearfix">
+                                <label for="TrailerFrom">Trailer Depart from:</label>
+                                <input type="text" class="form-control" id="TrailerFrom">
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-md-2">
+                            <div class="form-group clearfix">
+                                <label for="TrailerTo">Trailer Depart to:</label>
+                                <input type="text" class="form-control" id="TrailerTo">
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-md-2">
+                            <div class="form-group clearfix">
+                                <label for="loadedby">Loaded by:</label>
+                                <input type="text" class="form-control" id="loadedby">
+                            </div>
+                        </div> <div class="col-sm-3 col-md-2">
+                            <div class="form-group clearfix" style="margin-top:20px">
+                                <label for="isOutbound">Is Outbound?:</label>
+                                <input type="checkbox" class="form-check-input" id="loadedby" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-md-2">
+                            <div class="form-group clearfix" style="margin-top:25px;">
+
+                                <input type="button" value="Save" class="btn btn-default btn-primary btn-success" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!------./End Panel---->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Trailer Details Out Bound
+                </div>
+                <div class="panel-body">
+                    <div class="clearfix table-responsive">
+                        <table id="TrailerDetails" class="table table-bordered table-default">
+                            <thead>
+                                <tr>
+                                    <th data-field="Id">SL</th>
+                                    <th data-field="Email">Trailer Supplier</th>
+                                    <th data-field="Email">Trailer Number</th>
+                                    <th data-field="Activity Date">Load Quantity</th>
+                                    <th data-field="Submitted">Load at Depot</th>
+                                    <th data-field="View">Depot Depart From</th>
+                                    <th data-field="Submitted">Date to be Loaded</th>
+                                    <th data-field="View">Loaded by</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>HC</td>
+                                    <td>BG001</td>
+                                    <td>204LM-1XCC</td>
+                                    <td>Upton</td>
+                                    <td>Upton</td>
+                                    <td>1/22/2024</td>
+                                    <td>JH-CP</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>HC</td>
+                                    <td>BG001</td>
+                                    <td>204LM-1XCC</td>
+                                    <td>Upton</td>
+                                    <td>Upton</td>
+                                    <td>1/22/2024</td>
+                                    <td>JH-CP</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!------./End Panel---->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Trailer Details Return
+                </div>
+                <div class="panel-body">
+                    <div class="clearfix table-responsive">
+                        <table id="TrailerDetails" class="table table-bordered table-default">
+                            <thead>
+                                <tr>
+                                    <th data-field="Id">SL</th>
+                                    <th data-field="Email">Trailer Supplier</th>
+                                    <th data-field="Email">Trailer Number</th>
+                                    <th data-field="Activity Date">Load Quantity</th>
+                                    <th data-field="Submitted">Depot</th>
+                                    <th data-field="View">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>HC</td>
+                                    <td>BG001</td>
+                                    <td>0</td>
+                                    <td>Upton</td>
+                                    <td>1/22/2024</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>HC</td>
+                                    <td>BG001</td>
+                                    <td>0</td>
+                                    <td>Upton</td>
+                                    <td>1/22/2024</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4> Yard Tipping</h4>
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group clearfix">
+                            <label for="bstartfinishTime">Start & finish Time:</label>
+                            <input type="text" class="form-control" id="bstartfinishTime" />
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group clearfix">
+                            <label for="blifting">Lifting equipment used:</label>
+                            <input type="text" class="form-control" id="blifting">
+                        </div>
+                    </div>
+
+                </div>
+                <!--end row2-->
+                <!--row3-->
+                <div class="row">
+
+
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group clearfix">
+                            <label for="permitreq">
+                                Chain / lifting equipment to be used
+                                :
+                            </label>
+                            <input type="text" class="form-control" id="lifteq">
+                        </div>
+
+
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group clearfix">
+                            <label for="Incidentreporting">Incident reporting:</label>
+                            <input type="text" class="form-control" id="Incidentreporting">
+                        </div>
+                    </div>
+                </div>
+                <!--end row3-->
+                <!--row4-->
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group clearfix">
+                            <label for="blocations">Any Near Miss / N/C / I/O occurrences:</label>
+                            <textarea class="form-control" id="special" rows="5" cols="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group clearfix">
+                            <label for="special">
+                                Barrier condition checks / suitability / damage
+                                :
+                            </label>
+                            <textarea class="form-control" id="special" rows="5" cols="5"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-24 col-md-12">
+                        <div class="form-group clearfix">
+                            <label for="blocations">All relevant activity RAMS, lift plans and SSOW:</label>
+                            <textarea class="form-control" id="special" rows="5" cols="10"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <!--end row4-->
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group clearfix">
+                            <label for="permitreq">Site/Layout drawings/ site images :</label>
+                            <input type="file" />
+                        </div>
+                    </div>
+                </div>
+
+            </div> <div class="panel panel-default">
+                <div class="panel-heading">
+                    Trailer Tipping details
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-3 col-md-2">
+                            <div class="form-group clearfix">
+                                <label for="barrierdateloaded">Tipping date</label>
+                                <input type="text" class="form-control" id="barrierdateloaded">
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-md-2">
+                            <div class="form-group clearfix">
+                                <label for="tsupplier">Trailer supplier</label>
+                                <input type="text" class="form-control" id="tsupplier">
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-md-2">
+                            <div class="form-group clearfix">
+                                <label for="tsupplier">Trailer number</label>
+                                <select class="form-control">
+                                    <option>Trailer 1</option>
+                                    <option>Trailer 2</option>
+                                    <option>Trailer 3</option>
+                                    <option>Trailer 4</option>
+                                    <option>Trailer 5</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 col-md-2">
+                            <div class="form-group clearfix">
+                                <label for="TransportSup">Unit:</label>
+                                <input type="number" class="form-control" id="TransportSup">
+                            </div>
+                        </div>
+
+                    </div>  <div class="row">
+                    </div>
+                    <!------./End Row---->
+                    <div class="row">
+                        <div class="col-sm-3 col-md-2">
+                            <div class="form-group clearfix">
+                                <label for="VehicleReg">Vehicle Reg:</label>
+                                <input type="text" class="form-control" id="VehicleReg">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 col-md-2">
+                            <div class="form-group clearfix">
+                                <label for="TrailerTo">Trailer depot:</label>
+                                <input type="text" class="form-control" id="TrailerTo">
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-md-2">
+                            <div class="form-group clearfix">
+                                <label for="loadedby">Tipped by:</label>
+                                <input type="text" class="form-control" id="loadedby">
+                            </div>
+                        </div> <div class="col-sm-3 col-md-2">
+                        </div>
+                        <div class="col-sm-3 col-md-2">
+                            <div class="form-group clearfix" style="margin-top:25px;">
+
+                                <input type="button" value="Save" class="btn btn-large btn-primary btn-success" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!------./End Panel---->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Trailer Tipped details
+                </div>
+                <div class="panel-body">
+                    <div class="clearfix table-responsive">
+                        <table id="TrailerDetails" class="table table-bordered table-default">
+                            <thead>
+                                <tr>
+                                    <th data-field="Id">SL</th>
+                                    <th data-field="Email">Trailer Supplier</th>
+                                    <th data-field="Email">Trailer Number</th>
+                                    <th data-field="Activity Date">Tipped Quantity</th>
+
+                                    <th data-field="View">Depot Depot From</th>
+
+                                    <th data-field="View">Tipped by</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>HC</td>
+                                    <td>BG001</td>
+                                    <td>204LM-1XCC</td>
+                                    <td>Upton</td>
+
+                                    <td>JH-CP</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
 }
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
