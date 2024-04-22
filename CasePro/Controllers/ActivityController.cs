@@ -64,10 +64,11 @@ namespace CasePro.Controllers
 
         }
 
-        public IActionResult CreateActivity(int id, int? InstructorId = 0)
+        public IActionResult CreateActivity(int id, int? InstructorId = 0, bool flag = false)
         {
             try
             {
+                ViewBag.flag = flag;
                 ViewBag.InstructorId = InstructorId;
                 return View(new Modelcasepro.ViewModel.Activity
                 {
@@ -204,17 +205,35 @@ namespace CasePro.Controllers
             {
                 if (model != null)
                 {
-                    var response = _activityhandler.AddActivity(model);
-
-                    // Check the response and take appropriate action
-                    if (response.IsSuccess)
+                    if (model.flag)
                     {
-                        return Json(new { success = true, activityId = response.ActivityId, activityType = response.ActivityType, errorMessage = response.Message });
+						var response = _activityhandler.cloneActivity(model);
+                        
+                        // Check the response and take appropriate action
+                        if (response.IsSuccess)
+                        {
+                            return Json(new { success = true, activityId = response.ActivityId, activityType = response.ActivityType, errorMessage = response.Message });
+                        }
+                        else
+                        {
+                            return Json(new { success = false, errorMessage = response.Message }); // Or return appropriate error response
+                        }
                     }
                     else
                     {
-                        return Json(new { success = false, errorMessage = response.Message }); // Or return appropriate error response
-                    }
+						var response = _activityhandler.AddActivity(model);
+
+						// Check the response and take appropriate action
+						if (response.IsSuccess)
+						{
+							return Json(new { success = true, activityId = response.ActivityId, activityType = response.ActivityType, errorMessage = response.Message });
+						}
+						else
+						{
+							return Json(new { success = false, errorMessage = response.Message }); // Or return appropriate error response
+						}
+					}
+
                 }
                 else
                 {

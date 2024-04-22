@@ -22,8 +22,10 @@ namespace Modelcasepro.ViewModel
         public string NearestAE { get; set; }
         public string Notes { get; set; }
         public string SiteAddress { get; set; }
+		public bool flag { get; set; }
 
-        public List<CustomerviewModel> customerModel { get; set; }
+
+		public List<CustomerviewModel> customerModel { get; set; }
 
     }
     public class CustomerviewModel
