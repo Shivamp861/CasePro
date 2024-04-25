@@ -91,11 +91,18 @@
 </style>
 @if (Model.Type == "Site Installation" || Model.Type == "Site Uplift")
 {
-    
+
     <div class="panel panel-default siteInstallation">
         <div class="panel-heading">
+            @if (Model.Type == "Site Installation")
+            {
+                <h4> Site Installation</h4>
+            }
+            else
+            {
+                <h4> Site Uplift</h4>
+            }
 
-            <h4> Site Installation</h4>
             <div id="sitesuccessmessage" class="donepopup" style="display:none">
                 <p>Site Installation successfully saved</p>
             </div>
