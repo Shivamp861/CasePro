@@ -100,7 +100,7 @@
 
     </div>
 </div>
-<div class="custtest panel panel-default customer">
+<div class="custtest panel panel-default customer" id="custidfordom">
     <div class="panel-heading">
         Customer details
     </div>
@@ -116,14 +116,14 @@
                             @Html.HiddenFor(model => item.custid, new { @class = "form-control custid", name="custid", id="custid"})
                             <label for="Customer">Customer Name</label>
                             @Html.TextBoxFor(model => item.CustomerName, new { @class = "form-control customer-name",  name="CustomerName", id="CustomerName", type = "text" })
-                            <span class="text-danger validation-error" id="customerNameError"></span>
+                            <span class="text-danger validation-error" id="item.CustomerNameError"></span>
                         </div>
                     </div>
                     <div class="col-sm-4 col-md-4">
                         <div class="form-group clearfix">
                             <label for="ContactNo">Contact Number</label>
                             @Html.TextBoxFor(model => item.ContactNo, new { @class = "form-control contact-no", name="ContactNo", id="ContactNo", type = "text"})
-                            <span class="text-danger validation-error" id="contactNoError"></span>
+                            <span class="text-danger validation-error" id="item.ContactNoError"></span>
                         </div>
                     </div>
                     @if (isFirstRow)
@@ -146,15 +146,15 @@
                     <div class="form-group clearfix">
                         <input type="text" class="form-control custid hidden" name="custid" id="custid">
                         <label for="Customer">Customer Name</label>
-                        <input type="text" class="form-control customer-name" name="CustomerName" id="CustomerName">
-                        <span class="text-danger validation-error" id="customerNameError"></span>
+                        <input type="text" class="form-control customer-name" name="item.CustomerName" id="CustomerName">
+                        <span class="text-danger validation-error" id="item.CustomerNameError"></span>
                     </div>
                 </div>
                 <div class="col-sm-4 col-md-4">
                     <div class="form-group clearfix">
                         <label for="ContactNo">Contact Number</label>
-                        <input type="text" value="" name="ContactNo" class="form-control contact-no" id="ContactNo">
-                        <span class="text-danger validation-error" id="contactNoError"></span>
+                        <input type="text" value="" name="item.ContactNo" class="form-control contact-no" id="ContactNo">
+                        <span class="text-danger validation-error" id="item.ContactNoError"></span>
                     </div>
                 </div>
                 <div class="col-sm-4 col-md-4">
