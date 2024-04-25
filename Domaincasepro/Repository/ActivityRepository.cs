@@ -226,15 +226,18 @@ namespace Domaincasepro.Repository
 		at => at.Activity.ActivityResourcesDetails.DefaultIfEmpty(),
 		(at, res) => new { at.Activity, at.ActivityCustomer, ActivityResourcesDetail = res }
 	)
-	.Select(at => new Activitydetails
+    .Select(at => new Activitydetails
 	{
 		ActivityDate = DateTime.Parse(at.Activity.DateRaised),
 		Type = at.Activity.ActivitType,
-		BarrierType = at.Activity.ActivityDetails.FirstOrDefault().BarrierType,
-		BarrierQuntity = at.Activity.ActivityDetails.FirstOrDefault().BarrierQty,
+		//BarrierType = at.Activity.ActivityDetails.FirstOrDefault().BarrierType,
+		//BarrierQuntity = at.Activity.ActivityDetails.FirstOrDefault().BarrierQty,
 		customer = at.ActivityCustomer.Name,
-		Dayornight = at.ActivityResourcesDetail.DayNight
-	})
+		Dayornight = at.ActivityResourcesDetail.DayNight,
+		SiteAddress = at.Activity.SiteAddress,
+        SummaryOfWorks = at.Activity.ActivityProductDetails.FirstOrDefault().SummaryOfWorks
+
+    })
 	.ToList();
 				// Retrieve activity details
 
@@ -258,12 +261,46 @@ namespace Domaincasepro.Repository
 					}
 				).ToList();
 
+
+				var actid = _context.ActivityTables.Where(x =>x.Id == id).FirstOrDefault();
+				var sitedata = (
+					from Siteinstallations in _context.ActivityDetails.Where(x => x.ActivityId == activity.Id).DefaultIfEmpty()
+					select new Siteinstallation
+					{
+                        LabourSupplier = Siteinstallations != null ? Siteinstallations.LabourSupplier : null,
+                        SupplierContact = Siteinstallations != null ? Siteinstallations.SupplierContact : null,
+                        NoOfPersoneSupplied = Siteinstallations != null ? Siteinstallations.NoOfPersoneSupplied : null,
+                        BarrierType = Siteinstallations != null ? Siteinstallations.BarrierType : null,
+                        BarrierQty = Siteinstallations != null ? Siteinstallations.BarrierQty : null,
+                        BarrierStartAndFinishLocation = Siteinstallations != null ? Siteinstallations.BarrierStartAndFinishLocation : null,
+                    }
+					).ToList();
+
+
+
+
+				var resouresdata = (
+					from ResourseDatas in _context.ActivityResourcesDetails.Where(x => x.ActivityId == activity.Id).DefaultIfEmpty()
+					select new ResourseData
+					{
+						Shift = ResourseDatas != null ? ResourseDatas.Shift : null,
+						Name = ResourseDatas != null ? ResourseDatas.Name : null,
+						DayNight = ResourseDatas != null ? ResourseDatas.DayNight : null,
+						ResourceType = ResourseDatas != null ? ResourseDatas.ResourceType : null,
+						Comments = ResourseDatas != null ? ResourseDatas.Comments : null,
+
+					}
+
+					).ToList();
 				// Create and return the ActivitySummary object
 				return new ActivitySummary
 				{
-					Activity = activityDetails,
-					Trailer = trailerDetails
-				};
+                    ActivityType = actid.ActivitType,
+                    Activity = activityDetails,
+					Trailer = trailerDetails,
+                    Siteinstallations = sitedata,
+                    ResourseDatas = resouresdata
+                };
 			}
 			catch (Exception ex)
 			{
