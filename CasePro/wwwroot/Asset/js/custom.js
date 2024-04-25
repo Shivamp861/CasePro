@@ -27,9 +27,9 @@ var fileInputValueYard;
 $('.yardTipping').on('blur', 'input, select,textarea,button', function (e) {
 
     const target = e.target || e.srcElement;
-
+    
     // Check if the target element or any of its ancestors is the file input
-    if (target.id === 'fileInputyard' || $(target).closest('#fileInputyard').length > 0) {
+    if (target.id === 'fileInputyard' || $(target).closest('#fileInputyard').length > 0 || target.id === 'yardbarrierdateloaded' || target.id === 'yardtsupplier' || target.id === 'yardTrailerNumber' || target.id === 'yardunit' || target.id === 'yardVehicleReg' || target.id === 'yardTrailerdeport' || target.id === 'yardloadedby' || target.id === 'saveButton') {
         return; // Do nothing if the file input or its child elements triggered the event
     }
 
@@ -137,19 +137,10 @@ $('.yardTipping').on('blur', 'input, select,textarea,button', function (e) {
             success: function (response) {
                 if (response.success) {
                     if ($('.ytid').val() != 0) {
-                        $('#tipesuccessupdatemessage').fadeIn(function () {
-                            // Once message is fully displayed, redirect after a delay
-                            setTimeout(function () {
-                                window.location.href = '/Activity/CreateActivity/' + response.activityId;
-                            }, 2000); // Adjust delay time as needed (in milliseconds)
-                        });
+                        $('#tipesuccessupdatemessage').fadeIn().delay(2000).fadeOut();
+                        
                     } else {
-                        $('#tipsuccessmessage').fadeIn(function () {
-                            // Once message is fully displayed, redirect after a delay
-                            setTimeout(function () {
-                                window.location.href = '/Activity/CreateActivity/' + response.activityId;
-                            }, 2000); // Adjust delay time as needed (in milliseconds)
-                        });
+                        $('#tipsuccessmessage').fadeIn().delay(2000).fadeOut();
                     }
                 }
             },
@@ -314,54 +305,6 @@ $(document).ready(function () {
 
 })
 
-//$(document).on('blur', '#myTable input[type="text"], #myTable select', function () {
-
-//    var $currentRow = $(this).closest('tr');
-
-//    var isValid = true;
-//    var aid = $('#activityid').val(); // Assuming you have an element with id="activityid" to get the ActivityId
-//    if (aid == null || aid == '') {
-//        alert("Please fill basic details");
-//        return;
-//    }
-
-//    // Perform validation for each input field in the row
-//    $currentRow.find('input[type="text"], select').each(function () {
-//        var value = $(this).val().trim();
-//        if (!value) {
-//            isValid = false;
-//            $(this).addClass('error'); // Add a class to highlight the invalid input
-//        } else {
-//            $(this).removeClass('error');
-//        }
-//    });
-
-//    // Proceed only if all input fields are valid
-//    if (isValid) {
-//        var requestData = {
-//            resourcetype: $currentRow.find('#type').val(),
-//            shift: $currentRow.find('#Shift').val(),
-//            daynight: $currentRow.find('#daynight').val(),
-//            name: $currentRow.find('#name').val(),
-//            comment: $currentRow.find('#comment').val(),
-//            rid: $currentRow.find('#rid').val(),
-//            aid: aid
-//        };
-
-//        // Perform AJAX request to save the data
-//        $.ajax({
-//            url: '/activity/ResourseData',
-//            method: 'POST',
-//            data: requestData,
-//            success: function (response) {
-//                alert("Resourse Data Saved Successfully")
-//            },
-//            error: function (xhr, status, error) {
-//                console.error('Error saving data:', error);
-//            }
-//        });
-//    }
-//});
 
 // Function to add a new row to the table
 
@@ -636,110 +579,7 @@ function addsignoff(button) {
 
 
 }
-//$(document).ready(function () {
-//    var isDropdownOrTextboxFocused = false;
 
-//    $('.siteInstallation').on('focus', 'input, select,textarea,button', function () {
-//        isDropdownOrTextboxFocused = true;
-//    });
-//    $('.siteInstallation').on('blur', 'input, select,textarea,button', function (e) {
-//        debugger;
-//        const target = e.target || e.srcElement;
-
-//        // Check if the target element or any of its ancestors is the file input
-//        if (target.id === 'fileInput' || $(target).closest('#fileInput').length > 0) {
-//            return; // Do nothing if the file input or its child elements triggered the event
-//        }
-//        var $currentRow = $(this).closest('.row');
-//        var aid = $('#activityid').val();
-
-//        if (!aid) {
-//            alert("Please fill basic details");
-//            return;
-//        }
-//        clearValidationErrors($currentRow);
-//        var isValid = validateInputFields($currentRow);
-//        if (isValid && !isDropdownOrTextboxFocused) {
-
-//            var Siteformdata = {
-//                MeetingSite: $currentRow.find('input[name="MeetingSite"]').val(),
-//                LabourSupplier: $currentRow.find('input[name="MeetingSite"]').val(),
-//                SupplierContact: $currentRow.find('input[name="MeetingSite"]').val(),
-//                NoOfPersoneSupplied: $currentRow.find('input[name="MeetingSite"]').val(),
-//                BarrierType: $currentRow.find('input[name="MeetingSite"]').val(),
-//                BarrierQty: $currentRow.find('input[name="MeetingSite"]').val(),
-//                BarrierStartAndFinishLocation: $currentRow.find('input[name="MeetingSite"]').val(),
-//                BarrierPerformance: $currentRow.find('input[name="MeetingSite"]').val(),
-//                LengthOfRuns: $currentRow.find('input[name="MeetingSite"]').val(),
-//                AnchoringDetails: $currentRow.find('input[name="MeetingSite"]').val(),
-//                Isapermittobreakgroundrequired: $currentRow.find('input[name="MeetingSite"]').val(),
-//                ChainLiftingequipmenttobeused: $currentRow.find('input[name="MeetingSite"]').val(),
-//                IncidentReporting: $currentRow.find('input[name="MeetingSite"]').val(),
-//                OtherResourcesEquipmentUsed: $currentRow.find('input[name="MeetingSite"]').val(),
-//                AllRelevantActivityRams: $currentRow.find('input[name="MeetingSite"]').val(),
-//                AnySpecialInstructions: $currentRow.find('input[name="MeetingSite"]').val(),
-//                ActivityId: actid,
-//                Id: $('#Id').val(),
-
-//                // Add other form fields here
-//            };
-
-//            var formData = new FormData();
-//            // Append all files selected to the formData
-
-//            if (filesInput.files.length > 0) {
-//                for (var i = 0; i < filesInput.files.length; i++) {
-//                    formData.append('SiteImages', filesInput.files[i]);
-//                }
-//            }
-
-//            $.ajax({
-//                url: '/activity/SaveDataactivitydetails',
-//                method: 'post',
-//                processData: false, // Prevent jQuery from processing the data
-//                contentType: false, // Prevent jQuery from setting contentType
-//                data: formData,
-//                success: function (response) {
-//                    if (response.success) {
-//                        alert(response.errorMessage); // or response.message if you want to display a message
-//                        window.location.href = '/Activity/CreateActivity/' + response.activityId;
-//                    }
-//                },
-//                error: function (xhr, status, error) {
-//                    console.error('error saving data:', error);
-//                }
-//            });
-//        }
-//    });
-
-//    $('.siteInstallation').on('click', function () {
-//        isDropdownOrTextboxFocused = false;
-//        $('.text-danger').empty();
-//    });
-
-//    function clearValidationErrors($row) {
-//        $row.find('.text-danger').empty();
-//    }
-
-//    function validateInputFields($row) {
-//        var isValid = true;
-
-//        $row.find('input[name="MeetingSite"], input[name="LabourSupplier"],input[name="SupplierContact"],input[name="NoOfPersoneSupplied"] ,input[name="BarrierQty"],input[name="BarrierStartAndFinishLocation"],input[name="BarrierPerformance"],input[name="LengthOfRuns"],input[name="AnchoringDetails"],input[name="IncidentReporting"],select,textarea').each(function () {
-//            var $input = $(this);
-//            var fieldName = $input.attr('name');
-//            var fieldValue = $input.val();
-
-//            if (!fieldValue.trim()) {
-//                isValid = false;
-//                $row.find('#' + fieldName + 'Error').text(fieldName + ' is required');
-//            }
-//        });
-
-//        return isValid;
-//    }
-
-
-//});
 
 $('.siteInstallation').on('blur', 'input, select,textarea,button', function (e) {
 
@@ -986,63 +826,80 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-$(document).on('blur', '#content1 .panel-default.customer input:not(.add-customer), #content1 .panel-default.customer textarea:not(.add-customer)', function () {
-    
-    if (!handleBlurEvent) {
-        return;
+$(document).ready(function () {
+    var isDropdownOrTextboxFocused = false;
+
+    $('#custidfordom').on('focus', 'input[type="text"], select', function () {
+        isDropdownOrTextboxFocused = true;
+    });
+
+    $('#custidfordom').on('blur', 'input[type="text"], select', function () {
+        var $currentRow = $(this).closest('.original-row');
+        var aid = $('#activityid').val();
+
+        if (!aid) {
+            alert("Please fill basic details");
+            return;
+        }
+
+        clearValidationErrors($currentRow);
+
+        var isValid = validateInputFields($currentRow);
+
+
+        if (isValid && !isDropdownOrTextboxFocused) {
+
+            var custData = {
+                ActivityId: aid,
+                CustomerName: $currentRow.find('input[name="item.CustomerName"]').val(),
+                ContactNo: $currentRow.find('input[name="item.ContactNo"]').val() ,
+                custid: $currentRow.find('#custid').val()
+            };
+
+            $.ajax({
+                url: '/activity/Customersavedata',
+                method: 'POST',
+                data: custData,
+                success: function (response) {
+                    alert("Customer Data Saved Successfully"); // Display success message
+                },
+                error: function (xhr, status, error) {
+                    // Handle error response
+                    console.error('Error saving data:', error);
+                }
+            });
+        }
+
+
+    });
+
+    $('#custidfordom').on('click', function () {
+        isDropdownOrTextboxFocused = false;
+        $('.text-danger').empty();
+    });
+    function clearValidationErrors($row) {
+        $row.find('.text-danger').empty();
     }
-    var isValid = true;
-    var $currentRow = $(this).closest('.original-row'); // Corrected selector
-    var aid = $('#activityid').val();
-    if (aid == null || aid == '') {
-        $currentRow.find('#customerNameError').text('Please fill basic details');
-        $currentRow.find('#contactNoError').text('Please fill basic details');
 
-        return;
-    }
-    $currentRow.find('.text-danger').empty();
 
-    var index = $('.original-row').index($currentRow);
+    function validateInputFields($row) {
+        var isValid = true;
 
-    var CustomerName = $('.customer-name').eq(index).val(); // Use eq(index) to get the value of specific row
-    var ContactNo = $('.contact-no').eq(index).val(); // Use eq(index) to get the value of specific row
-    var custid = $('.custid').eq(index).val(); 
-    // Validate Contact Number
-    if (!/^\d{10}$/.test(ContactNo.trim())) {
-        isValid = false;
-        $currentRow.find('#contactNoError').text('Contact number must be a 10-digit number');
-    }
+        $row.find('input[name="item.CustomerName"], input[name="item.ContactNo"] ,select').each(function () {
+            var $input = $(this);
+            var fieldName = $input.attr('name');
+            var fieldValue = $input.val();
 
-    if (!CustomerName || !CustomerName.trim()) { // Check for null or empty string
-        isValid = false;
-        $currentRow.find('#customerNameError').text('Customer Name is required'); // Corrected selector
-    }
-    if (!ContactNo || !ContactNo.trim()) { // Check for null or empty string
-        isValid = false;
-        $currentRow.find('#contactNoError').text('Customer No is required'); // Corrected selector
-    }
-
-    if (isValid) {
-        var custData = {
-            ActivityId: aid,
-            CustomerName: CustomerName,
-            ContactNo: ContactNo,
-            custid: custid
-        };
-
-        $.ajax({
-            url: '/activity/Customersavedata',
-            method: 'POST',
-            data: custData,
-            success: function (response) {
-                alert("Customer Data Saved Successfully"); // Display success message
-            },
-            error: function (xhr, status, error) {
-                // Handle error response
-                console.error('Error saving data:', error);
+            if (!fieldValue.trim()) {
+                isValid = false;
+                $row.find('#' + fieldName + 'Error').text(fieldName + ' is required');
             }
         });
+
+        return isValid;
     }
+
+
 });
 
 
@@ -1081,14 +938,14 @@ function addCustRow(button) {
         <div class="col-sm-4 col-md-4">
         <div class="form-group clearfix">
         <input type="text" class="form-control custid hidden" name="custid" id="custid">
-        <input type="text" class="form-control customer-name" name="CustomerName" id="CustomerName">
-        <span class="text-danger validation-error" id="customerNameError"></span>
+        <input type="text" class="form-control customer-name" name="item.CustomerName" id="CustomerName">
+        <span class="text-danger validation-error" id="item.CustomerNameError"></span>
         </div>
         </div>
         <div class="col-sm-4 col-md-4">
         <div class="form-group clearfix">
-        <input type="text" value="" name="ContactNo" pattern ="\d{10}" class="form-control contact-no" id="SAGEOrder">
-        <span class="text-danger validation-error" id="contactNoError"></span>
+        <input type="text" value="" name="item.ContactNo" pattern ="\d{10}" class="form-control contact-no" id="SAGEOrder">
+        <span class="text-danger validation-error" id="item.ContactNoError"></span>
         </div>
         </div>
         </div>
@@ -1581,7 +1438,7 @@ $('.yardLoading').on('blur', 'input, select,textarea,button', function (e) {
     const target = e.target || e.srcElement;
 
     // Check if the target element or any of its ancestors is the file input
-    if (target.id === 'fileInputloding' || $(target).closest('#fileInputloding').length > 0) {
+    if (target.id === 'fileInputyard' || $(target).closest('#fileInputyard').length > 0 || target.id === 'barrierdate' || target.id === 'Trailersupplier' || target.id === 'TrailerSupNum' || target.id === 'LoadPositioned' || target.id === 'UnitLoad' || target.id === 'Vehicle' || target.id === 'TrailerDepart' || target.id === 'TrailerDepartTo' || target.id === 'Loaded' || target.id === 'isOutbound' || target.id === 'buttonSave') {
         return; // Do nothing if the file input or its child elements triggered the event
     }
 
@@ -1721,19 +1578,10 @@ $('.yardLoading').on('blur', 'input, select,textarea,button', function (e) {
             success: function (response) {
                 if (response.success) {
                     if ($('.ylid').val() != 0) {
-                        $('#loadesuccessupdatemessage').fadeIn(function () {
-                            // Once message is fully displayed, redirect after a delay
-                            setTimeout(function () {
-                                window.location.href = '/Activity/CreateActivity/' + response.activityId;
-                            }, 2000); // Adjust delay time as needed (in milliseconds)
-                        });
+
+                        $('#loadesuccessupdatemessage').fadeIn().delay(2000).fadeOut();
                     } else {
-                        $('#loadsuccessmessage').fadeIn(function () {
-                            // Once message is fully displayed, redirect after a delay
-                            setTimeout(function () {
-                                window.location.href = '/Activity/CreateActivity/' + response.activityId;
-                            }, 2000); // Adjust delay time as needed (in milliseconds)
-                        });
+                        $('#loadsuccessmessage').fadeIn().delay(2000).fadeOut();
                     }
                 }
             },
