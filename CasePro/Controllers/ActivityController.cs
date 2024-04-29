@@ -54,6 +54,10 @@ namespace CasePro.Controllers
             {
 
                 List<ActivityViewModel> activities = _handler.ExecuteGetList();
+                if (activities != null)
+				{
+                    activities.Reverse();
+                }
                 return View(activities);
             }
             catch (Exception ex)
@@ -348,8 +352,8 @@ namespace CasePro.Controllers
                 var noteresponse = _notescommandhandler.Create(jobcard);
                 if (noteresponse.IsSuccess)
                 {
-                    
-                    TempData["SuccessMessage"] =noteresponse.Message;
+
+                    TempData["SuccessMessage"] = noteresponse.Message;
                     return RedirectToAction("CreateActivity", "Activity", new { id = noteresponse.ActivityId});
                 }
                 else

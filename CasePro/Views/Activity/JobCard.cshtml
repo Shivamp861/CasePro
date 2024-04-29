@@ -4,9 +4,21 @@
 *@
 @if (TempData["SuccessMessage"] != null)
 {
+    <div id="successMessage" class="donepopup">
+        <p>@TempData["SuccessMessage"]</p>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        alert('@TempData["SuccessMessage"]');
+        $(document).ready(function () {
+            $('#successMessage').fadeIn('slow', function () {
+                setTimeout(function () {
+                    $('#successMessage').fadeOut('slow');
+                }, 2000);
+            });
+        });
     </script>
+
 }
 
 <div class="panel panel-default Jobcard">
@@ -116,14 +128,14 @@
                             @Html.HiddenFor(model => item.custid, new { @class = "form-control custid", name="custid", id="custid"})
                             <label for="Customer">Customer Name</label>
                             @Html.TextBoxFor(model => item.CustomerName, new { @class = "form-control customer-name",  name="CustomerName", id="CustomerName", type = "text" })
-                            <span class="text-danger validation-error" id="item.CustomerNameError"></span>
+                            <span class="text-danger validation-error" id="CustomerNameError"></span>
                         </div>
                     </div>
                     <div class="col-sm-4 col-md-4">
                         <div class="form-group clearfix">
                             <label for="ContactNo">Contact Number</label>
                             @Html.TextBoxFor(model => item.ContactNo, new { @class = "form-control contact-no", name="ContactNo", id="ContactNo", type = "text"})
-                            <span class="text-danger validation-error" id="item.ContactNoError"></span>
+                            <span class="text-danger validation-error" id="ContactNoError"></span>
                         </div>
                     </div>
                     @if (isFirstRow)
@@ -147,14 +159,14 @@
                         <input type="text" class="form-control custid hidden" name="custid" id="custid">
                         <label for="Customer">Customer Name</label>
                         <input type="text" class="form-control customer-name" name="item.CustomerName" id="CustomerName">
-                        <span class="text-danger validation-error" id="item.CustomerNameError"></span>
+                        <span class="text-danger validation-error" id="CustomerNameError"></span>
                     </div>
                 </div>
                 <div class="col-sm-4 col-md-4">
                     <div class="form-group clearfix">
                         <label for="ContactNo">Contact Number</label>
                         <input type="text" value="" name="item.ContactNo" class="form-control contact-no" id="ContactNo">
-                        <span class="text-danger validation-error" id="item.ContactNoError"></span>
+                        <span class="text-danger validation-error" id="ContactNoError"></span>
                     </div>
                 </div>
                 <div class="col-sm-4 col-md-4">

@@ -38,8 +38,11 @@
         grid-gap: 20px;
         align-items: center;
         flex-wrap: wrap;
-        column-count: 12;
+        column-count: 9;
+        width: 100%;
     }
+
+
 
 
 
@@ -288,17 +291,17 @@
                     <div class="form-group clearfix">
                         @Html.Label("permitreq", "Site/Layout drawings/ site images :")
                         <div class="our_img">
-                        @if (Model.activityImages.Count > 0)
-                        {
-                            for (int i = 0; i < Model.activityImages.Count; i++)
+                            @if (Model.activityImages.Count > 0)
                             {
-                                <div class="images_blog1">
-                                    <img src="@Model.activityImages[i].UploadPath" alt="Display" id="UploadPath" style="max-width: 100px; max-height: 100px;" />
-                                    @Html.HiddenFor(model => model.activityImages[i].Imgid)
-                                    @Html.HiddenFor(model => model.activityImages[i].UploadPath)
-                                </div>
+                                for (int i = 0; i < Model.activityImages.Count; i++)
+                                {
+                                    <div class="images_blog1">
+                                        <img src="@Model.activityImages[i].UploadPath" alt="Display" class="on_tab dynamic-image" style="max-width: 100px; max-height: 100px;" />
+                                        @Html.HiddenFor(model => model.activityImages[i].Imgid)
+                                        @Html.HiddenFor(model => model.activityImages[i].UploadPath)
+                                    </div>
+                                }
                             }
-                        }
                         </div>
                         @Html.TextBoxFor(Model => Model.UploadPath, new { @class = "form-control-file Installation", type = "file", id = "fileInput",name = "SiteImages[]", @multiple = "multiple",onchange="displayThumbnails(event)"})
                         <span id="fileInputError" class="text-danger fileError"></span>
@@ -412,14 +415,14 @@ else if (Model.Type == "Yard Loading")
                     
                     <div class="form-group clearfix">
                         <div class="form-group clearfix">
-                            @Html.Label("permitreq", "Site/Layout drawings/ site images :")
+                            <div>   @Html.Label("permitreq", "Site/Layout drawings/ site images :")</div>
                             <div class="our_img">
                             @if (Model.activityImages.Count > 0)
                             {
                                 for (int i = 0; i < Model.activityImages.Count; i++)
                                 {
                                         <div class="images_blog1">
-                                        <img src="@Model.activityImages[i].UploadPath" alt="Display" id="UploadPath" style="max-width: 100px; max-height: 100px;" />
+                                        <img src="@Model.activityImages[i].UploadPath" alt="Display" class="on_tab dynamic-image" id="UploadPath" style="max-width: 100px; max-height: 100px;" />
                                         @Html.HiddenFor(model => model.activityImages[i].Imgid)
                                         @Html.HiddenFor(model => model.activityImages[i].UploadPath)
                                     </div>
@@ -740,7 +743,7 @@ else if (Model.Type == "Yard Tipping")
                                 for (int i = 0; i < Model.activityImages.Count; i++)
                                 {
                                     <div class="images_blog1">
-                                        <img src="@Model.activityImages[i].UploadPath" alt="Display" id="UploadPath" style="max-width: 100px; max-height: 100px;" />
+                                        <img src="@Model.activityImages[i].UploadPath" alt="Display" class="on_tab dynamic-image" id="UploadPath" style="max-width: 100px; max-height: 100px;" />
                                         @Html.HiddenFor(model => model.activityImages[i].Imgid)
                                         @Html.HiddenFor(model => model.activityImages[i].UploadPath)
                                     </div>
@@ -1498,5 +1501,18 @@ else if (Model.Type == "Yard Tipping")
         </div>
 }
 
+
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="~/asset/js/custom.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var dynamicImages = document.querySelectorAll('.dynamic-image');
+        dynamicImages.forEach(function (image) {
+            image.addEventListener('click', function () {
+                // Open the image in a new tab
+                window.open(image.src, '_blank');
+            });
+        });
+    });
+</script>

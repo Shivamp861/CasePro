@@ -31,11 +31,11 @@ namespace Domaincasepro.Commands
             {
                 if (Hassave)
                 {
-                    return ActivityResponseFactory.Create(true, "Data inserted successfully", jobcard.ActivityId, "");
+                    return ActivityResponseFactory.Create(true, "Notes inserted successfully", jobcard.ActivityId, "");
                 }
                 else
                 {
-                    return ActivityResponseFactory.Create(true, "Data Updateded successfully", jobcard.ActivityId, "");
+                    return ActivityResponseFactory.Create(true, "Notes Updateded successfully", jobcard.ActivityId, "");
                 }
                 
             }

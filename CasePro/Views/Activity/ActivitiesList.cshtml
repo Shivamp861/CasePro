@@ -40,11 +40,13 @@
 					Add Activity &nbsp;<i class="fa fa-plus"></i>
 				</button>
 				<div id="toolbar1">
-					<select class="form-control">
-						<option value="">Export Basic</option>
-						<option value="all">Export All</option>
-						<option value="selected">Export Selected</option>
-					</select>
+					@* <select  >
+						<option value="">select option</option>
+						<option value="basic">Export Basic</option>
+						<option value="">Export All</option>
+					</select> *@
+					<button id="exportbtn" class="form-control btn-primary" name="Export" value="" >Export All</button>
+
 				</div>
 				<table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true"
 					   data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true"
@@ -65,14 +67,14 @@
 					</thead>
 					<tbody>
 						@{
-							int index = 0;
+						
 							foreach (var item in Model)
 							{
 								<tr data-activity-id="@item.Id">
-									<td class="bs-checkbox "><input data-index="@index" name="btSelectItem" type="checkbox"></td>
+									<td></td>
 									<td>@item.DateRaised.ToString("dd/MM/yyyy")</td>
 									<td>@item.DayNight</td>
-									<td>@item.CustomerName TM</td>
+									<td>@item.CustomerName</td>
 									<td>@item.ActivitType</td>
 									<td>@item.BarrierType</td>
 									<td>@item.LabourSupplier</td>
@@ -90,7 +92,7 @@
 										</div>
 									</td>
 								</tr>
-								index++;
+								
 							}
 						}
 					</tbody>
@@ -101,8 +103,10 @@
 	</div>
 </section>
 	<link href="~/css/site.css" rel="stylesheet" />
-	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+@* 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> *@
 	<script>
 		function editActivity(activityId) {
 			// Send an AJAX request to the controller action
@@ -147,6 +151,64 @@
 
 	</script>
 
+<script>
+	$(document).ready(function () {
+		$('#exportbtn').click(function () {
+			// Download all data in excel or csv format
+			exportAllRows();
+		});
+	});
+
+	function exportAllRows() {
+		// Get all table rows data and initiate download
+		var allData = $('#table').bootstrapTable('getData');
+		downloadData(allData);
+	}
+
+	function downloadData(data) {
+		// Convert data to CSV format
+		var csv = convertToCSV(data);
+		// Initiate download
+		var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+		var link = document.createElement("a");
+		if (link.download !== undefined) {
+			var url = URL.createObjectURL(blob);
+			link.setAttribute("href", url);
+			link.setAttribute("download", "export.csv");
+			link.style.visibility = 'hidden';
+			document.body.appendChild(link);
+			link.click();
+			document.body.removeChild(link);
+		}
+	}
+
+	function convertToCSV(data) {
+		var csv = '';
+		// Define the headers in the desired order
+		var headers = ['Activity Date', 'Day Or Nigh', 'Customer', 'Type of Activity', 'Barrier Type', 'Labour Supplier', 'Trailer Number'];
+		// Write headers to CSV
+		csv += headers.join(',') + '\n';
+		// Iterate through data and extract values for each column
+		data.forEach(function (item) {
+			var row = [];
+			headers.forEach(function (header) {
+				// Handle 'Activity Date' column
+				if (header === 'Activity Date') {
+					row.push(item['Activity Date'] ? item['Activity Date'] : '');
+				}
+				// Handle other columns
+				else {
+					row.push(item[header] ? item[header] : '');
+				}
+			});
+			// Combine values into CSV row
+			csv += row.join(',') + '\n';
+		});
+		return csv;
+	}
+
+
+</script>
 
 
 

@@ -4,12 +4,8 @@
 @*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@if (TempData["SuccessMessage"] != null)
-{
-    <script>
-        alert('@TempData["SuccessMessage"]');
-    </script>
-}
+
+
 
 <form id="sendEmailForm" action="/Activity/SaveInstruction" method="post">
     <div class="row">
