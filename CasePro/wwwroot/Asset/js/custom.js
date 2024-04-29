@@ -137,15 +137,15 @@ $('.yardTipping').on('blur', 'input, select,textarea,button', function (e) {
             success: function (response) {
                 if (response.success) {
                     if ($('.ytid').val() != 0) {
-                        $('#tipesuccessupdatemessage').fadeIn().delay(2000).fadeOut();
+                        $('#sitesuccessupdatemessage').fadeIn().delay(2000).fadeOut();
                         
                     } else {
-                        $('#tipsuccessmessage').fadeIn().delay(2000).fadeOut();
+                        $('#sitesuccessmessage').fadeIn().delay(2000).fadeOut();
                     }
                 }
             },
             error: function (xhr, status, error) {
-                $('#tiperrormessage').fadeIn().delay(2000).fadeOut();
+                $('#siteerrormessage').fadeIn().delay(2000).fadeOut();
             }
         });
     }
@@ -188,11 +188,17 @@ $(document).ready(function () {
                 method: 'POST',
                 data: requestData,
                 success: function (response) {
-                    alert("Product Data Saved Successfully");
+                    if (response.success) {
+                        if (response.pid > 0) {
+
+                            $('#Productupdatemessage').fadeIn().delay(2000).fadeOut();
+                        } else {
+                            $('#Productsuccessmessage').fadeIn().delay(2000).fadeOut();
+                        }
+                    }
                 },
                 error: function (xhr, status, error) {
-                    console.error('Error saving data:', error);
-                    alert("An error occurred while saving data. Please try again.");
+                    $('#Producterrormessage').fadeIn().delay(2000).fadeOut();
                 }
             });
         }
@@ -265,10 +271,17 @@ $(document).ready(function () {
                 method: 'POST',
                 data: requestData,
                 success: function (response) {
-                    alert("Resourse Data Saved Successfully")
+                    if (response.success) {
+                        if (response.rid > 0) {
+
+                            $('#resourseupdatemessage').fadeIn().delay(2000).fadeOut();
+                        } else {
+                            $('#resoursesuccessmessage').fadeIn().delay(2000).fadeOut();
+                        }
+                    }
                 },
                 error: function (xhr, status, error) {
-                    console.error('Error saving data:', error);
+                    $('#resourseerrormessage').fadeIn().delay(2000).fadeOut();
                 }
             });
         }
@@ -562,14 +575,20 @@ function addsignoff(button) {
             datatype: 'json',
             success: function (response) {
                 console.log(response);
+                if (response.success) {
 
-                alert('Manager Sign Off Saved');
-                window.location.reload();
 
-            },
+                    $('#signoffsuccessmessage').fadeIn(function () {
+                        // Once message is fully displayed, redirect after a delay
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 2000); // Adjust delay time as needed (in milliseconds)
+                    });
+                    
+                 }
+               },
             error: function (xhr, status, error) {
-                // Handle error response from the server
-                console.error(xhr.responseText);
+                $('#signofferrormessage').fadeIn().delay(2000).fadeOut();
             }
         });
     }
@@ -834,6 +853,7 @@ $(document).ready(function () {
     });
 
     $('#custidfordom').on('blur', 'input[type="text"], select', function () {
+    
         var $currentRow = $(this).closest('.original-row');
         var aid = $('#activityid').val();
 
@@ -865,11 +885,18 @@ $(document).ready(function () {
                 method: 'POST',
                 data: custData,
                 success: function (response) {
-                    alert("Customer Data Saved Successfully"); // Display success message
+                    if (response.success) {
+                        if (response.cid > 0) {
+
+                            $('#customerupdatemessage').fadeIn().delay(2000).fadeOut();
+                        }
+                        else {
+                            $('#customersuccessmessage').fadeIn().delay(2000).fadeOut();
+                        }
+                    }
                 },
                 error: function (xhr, status, error) {
-                    // Handle error response
-                    console.error('Error saving data:', error);
+                    $('#customererrormessage').fadeIn().delay(2000).fadeOut();
                 }
             });
         }
@@ -1062,6 +1089,7 @@ function Savedate() {
     }
 
     if (isValid) {
+       
         var formdata = {
             ActivityId: $('#id').val() || 0,
             CustomerOrderNumber: $('#Customer').val(),
@@ -1083,16 +1111,46 @@ function Savedate() {
             data: formdata ,
             success: function (response) {
                 if (response.success) {
-                    document.getElementById("id").value = response.activityId;
-                    globalactivityId = response.activityId;
-                    globalActivityType = response.activityType;
-                    window.location.href = '/Activity/CreateActivity/' + response.activityId;
-                    alert(response.errorMessage);
+                    console.log($('.jobid').val())
+                    if ($('.jobid').val() != 0) {
+
+
+                        $('#jobcardupdatemessage').fadeIn(function () {
+                            // Once message is fully displayed, redirect after a delay
+                            setTimeout(function () {
+                                document.getElementById("id").value = response.activityId;
+                                globalactivityId = response.activityId;
+                                globalActivityType = response.activityType;
+                                window.location.href = '/Activity/CreateActivity/' + response.activityId;
+                            }, 2000); // Adjust delay time as needed (in milliseconds)
+                        });
+
+
+                       //$('#jobcardupdatemessage').fadeIn().delay(2000).fadeOut();
+                    }
+                    else {
+
+                        $('#jobcardsuccessmessage').fadeIn(function () {
+                            // Once message is fully displayed, redirect after a delay
+                            setTimeout(function () {
+                                document.getElementById("id").value = response.activityId;
+                                globalactivityId = response.activityId;
+                                globalActivityType = response.activityType;
+                                window.location.href = '/Activity/CreateActivity/' + response.activityId;
+                            }, 2000); // Adjust delay time as needed (in milliseconds)
+                        });
+                       // $('#jobcardsuccessmessage').fadeIn().delay(2000).fadeOut();
+                    }
+                    //document.getElementById("id").value = response.activityId;
+                    //globalactivityId = response.activityId;
+                    //globalActivityType = response.activityType;
+                    //window.location.href = '/Activity/CreateActivity/' + response.activityId;
+                   
+                    
                 }
             },
             error: function (xhr, status, error) {
-
-                console.error('error saving data:', error);
+                $('#jobcarderrormessage').fadeIn().delay(2000).fadeOut();
             }
         });
 
@@ -1221,6 +1279,8 @@ function saveTrailerdata() {
     }
 
 }
+
+
 
 function SaveInBoundTrailerData() {
     var isValid = true;
@@ -1585,14 +1645,14 @@ $('.yardLoading').on('blur', 'input, select,textarea,button', function (e) {
                 if (response.success) {
                     if ($('.ylid').val() != 0) {
 
-                        $('#loadesuccessupdatemessage').fadeIn().delay(2000).fadeOut();
+                        $('#sitesuccessupdatemessage').fadeIn().delay(2000).fadeOut();
                     } else {
-                        $('#loadsuccessmessage').fadeIn().delay(2000).fadeOut();
+                        $('#sitesuccessmessage').fadeIn().delay(2000).fadeOut();
                     }
                 }
             },
             error: function (xhr, status, error) {
-                $('#loaderrormessage').fadeIn().delay(2000).fadeOut();
+                $('#siteerrormessage').fadeIn().delay(2000).fadeOut();
             }
         });
     }

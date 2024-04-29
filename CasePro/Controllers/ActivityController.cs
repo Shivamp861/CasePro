@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Modelcasepro.RequestModel;
 using Modelcasepro.ViewModel;
+using System.Security.Cryptography;
 using System.Web.Helpers;
 
 namespace CasePro.Controllers
@@ -177,16 +178,17 @@ namespace CasePro.Controllers
             {
                 if (model != null)
                 {
+                    var cid = model.custid;
                     var response = _custhandler.AddCust(model);
 
                     // Check the response and take appropriate action
                     if (response.IsSuccess)
                     {
-                        return Json(new { success = true, activityId = response.ActivityId, errorMessage = response.Message });
+                        return Json(new { cid= cid, success = true, activityId = response.ActivityId, errorMessage = response.Message });
                     }
                     else
                     {
-                        return Json(new { success = false, errorMessage = response.Message }); // Or return appropriate error response
+                        return Json(new { cid = cid, success = false, errorMessage = response.Message }); // Or return appropriate error response
                     }
                 }
                 else
@@ -216,7 +218,7 @@ namespace CasePro.Controllers
                         // Check the response and take appropriate action
                         if (response.IsSuccess)
                         {
-                            return Json(new { success = true, activityId = response.ActivityId, activityType = response.ActivityType, errorMessage = response.Message });
+                            return Json(new {success = true, activityId = response.ActivityId, activityType = response.ActivityType, errorMessage = response.Message });
                         }
                         else
                         {
@@ -317,7 +319,7 @@ namespace CasePro.Controllers
                     var res = _resourceCommandHandler.update(rid, RD);
                     if (res.IsSuccess)
                     {
-                        return Json(new { success = true });
+                        return Json(new { rid = rid, success = true });
                     }
                     else
                     {
@@ -329,7 +331,7 @@ namespace CasePro.Controllers
                     var response = _resourceCommandHandler.Create(RD);
                     if (response.IsSuccess)
                     {
-                        return Json(new { success = true });
+                        return Json(new { rid = rid.ToString(), success = true });
                     }
                     else
                     {

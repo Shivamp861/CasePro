@@ -5,10 +5,72 @@
 @inject Domaincasepro.Queries.ResourceQueryHandler resourceHandler
 @inject Domaincasepro.Queries.InstructQueryHandler _handler
 @inject Domaincasepro.Queries.ActivitySummaryQueryhandler _Summaryhandler
+
+
+@{
+    var Activitydetails = detailshandler.GetActivitydetails(Model.ActivityId);
+    var type = Activitydetails.Type;
+
+
+}
+
+
 <section class="content">
-
+   
     <div class="box">
-
+        <div id="sitesuccessmessage" class="donepopup" style="display:none">
+            <p>@type successfully saved</p>
+        </div>
+        <div id="sitesuccessupdatemessage" class="donepopup" style="display:none">
+            <p>@type successfully Updated</p>
+        </div>
+        <div id="siteerrormessage" class="errorpopup" style="display:none">
+            <p>Error while saving data </p>
+        </div>
+        <div id="jobcardsuccessmessage" class="donepopup" style="display:none">
+            <p>Activity Added Successfully</p>
+        </div>
+        <div id="jobcardupdatemessage" class="donepopup" style="display:none">
+            <p>Activity Update Successfully</p>
+        </div>
+        <div id="jobcarderrormessage" class="errorpopup" style="display:none">
+            <p>Error while saving data</p>
+        </div>
+        <div id="customersuccessmessage" class="donepopup" style="display:none">
+            <p>Customer Added Successfully</p>
+        </div>
+        <div id="customerupdatemessage" class="donepopup" style="display:none">
+            <p>Customer Updated Successfully</p>
+        </div>
+        <div id="customererrormessage" class="errorpopup" style="display:none">
+            <p>Error while saving data</p>
+        </div>
+       
+        <div id="Productsuccessmessage" class="donepopup" style="display:none">
+            <p>Product Data Saved Successfully</p>
+        </div>
+        <div id="Productupdatemessage" class="donepopup" style="display:none">
+            <p>Product Data Update Successfully</p>
+        </div>
+        <div id="Producterrormessage" class="errorpopup" style="display:none">
+            <p>Error while saving data</p>
+        </div>
+        <div id="resoursesuccessmessage" class="donepopup" style="display:none">
+            <p>Resourse Data Saved Successfully</p>
+        </div>
+        <div id="resourseupdatemessage" class="donepopup" style="display:none">
+            <p>Resourse Data Update Successfully</p>
+        </div>
+        <div id="resourseerrormessage" class="errorpopup" style="display:none">
+            <p>Error while saving data</p>
+        </div>
+        <div id="signoffsuccessmessage" class="donepopup" style="display:none">
+            <p>Signoff Saved Successfully</p>
+        </div>
+        
+        <div id="signofferrormessage" class="errorpopup" style="display:none">
+            <p>Error while saving data</p>
+        </div>
         <div class="box-header">
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -46,7 +108,7 @@
                 <input class="tabinpt-header" id="tab5" type="radio" name="tabs">
                 <label class="tbs-lbl" for="tab5"><i class="fa fa-user-md"></i><span>Instruct Opeations</span></label>
                 <input class="tabinpt-header" id="tab6" type="radio" name="tabs">
-                <label class="tbs-lbl" for="tab6"><i class="fa fa-user-md"></i><span>Activity Summary</span></label>
+                <label class="tbs-lbl" style="display:none;" for="tab6"><i class="fa fa-user-md"></i><span>Activity Summary</span></label>
 
                 <section id="content1" class="tab-content">
                     @{
@@ -69,12 +131,10 @@
                 </section>
                 <section id="content4" class="tab-content">
                     @{
-                        var Activitydetails = detailshandler.GetActivitydetails(Model.ActivityId);
-                        @Html.Partial("~/Views/Activity/ActivityDetails.cshtml", Activitydetails)
-                    }
-               
-
-                </section>
+                        
+                            @Html.Partial("~/Views/Activity/ActivityDetails.cshtml", Activitydetails)
+                      }
+               </section>
                     
                 <!------./End section---->
                 <section id="content5" class="tab-content">
