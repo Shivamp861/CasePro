@@ -838,9 +838,13 @@ $(document).ready(function () {
         var aid = $('#activityid').val();
 
         if (!aid) {
-            alert("Please fill basic details");
+            $currentRow.find('#CustomerNameError').text('Please fill basic details');
+            $currentRow.find('#ContactNoError').text('Please fill basic details');
+
             return;
         }
+
+
 
         clearValidationErrors($currentRow);
 
@@ -889,10 +893,11 @@ $(document).ready(function () {
             var $input = $(this);
             var fieldName = $input.attr('name');
             var fieldValue = $input.val();
+            var fieldNameWithoutPrefix = fieldName.replace('item.', '');
 
             if (!fieldValue.trim()) {
                 isValid = false;
-                $row.find('#' + fieldName + 'Error').text(fieldName + ' is required');
+                $row.find('#' + fieldNameWithoutPrefix + 'Error').text(fieldNameWithoutPrefix + ' is required');
             }
         });
 
@@ -939,13 +944,13 @@ function addCustRow(button) {
         <div class="form-group clearfix">
         <input type="text" class="form-control custid hidden" name="custid" id="custid">
         <input type="text" class="form-control customer-name" name="item.CustomerName" id="CustomerName">
-        <span class="text-danger validation-error" id="item.CustomerNameError"></span>
+        <span class="text-danger validation-error" id="CustomerNameError"></span>
         </div>
         </div>
         <div class="col-sm-4 col-md-4">
         <div class="form-group clearfix">
         <input type="text" value="" name="item.ContactNo" pattern ="\d{10}" class="form-control contact-no" id="SAGEOrder">
-        <span class="text-danger validation-error" id="item.ContactNoError"></span>
+        <span class="text-danger validation-error" id="ContactNoError"></span>
         </div>
         </div>
         </div>
@@ -1392,6 +1397,7 @@ function SaveInBoundTrailerData() {
         });
     }
 }
+
 function displayThumbnails(event) {
     var files = event.target.files;
     var thumbnailsContainer = document.getElementById('thumbnails');
