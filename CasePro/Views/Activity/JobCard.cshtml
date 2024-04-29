@@ -17,6 +17,7 @@
         <div class="row">
             <div class="col-sm-4 col-md-4">
                 <div class="form-group clearfix">
+                    <input type="hidden" id="Id" class="jobid" name="Id" value="@Model.ActivityId" />
                     @Html.HiddenFor(model => model.ActivityId, new { @class = "form-control", id="id"})
                     <label for="Customer">Customer Order No:</label>
                     @Html.TextBoxFor(x => x.CustomerOrderNumber, new { @class = "form-control", id="Customer"})
@@ -113,6 +114,7 @@
                 <div class="row">
                     <div class="col-sm-4 col-md-4">
                         <div class="form-group clearfix">
+                            <input type="hidden" id="Id" class="customerdata" name="Id" value="@Model.ActivityId" />
                             @Html.HiddenFor(model => item.custid, new { @class = "form-control custid", name="custid", id="custid"})
                             <label for="Customer">Customer Name</label>
                             @Html.TextBoxFor(model => item.CustomerName, new { @class = "form-control customer-name",  name="CustomerName", id="CustomerName", type = "text" })

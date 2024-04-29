@@ -6,13 +6,13 @@
     .donepopup {
         border: 1px solid #00a65a;
         padding: 15px 20px;
-        position: absolute;
-        top: 0;
-        right: 0;
+        position: fixed;
+        top: 50px;
+        right: 17px;
         background: #00a65a;
         color: #fff;
+        z-index: 9999;
     }
-
 
     .errorpopup {
         border: 1px solid red;
@@ -103,15 +103,7 @@
                 <h4> Site Uplift</h4>
             }
 
-            <div id="sitesuccessmessage" class="donepopup" style="display:none">
-                <p>Site Installation successfully saved</p>
-            </div>
-            <div id="sitesuccessupdatemessage" class="donepopup" style="display:none">
-                <p>Site Installation successfully Updated</p>
-            </div>
-            <div id="siteerrormessage" class="errorpopup" style="display:none">
-                <p>Error while saving data </p>
-            </div>
+            
         </div>
         <div class="panel-body">
             <div class="row">
@@ -319,16 +311,6 @@ else if (Model.Type == "Yard Loading")
     <div class="panel panel-default ">
         <div class="panel-heading">
             <h4> Yard loading</h4>
-
-            <div id="loadsuccessmessage" class="donepopup" style="display:none">
-                <p>Yard Loading successfully saved</p>
-            </div>
-            <div id="loadesuccessupdatemessage" class="donepopup" style="display:none">
-                <p>Yard Loading successfully Updated</p>
-            </div>
-            <div id="loaderrormessage" class="errorpopup" style="display:none">
-                <p>Error while saving data </p>
-            </div>
         </div>
         <div class="panel-body yardLoading">
 
@@ -637,15 +619,7 @@ else if (Model.Type == "Yard Tipping")
     <div class="panel panel-default ">
         <div class="panel-heading">
             <h4> Yard Tipping</h4>
-            <div id="tipsuccessmessage" class="donepopup" style="display:none">
-                <p>Yard Tipping successfully saved</p>
-            </div>
-            <div id="tipesuccessupdatemessage" class="donepopup" style="display:none">
-                <p>Yard Tipping successfully Updated</p>
-            </div>
-            <div id="tiperrormessage" class="errorpopup" style="display:none">
-                <p>Error while saving data </p>
-            </div>
+           
         </div>
         <form method="post" action="/Activity/SaveDataactivitydetails" enctype="multipart/form-data">
             <div class="panel-body yardTipping">
