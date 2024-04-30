@@ -209,12 +209,28 @@ namespace CasePro.Controllers
         {
             try
             {
+                var deleteid = model.ActivityId;
                 if (model != null)
                 {
                     if (model.flag)
                     {
-						var response = _activityhandler.cloneActivity(model);
-                        
+
+                        if (deleteid > 0)
+                        {
+                            var getactType = _handler.getacttype(deleteid);
+
+                            if (getactType.ActivitType != null)
+                            {
+                                if (model.ActivityType != getactType.ActivitType)
+                                {
+                                    var delete = _sitehandler.deleteActivityDetail(deleteid);
+                                }
+                            }
+                        }
+
+                        var response = _activityhandler.cloneActivity(model);
+
+
                         // Check the response and take appropriate action
                         if (response.IsSuccess)
                         {
@@ -227,8 +243,22 @@ namespace CasePro.Controllers
                     }
                     else
                     {
-						var response = _activityhandler.AddActivity(model);
+                        if (deleteid > 0)
+                        {
+                            var getactType = _handler.getacttype(deleteid);
 
+                            if (getactType.ActivitType != null)
+                            {
+                                if (model.ActivityType != getactType.ActivitType)
+                                {
+                                    var delete = _sitehandler.deleteActivityDetail(deleteid);
+                                }
+                            }
+                        }
+
+                        var response = _activityhandler.AddActivity(model);
+                       
+                        
 						// Check the response and take appropriate action
 						if (response.IsSuccess)
 						{

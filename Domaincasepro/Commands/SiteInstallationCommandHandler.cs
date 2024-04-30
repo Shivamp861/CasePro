@@ -112,8 +112,17 @@ namespace Domaincasepro.Commands
             };
         }
 
-
-
-
+        public ActivityDetail deleteActivityDetail(int deleteid)
+        {
+            try {
+                ActivityDetail deleteActivityDetails = _repo.deleteActDetail(deleteid);
+                return deleteActivityDetails;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while adding activity: " + ex.Message);
+            }
+            
+        }
     }
 }

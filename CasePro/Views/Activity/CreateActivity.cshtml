@@ -10,10 +10,17 @@
 @{
     var Activitydetails = detailshandler.GetActivitydetails(Model.ActivityId);
     var type = Activitydetails.Type;
+    var activityDId = Activitydetails.Id;
 
 
 }
 
+
+<style>
+    label.tbs-lbl.our_tab_box {
+        width: 20%;
+    }
+</style>
 
 <section class="content">
    
@@ -93,22 +100,62 @@
         <div class="box-body">
             <!----- Tabs--------->
             <div class="tab_container">
-                <input class="tabinpt-header" id="tab1" type="radio" name="tabs" checked>
-                <label class="tbs-lbl" for="tab1"><i class="fa fa-briefcase"></i><span>Job Card</span></label>
+                @if (activityDId != 0)
+                {
+                    <input class="tabinpt-header" id="tab6" type="radio" name="tabs">
+                    <label class="tbs-lbl our_tab_box" for="tab6"><i class="fa fa-user-md"></i><span>Activity Summary</span></label>
 
-                <input class="tabinpt-header" id="tab2" type="radio" name="tabs">
-                <label class="tbs-lbl" for="tab2"><i class="fa fa-book"></i><span>Product Details</span></label>
+                    <input class="tabinpt-header" id="tab1" type="radio" name="tabs" checked>
+                    <label class="tbs-lbl" for="tab1"><i class="fa fa-briefcase"></i><span>Job Card</span></label>
 
-                <input class="tabinpt-header" id="tab3" type="radio" name="tabs">
-                <label class="tbs-lbl" for="tab3"><i class="fa fa-users"></i><span>Resources</span></label>
+                    <input class="tabinpt-header" id="tab2" type="radio" name="tabs">
+                    <label class="tbs-lbl" for="tab2"><i class="fa fa-book"></i><span>Product Details</span></label>
 
-                <input class="tabinpt-header" id="tab4" type="radio" name="tabs">
-                <label class="tbs-lbl" for="tab4"><i class="fa fa-list-alt"></i><span>Activity Details</span></label>
+                    <input class="tabinpt-header" id="tab3" type="radio" name="tabs">
+                    <label class="tbs-lbl" for="tab3"><i class="fa fa-users"></i><span>Resources</span></label>
 
-                <input class="tabinpt-header" id="tab5" type="radio" name="tabs">
-                <label class="tbs-lbl" for="tab5"><i class="fa fa-user-md"></i><span>Instruct Opeations</span></label>
-                <input class="tabinpt-header" id="tab6" type="radio" name="tabs">
-                <label class="tbs-lbl" style="display:none;" for="tab6"><i class="fa fa-user-md"></i><span>Activity Summary</span></label>
+                    <input class="tabinpt-header" id="tab4" type="radio" name="tabs">
+                    <label class="tbs-lbl" for="tab4"><i class="fa fa-list-alt"></i><span>Activity Details</span></label>
+
+                    <input class="tabinpt-header" id="tab5" type="radio" name="tabs">
+                    <label class="tbs-lbl" for="tab5"><i class="fa fa-user-md"></i><span>Instruct Opeations</span></label>
+                }
+                else
+                {
+
+                    <input class="tabinpt-header" id="tab6" type="radio" name="tabs">
+                    <label class="tbs-lbl our_tab_box" style="display : none;" for="tab6"><i class="fa fa-user-md"></i><span>Activity Summary</span></label>
+
+                    <input class="tabinpt-header" id="tab1" type="radio" name="tabs" checked>
+                    <label class="tbs-lbl our_tab_box" for="tab1"><i class="fa fa-briefcase"></i><span>Job Card</span></label>
+
+                    <input class="tabinpt-header" id="tab2" type="radio" name="tabs">
+                    <label class="tbs-lbl our_tab_box" for="tab2"><i class="fa fa-book"></i><span>Product Details</span></label>
+
+                    <input class="tabinpt-header" id="tab3" type="radio" name="tabs">
+                    <label class="tbs-lbl our_tab_box" for="tab3"><i class="fa fa-users"></i><span>Resources</span></label>
+
+                    <input class="tabinpt-header" id="tab4" type="radio" name="tabs">
+                    <label class="tbs-lbl our_tab_box" for="tab4"><i class="fa fa-list-alt"></i><span>Activity Details</span></label>
+
+                    <input class="tabinpt-header" id="tab5" type="radio" name="tabs">
+                    <label class="tbs-lbl our_tab_box" for="tab5"><i class="fa fa-user-md"></i><span>Instruct Opeations</span></label>
+                }
+
+
+                
+                
+
+                <section id="content6" class="tab-content">
+                    @{
+                        if (Model.ActivityId != 0)
+                        {
+                            var Summarydetails = _Summaryhandler.ExecuteGetList(Model.ActivityId);
+                            @Html.Partial("~/Views/Activity/ActivitySummary.cshtml", Summarydetails)
+                        }
+
+                    }
+                </section>
 
                 <section id="content1" class="tab-content">
                     @{
@@ -144,16 +191,7 @@
                     }
                 </section>
 
-                <section id="content6" class="tab-content">
-                    @{
-                        if (Model.ActivityId !=0)
-                        {
-                            var Summarydetails = _Summaryhandler.ExecuteGetList(Model.ActivityId);
-                            @Html.Partial("~/Views/Activity/ActivitySummary.cshtml", Summarydetails)
-                        }
-                        
-                    }
-                </section>
+                
             </div>
         </div>
 

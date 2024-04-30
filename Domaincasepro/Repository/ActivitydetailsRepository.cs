@@ -76,6 +76,38 @@ namespace Domaincasepro.Repository
             return activityimage;
         }
 
+        public ActivityDetail deleteActDetail(int deleteid)
+        {
+            var activityDetail = _context.ActivityDetails.Where(x=>x.ActivityId ==  deleteid).FirstOrDefault();
+            var imgdelete = _context.ActivityImages.Where(x=>x.ActivityId == deleteid).ToList();
+            var tabledelete = _context.ActivityTrailerTables.Where(x => x.ActivityId == deleteid).ToList();
+            if (activityDetail != null )
+            {
+                
+                
+                _context.ActivityDetails.Remove(activityDetail);
+                _context.SaveChanges();
+            }
+
+            if (imgdelete.Any()) {
+                foreach (var item in imgdelete)
+                {
+                    _context.ActivityImages.Remove(item);
+                }
+                _context.SaveChanges();
+            }
+
+            if (tabledelete.Count > 0)
+            {
+                foreach (var td in tabledelete)
+                {
+                    _context.ActivityTrailerTables.Remove(td);
+                }
+                _context.SaveChanges();
+            }
+            return activityDetail;
+        }
+
         public ActivityDetail GetActivityById(int activityid)
         {
             return _context.ActivityDetails.Where(x => x.ActivityId == activityid).FirstOrDefault();
