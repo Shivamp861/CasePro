@@ -33,7 +33,7 @@ namespace Domaincasepro.Commands
                 if (TrailerEntity != null)
                 {
                    
-                    return TrailerTippingFactory.Create(true,"",addedTrailerdetails.Id);
+                    return TrailerTippingFactory.Create(true, "Trailer Tipping Saved Successfully", addedTrailerdetails.Id);
                 }
                 else
                 {

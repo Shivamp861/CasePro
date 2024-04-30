@@ -808,7 +808,7 @@ $('.siteInstallation').on('blur', 'input, select,textarea,button', function (e) 
                         $('#sitesuccessupdatemessage').fadeIn(function () {
                             // Once message is fully displayed, redirect after a delay
                             setTimeout(function () {
-                                window.location.href = '/Activity/CreateActivity/' + response.activityId;
+                               window.location.href = '/Activity/CreateActivity/' + response.activityId;
                             }, 2000); // Adjust delay time as needed (in milliseconds)
                         });
                     } else {
@@ -1246,6 +1246,8 @@ function saveTrailerdata() {
             data: tippingData,
             success: function (response) {
                 if (response != null) {
+                    $('#Tippingsuccessmessage').fadeIn().delay(2000).fadeOut();
+
                     var rowCount = $('#yardTTrailerDetails tbody tr').length;
                     // Increment the last used id for the next row
                     var nextId = rowCount + 1;
@@ -1259,8 +1261,6 @@ function saveTrailerdata() {
                         '</tr>';
                     $('#yardTTrailerDetails tbody').append(newRow);
 
-                    alert('Trailer tipping details saved successfully.');
-
                     $('#yardbarrierdateloaded').val('');
                     $('#yardtsupplier').val('');
                     $('#yardTrailerNumber').val('');
@@ -1269,11 +1269,11 @@ function saveTrailerdata() {
                     $('#yardTrailerdeport').val('');
                     $('#yardloadedby').val('');
                 } else {
-                    alert('Failed to save tipping details. Please try again.');
+                    $('#tippingerrormessage').fadeIn().delay(2000).fadeOut();
                 }
             },
             error: function () {
-                alert('An error occurred while saving tipping details. Please try again.');
+                $('#tippingerrormessage').fadeIn().delay(2000).fadeOut();
             }
         });
     }
@@ -1393,8 +1393,10 @@ function SaveInBoundTrailerData() {
             data: loadingData,
             success: function (response) {
                 if (response != null) {
+
                    
                     if (response.isOutBound == 'on') {
+                        $('#loadingoutboundsuccessmessage').fadeIn().delay(2000).fadeOut();
                         var rowCount = $('#TrailerDetails1 tbody tr').length;
                         var nextId = rowCount + 1;
 
@@ -1415,12 +1417,12 @@ function SaveInBoundTrailerData() {
 
                         // Appending the new row to the table body
                         $('#TrailerDetails1 tbody').append(newRow);
-
-                        alert('Trailer Details Out Bound Saved successfully.');
-                    }
+                     }
 
 
                     else {
+                        $('#loadingsuccessmessage').fadeIn().delay(2000).fadeOut();
+    
                         var rowcount2 = $('#TrailerDetails2 tbody tr').length;
                         var nextId1 = rowcount2 + 1;
                         var datePart = response.date.split('T')[0];
@@ -1433,8 +1435,7 @@ function SaveInBoundTrailerData() {
                             '<td>' + datePart + '</td>' +
                             '</tr>';
                         $('#TrailerDetails2 tbody').append(newRow1);
-                        alert('Tripping Details Return Saved successfully.')
-                    }
+                      }
 
 
 
@@ -1448,11 +1449,11 @@ function SaveInBoundTrailerData() {
                     $('#Vehicle').val('');
                     $('#barrierdate').val('');
                 } else {
-                    alert('Failed to save tipping details. Please try again.');
+                    $('#loadingerrormessage').fadeIn().delay(2000).fadeOut();
                 }
             },
             error: function () {
-                alert('An error occurred while saving tipping details. Please try again.');
+                $('#loadingerrormessage').fadeIn().delay(2000).fadeOut();
             }
         });
     }
