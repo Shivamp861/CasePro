@@ -96,14 +96,17 @@ namespace CasePro.Controllers
                     var response = _Trailerhandler.AddActivityTrailerdetails(TrailerData);
 
                     TrailerTippingRequestModel res = _tQueryhandler.ExecuteTrailerQueryById(response.trid);
+                    
                    
                     // Check the response and take appropriate action
                     if (response.IsSuccess)
                     {
+                        TempData["SuccessMessage"] = response.Message;
                         return Json(res);
                     }
                     else
                     {
+                        TempData["SuccessMessage"] = "Please fill up the details";
                         return Json(new { success = false, errorMessage = response.Message }); // Or return appropriate error response
                     }
                 }

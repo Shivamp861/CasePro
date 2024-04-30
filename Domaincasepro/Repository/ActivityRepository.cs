@@ -311,10 +311,13 @@ namespace Domaincasepro.Repository
             return (activityEntity, flag1);
         }
 
+
         public ActivityTable getActType(int deleteid)
         {
             var activityTable = _context.ActivityTables.Where(x => x.Id == deleteid).FirstOrDefault();
             return (ActivityTable)activityTable;
+
+        
         }
     }
 }

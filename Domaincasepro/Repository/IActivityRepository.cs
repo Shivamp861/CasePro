@@ -26,6 +26,9 @@ namespace Domaincasepro.Repository
         public ActivityTable getActivityId(ActivityTable activityid);
         public ActivityTable updateactivitystatus(string status, int activityid);
 		public (ActivityTable, int) CloneAddOrUpdateActivity(ActivityTable activityEntity);
+
         public ActivityTable getActType(int deleteid);
+
+
     }
 }
