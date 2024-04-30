@@ -94,10 +94,10 @@ namespace Domaincasepro.Queries
             }
         }
 
-        public ActivityTable gettypefortable(int? actiId)
-        {
-            var activitytype = _repo.gettypefortable(actiId);
-            return (ActivityTable)activitytype;
-        }
+        //public ActivityTable gettypefortable(int? actiId)
+        //{
+        //    var activitytype = _repo.gettypefortable(actiId);
+        //    return (ActivityTable)activitytype;
+        //}
     }
 }
