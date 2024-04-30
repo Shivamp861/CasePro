@@ -128,6 +128,7 @@ $('.yardTipping').on('blur', 'input, select,textarea,button', function (e) {
 
     // Move AJAX call inside the isValid block
     if (isValid) {
+        var pageReloaded = false;
         $.ajax({
             url: '/activity/SaveDataactivitydetails',
             method: 'post',
@@ -135,13 +136,17 @@ $('.yardTipping').on('blur', 'input, select,textarea,button', function (e) {
             contentType: false, // Prevent jQuery from setting contentType
             data: formData,
             success: function (response) {
-                if (response.success) {
+                if (response.success && !pageReloaded) {
                     if ($('.ytid').val() != 0) {
                         $('#sitesuccessupdatemessage').fadeIn().delay(2000).fadeOut();
                         
                     } else {
                         $('#sitesuccessmessage').fadeIn().delay(2000).fadeOut();
                     }
+                    pageReloaded = true;
+                    setTimeout(function () {
+                        location.reload(); // Reload the page after a 2-second delay
+                    }, 2000);
                 }
             },
             error: function (xhr, status, error) {
@@ -1636,20 +1641,29 @@ $('.yardLoading').on('blur', 'input, select,textarea,button', function (e) {
         $.each(Yardformdata, function (key, value) {
             formData.append('Sitedata.' + key, value);
         });
+
+        var pageReloaded = false;
         $.ajax({
             url: '/Activity/SaveDataactivitydetails',
             method: 'post',
             processData: false, // Prevent jQuery from processing the data
             contentType: false, // Prevent jQuery from setting contentType
             data: formData,
+            
             success: function (response) {
-                if (response.success) {
+                if (response.success && !pageReloaded) {
                     if ($('.ylid').val() != 0) {
 
                         $('#sitesuccessupdatemessage').fadeIn().delay(2000).fadeOut();
+
                     } else {
                         $('#sitesuccessmessage').fadeIn().delay(2000).fadeOut();
                     }
+                    pageReloaded = true; 
+                    setTimeout(function () {
+                        location.reload(); // Reload the page after a 2-second delay
+                    }, 2000);
+                    //i want to reload page only 1 time after suscces
                 }
             },
             error: function (xhr, status, error) {

@@ -311,10 +311,13 @@ namespace Domaincasepro.Repository
             return (activityEntity, flag1);
         }
 
-        public ActivityTable gettypefortable(int? actiId)
+
+        public ActivityTable getActType(int deleteid)
         {
-            var type = _context.ActivityTables.Where(x => x.Id == actiId).FirstOrDefault();
-            return type;
+            var activityTable = _context.ActivityTables.Where(x => x.Id == deleteid).FirstOrDefault();
+            return (ActivityTable)activityTable;
+
+        
         }
     }
 }

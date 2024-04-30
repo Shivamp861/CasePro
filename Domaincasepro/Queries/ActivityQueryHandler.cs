@@ -50,6 +50,13 @@ namespace Domaincasepro.Queries
             // Retrieve list of activities from the repository
 
         }
+
+        public ActivityTable getacttype(int deleteid)
+        {
+            var activityTable = _repo.getActType(deleteid);
+            return activityTable;
+        }
+
         public JobCard GetJobCard(int activityId)
         {
             try
