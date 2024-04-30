@@ -310,5 +310,11 @@ namespace Domaincasepro.Repository
 
             return (activityEntity, flag1);
         }
+
+        public ActivityTable gettypefortable(int? actiId)
+        {
+            var type = _context.ActivityTables.Where(x => x.Id == actiId).FirstOrDefault();
+            return type;
+        }
     }
 }
