@@ -73,5 +73,26 @@ namespace Domaincasepro.Commands
 
             };
         }
+
+        public TrailerTippingResponseModel DeleteFromCalendar(int id)
+        {
+            try
+            {
+                bool res = _repo.DeletedetailsFromCalendar(id);
+                if (res)
+                {
+                    return TrailerTippingFactory.Create(true, "delete Successfully", id);
+                }
+                else
+                {
+                    // Something went wrong while adding the activity
+                    return TrailerTippingFactory.Create(false, "Failed to Delete", id);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while delete Activity: " + ex.Message);
+            }
+        }
     }
 }

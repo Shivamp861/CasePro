@@ -13,6 +13,6 @@ namespace Domaincasepro.Repository
 
         List<ActivityTrailerTable> GetAllListById(int id);
         ActivityTrailerTable getActivityTrailerId(int id);
-
+        bool DeletedetailsFromCalendar(int id);
     }
 }

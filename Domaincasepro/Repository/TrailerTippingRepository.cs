@@ -53,5 +53,28 @@ namespace Domaincasepro.Repository
             return latestEntity;
 
         }
+        public bool DeletedetailsFromCalendar(int id)
+        {
+            bool success = false;
+            try
+            {
+                var activity = _context.ActivityDetails.Where(x => x.ActivityId == id).FirstOrDefault();
+                if (activity == null)
+                {
+                    throw new InvalidOperationException("Activity not found");
+                }
+                else
+                {
+                    _context.ActivityDetails.Remove(activity);
+                    _context.SaveChanges();
+                    success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while delete Activity: " + ex.Message);
+            }
+            return success;
+        }
     }
 }
