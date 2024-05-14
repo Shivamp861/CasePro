@@ -1,0 +1,164 @@
+﻿@using Newtonsoft.Json
+@model List<Modelcasepro.RequestModel.ActivityViewModel>
+@{
+    ViewData["Title"] = "Calendar page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="https://cdn.syncfusion.com/ej2/material.css" rel="stylesheet">
+<style>
+    .ourtab_section .container {
+        max-width: 100%;
+        margin: 0;
+        width: 100%;
+    }
+
+    .e-location-container, .e-all-day-container, .e-time-zone-container, .e-input-wrapper, .e-description-container, .e-location-icon {
+        display: none;
+    }
+
+    #Description {
+        display: none;
+    }
+
+    div#schedule {
+        height: 780px !important;
+    }
+
+    .ourtab_section {
+        padding: 40px 0;
+    }
+</style>
+
+<div class="ourtab_section">
+    <div class="container">
+        <div id="schedule"></div>
+    </div>
+
+    <div id="addTaskModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <label for="assignee">Assignee:</label>
+            <select id="assignee">
+                <option value="rushi">Rushi</option>
+                <option value="divya">Divya</option>
+            </select>
+            <label for="taskDate">Date:</label>
+            <input type="date" id="taskDate">
+            <button id="saveTaskBtn">Save</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var eventListenerAttached = false;
+
+        function attachEventListener() {
+            if (!eventListenerAttached) {
+                // Attach click event listener to a parent element that exists in the DOM
+                document.addEventListener('click', function (event) {
+                    // Check if the clicked element matches the selector
+                    if (event.target.matches('.e-date-time-details.e-text-ellipsis')) {
+                        // Redirect to the desired URL
+                        const locationDetails = document.querySelector('.e-location-details.e-text-ellipsis');
+                        if (locationDetails) {
+                            var activityIdInput = locationDetails.querySelector('.hidclass');
+                            var activityId = activityIdInput.value
+                            window.location.href = '/Activity/CreateActivity/' + activityId;
+
+                        } else {
+                            window.location.href = '/Activity/CreateActivity/';
+
+                        }
+                        // Now you can use the id variable for further processing
+
+                    }
+                });
+
+                eventListenerAttached = true;
+            }
+        }
+
+        attachEventListener();
+
+        var activityData = @Html.Raw(JsonConvert.SerializeObject(Model));
+
+
+
+        var scheduleObj = new ej.schedule.Schedule({
+            width: '100%',
+            height: '550px',
+            views: ['Week'],
+            selectedDate: new Date(),
+            eventSettings: {
+                dataSource: activityData.map(function (event) {
+                    //addHiddenFieldToAppointmentDetails(event.Id);
+                    var startTime = new Date(event.DateRaised);
+                    var endTime = new Date(event.DateRaised);
+
+
+                    // Set StartTime to 10:00 AM
+                    //startTime.setHours(10, 0, 0);
+
+                    // If StartTime and EndTime are provided, use them
+                    if (event.startTime && event.endTime) {
+                        var startTimeParts = event.startTime.split(":");
+                        var endTimeParts = event.endTime.split(":");
+                        startTime.setHours(parseInt(startTimeParts[0]), parseInt(startTimeParts[1]));
+                        endTime.setHours(parseInt(endTimeParts[0]), parseInt(endTimeParts[1]));
+                    } else {
+                        // Set EndTime to 7:00 PM if not provided
+                        endTime.setHours(19, 0, 0);
+                    }
+                    // var hiddenInput = document.createElement('input');
+                    // hiddenInput.type = 'hidden';
+                    // hiddenInput.name = 'activityId'; // Name of the hidden field
+                    // hiddenInput.value = event.Id; // Assign the ID value
+                    var hinput = '<input type="hidden" id="activityid" class="hidclass" name="activityId" value="' + event.Id + '" />';
+
+
+                    return {
+                        Subject: event.ActivitType,
+                        StartTime: startTime,
+                        EndTime: endTime,
+                        Location: hinput,
+                        IsAllDay: false
+                    };
+                })
+            },
+
+        });
+
+
+        scheduleObj.appendTo('#schedule');
+
+        var modal = document.getElementById('addTaskModal');
+        var closeModal = document.querySelector('.close');
+        var saveTaskBtn = document.getElementById('saveTaskBtn');
+
+        closeModal.addEventListener('click', function () {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', function (e) {
+            if (e.target == modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        saveTaskBtn.addEventListener('click', function () {
+            var assignee = document.getElementById('assignee').value;
+            var taskDate = document.getElementById('taskDate').value;
+            // Logic to save task using Syncfusion Scheduler API
+            document.querySelector('.').appendChild(hiddenInput);
+            modal.style.display = 'none';
+        });
+    });
+
+
+
+</script>
