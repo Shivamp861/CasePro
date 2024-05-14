@@ -539,5 +539,27 @@ namespace CasePro.Controllers
 
 			return View();
 		}
-	}
+
+        [HttpPost]
+        public IActionResult CalendarActivityDelete(int activityId)
+        {
+            try
+            {
+                var response = _deletehandler.DeleteHandler(activityId);
+                //var response = _Trailerhandler.DeleteFromCalendar(activityId);
+                if (response.IsSuccess)
+                {
+                    return Json(new { success = true, activityId = response.ActivityId, errorMessage = response.Message });
+                }
+                else
+                {
+                    return Json(new { success = false, errorMessage = response.Message }); // Or return appropriate error response
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while delete Activity: " + ex.Message);
+            }
+        }
+    }
 }

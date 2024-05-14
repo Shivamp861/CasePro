@@ -130,11 +130,36 @@
                     };
                 })
             },
+            actionBegin: function (args) {
+                if (args.requestType === 'eventRemove') {
 
+                    var event = args.data[0];
+                    var eventId = $(event.Location).val();
+                    deleteActivity(eventId);
+
+                }
+            }
         });
 
 
         scheduleObj.appendTo('#schedule');
+
+        function deleteActivity(activityId) {
+            // Send an AJAX request to delete the activity
+            $.ajax({
+                url: '/Activity/CalendarActivityDelete',
+                type: 'POST',
+                data: { activityId: activityId },
+                success: function (response) {
+                    // Handle success response, maybe refresh the calendar
+                    alert(response.errorMessage);
+                    location.reload();
+                },
+                error: function (xhr, status, error) {
+                    // Handle error
+                }
+            });
+        }
 
         var modal = document.getElementById('addTaskModal');
         var closeModal = document.querySelector('.close');

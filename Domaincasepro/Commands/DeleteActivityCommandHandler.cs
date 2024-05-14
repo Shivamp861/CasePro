@@ -30,7 +30,7 @@ namespace Domaincasepro.Commands
 
 				if (res)
 				{
-					return ActivityResponseFactory.Create(true, "Deleted Activity Succesfully", 0, "");
+					return ActivityResponseFactory.Create(true, "Activity Deleted Succesfully", 0, "");
 				}
 				else
 				{
