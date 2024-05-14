@@ -194,7 +194,7 @@
                         @Html.Partial("~/Views/Activity/ResourseDetails.cshtml", resoursedetails)
                     }
                 </section>
-                <section id="content4" class="tab-content">
+                <section id="content4" class="tab-content" data-redirect-url="@Url.Action("ActivityDetails", "Activity")">
                     @{
                         
                             @Html.Partial("~/Views/Activity/ActivityDetails.cshtml", Activitydetails)

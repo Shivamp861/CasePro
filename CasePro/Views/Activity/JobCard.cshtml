@@ -73,8 +73,8 @@
             <div class="col-sm-4 col-md-4">
                 <div class="form-group clearfix">
                     <label for="Date">Date Raised:</label>
-                    @Html.TextBoxFor(x => x.DateRaised,"{0:yyyy-MM-dd}", new { @class = "form-control", type="date", id="Date"})
-                    <span id="DateError" class="text-danger"></span>
+                    @Html.TextBoxFor(x => x.DateRaised, "{0:yyyy-MM-ddTHH:mm}", new { @class = "form-control", type = "datetime-local", id = "Date" })
+                <span id="DateError" class="text-danger"></span>
                 </div>
             </div>
             <div class="col-sm-4 col-md-4">

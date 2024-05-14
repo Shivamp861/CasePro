@@ -49,6 +49,26 @@ namespace CasePro.Controllers
         {
             return View();
         }
+
+        public IActionResult Calenderdemo()
+        {
+            try
+            {
+
+                List<ActivityViewModel> activities = _handler.ExecuteGetList();
+                if (activities != null)
+                {
+                    activities.Reverse();
+                }
+                return View(activities);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while Get List of Activities: " + ex.Message);
+            }
+        }
+
+
         public IActionResult ActivitiesList()
         {
             try
