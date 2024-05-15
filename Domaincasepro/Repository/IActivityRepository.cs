@@ -28,7 +28,7 @@ namespace Domaincasepro.Repository
 		public (ActivityTable, int) CloneAddOrUpdateActivity(ActivityTable activityEntity);
 
         public ActivityTable getActType(int deleteid);
-
+        bool editForDragDropCalander(int eventId, DateTime newDate);
 
     }
 }

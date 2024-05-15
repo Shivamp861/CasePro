@@ -319,5 +319,28 @@ namespace Domaincasepro.Repository
 
         
         }
+        public bool editForDragDropCalander(int eventId, DateTime newDate)
+        {
+            bool success = false;
+            try
+            {
+                var activity = _context.ActivityTables.FirstOrDefault(x => x.Id == eventId);
+                if (activity == null)
+                {
+                    throw new InvalidOperationException("Activity not found");
+                }
+                else
+                {
+                    activity.DateRaised = newDate.ToString();
+                    _context.SaveChanges();
+                    success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while delete Activity: " + ex.Message);
+            }
+            return success;
+        }
     }
 }
