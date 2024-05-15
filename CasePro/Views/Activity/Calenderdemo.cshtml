@@ -28,6 +28,11 @@
     .ourtab_section {
         padding: 40px 0;
     }
+
+    .e-subject.e-field.e-dropdown {
+        border: none;
+    }
+
 </style>
 
 <div class="ourtab_section">
@@ -59,23 +64,70 @@
 
         function attachEventListener() {
             if (!eventListenerAttached) {
-                // Attach click event listener to a parent element that exists in the DOM
                 document.addEventListener('click', function (event) {
-                    // Check if the clicked element matches the selector
                     if (event.target.matches('.e-date-time-details.e-text-ellipsis')) {
-                        // Redirect to the desired URL
-                        const locationDetails = document.querySelector('.e-location-details.e-text-ellipsis');
+                        const datetime = event.target.textContent;
+                        const parsedDate = new Date(datetime);
+                        parsedDate.setMinutes(parsedDate.getMinutes() - parsedDate.getTimezoneOffset()); // Adjust for timezone offset
+                        var formattedDate = parsedDate.toISOString().split('.')[0].replace('T', ' ').slice(0, -3);
+                        var dateOnly = formattedDate.split(' ')[0];
+
+
+                        let parentElement = event.target.parentElement;
+                        while (parentElement && !parentElement.classList.contains('e-popup-content')) {
+                            parentElement = parentElement.parentElement;
+                        }
+                        const locationDetails = parentElement.querySelector('.e-location-details.e-text-ellipsis');
                         if (locationDetails) {
                             var activityIdInput = locationDetails.querySelector('.hidclass');
                             var activityId = activityIdInput.value
                             window.location.href = '/Activity/CreateActivity/' + activityId;
-
                         } else {
-                            window.location.href = '/Activity/CreateActivity/';
+                            let parentElement = event.target.parentElement;
+                            while (parentElement && !parentElement.classList.contains('e-event-popup')) {
+                                parentElement = parentElement.parentElement;
+                            }
+                            if (parentElement) {
+                                const title = parentElement.querySelector('.e-subject.e-text-ellipsis').getAttribute('title');
+                                window.location.href = '/Activity/CreateActivity/?title=' + title + '&formattedDate=' + dateOnly;
+                            }
 
                         }
-                        // Now you can use the id variable for further processing
+                    }
+                    if (event.target && event.target.classList) {
+                        if (event.target.classList.contains('e-work-cells')) {
+                            console.log("test ohk");
+                            popupWrapper = document.querySelector('.e-quick-popup-wrapper');
+                            if (popupWrapper) {
+                                inputField = popupWrapper.querySelector('.e-subject');
+                                if (inputField) {
+                                    dropdownHTML = '<select class="e-subject e-field e-dropdown" name ="Subject"">' +
+                                        '<option value="">Select Activity Type</option>' +
+                                        '<option value="Site Installation">Site Installation</option>' +
+                                        '<option value="Site Uplift">Site Uplift</option>' +
+                                        '<option value="Yard Loading">Yard Loading</option>' +
+                                        '<option value="Yard Tipping">Yard Tipping</option>' +
+                                        '</select>';
 
+                                    dropdownElement = document.createElement('div');
+                                    dropdownElement.className = 'e-input-group e-control-wrapper';
+                                    dropdownElement.innerHTML = dropdownHTML;
+                                    inputField.parentNode.removeChild(inputField);
+
+                                    // Find the element with class .e-subject within the popup wrapper
+                                    var spanElement = popupWrapper.querySelector('.e-input-group');
+
+                                    // Check if the span element exists
+                                    if (spanElement) {
+                                        // Append the dropdown inside the span element
+                                        spanElement.appendChild(dropdownElement.firstChild);
+                                    } else {
+                                        console.log("Element with class .e-input-group not found in the popup.");
+                                    }
+                                }
+                            }
+
+                        }
                     }
                 });
 
@@ -83,11 +135,10 @@
             }
         }
 
+
         attachEventListener();
 
         var activityData = @Html.Raw(JsonConvert.SerializeObject(Model));
-
-
 
         var scheduleObj = new ej.schedule.Schedule({
             width: '100%',
@@ -96,30 +147,18 @@
             selectedDate: new Date(),
             eventSettings: {
                 dataSource: activityData.map(function (event) {
-                    //addHiddenFieldToAppointmentDetails(event.Id);
                     var startTime = new Date(event.DateRaised);
                     var endTime = new Date(event.DateRaised);
-
-
-                    // Set StartTime to 10:00 AM
-                    //startTime.setHours(10, 0, 0);
-
-                    // If StartTime and EndTime are provided, use them
+                    startTime.setHours(8, 0, 0);
+                    endTime.setHours(19, 0, 0);
                     if (event.startTime && event.endTime) {
                         var startTimeParts = event.startTime.split(":");
                         var endTimeParts = event.endTime.split(":");
                         startTime.setHours(parseInt(startTimeParts[0]), parseInt(startTimeParts[1]));
                         endTime.setHours(parseInt(endTimeParts[0]), parseInt(endTimeParts[1]));
-                    } else {
-                        // Set EndTime to 7:00 PM if not provided
-                        endTime.setHours(19, 0, 0);
                     }
-                    // var hiddenInput = document.createElement('input');
-                    // hiddenInput.type = 'hidden';
-                    // hiddenInput.name = 'activityId'; // Name of the hidden field
-                    // hiddenInput.value = event.Id; // Assign the ID value
-                    var hinput = '<input type="hidden" id="activityid" class="hidclass" name="activityId" value="' + event.Id + '" />';
 
+                    var hinput = '<input type="hidden" id="activityid" class="hidclass" name="activityId" value="' + event.Id + '" />';
 
                     return {
                         Subject: event.ActivitType,
@@ -128,35 +167,62 @@
                         Location: hinput,
                         IsAllDay: false
                     };
-                })
+                }),
+                allowDragAndDrop: true
             },
             actionBegin: function (args) {
                 if (args.requestType === 'eventRemove') {
-
                     var event = args.data[0];
                     var eventId = $(event.Location).val();
                     deleteActivity(eventId);
-
                 }
-            }
-        });
+            },
+            actionComplete: function (args) {
+                if (args.requestType === 'eventChanged') {
+                    draggedEvent = args.data[0].Location;
+                    console.log(draggedEvent);
+                    var eventId = $(draggedEvent).val();
+                    var newDate = args.changedRecords[0].StartTime;
+                    var parsedDate = new Date(newDate);
+                    parsedDate.setMinutes(parsedDate.getMinutes() - parsedDate.getTimezoneOffset()); // Adjust for timezone offset
+                    var formattedDate = parsedDate.toISOString().split('.')[0].replace('T', ' ').slice(0, -3);
+                    var dateOnly = formattedDate.split(' ')[0];
+                    if (eventId > 0) {
+                        updateEventDate(eventId, dateOnly);
+                    }
+                }
 
+            }
+
+        });
 
         scheduleObj.appendTo('#schedule');
 
         function deleteActivity(activityId) {
-            // Send an AJAX request to delete the activity
             $.ajax({
                 url: '/Activity/CalendarActivityDelete',
                 type: 'POST',
                 data: { activityId: activityId },
                 success: function (response) {
-                    // Handle success response, maybe refresh the calendar
                     alert(response.errorMessage);
                     location.reload();
                 },
                 error: function (xhr, status, error) {
                     // Handle error
+                }
+            });
+        }
+
+        function updateEventDate(eventId, dateOnly) {
+            $.ajax({
+                url: '/Activity/EditCalendarDragDrop',
+                type: 'POST',
+                data: { eventId: eventId, newDate: dateOnly },
+                success: function (response) {
+                    location.reload();
+                },
+                error: function (xhr, status, error) {
+                    alert("An error occurred while updating the event date.");
                 }
             });
         }
@@ -183,7 +249,4 @@
             modal.style.display = 'none';
         });
     });
-
-
-
 </script>

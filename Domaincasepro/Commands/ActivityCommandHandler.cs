@@ -112,5 +112,25 @@ namespace Domaincasepro.Commands
 
             };
         }
+
+        public ActivityResponseModel EditForDragDropCalander(int eventId, DateTime newDate)
+        {
+            try
+            {
+                bool resp = _repo.editForDragDropCalander(eventId, newDate);
+                if (resp)
+                {
+                    return ActivityResponseFactory.Create(true, "Dropped successfully ", 0, null);
+                }
+                else
+                {
+                    return ActivityResponseFactory.Create(false, "Dropped Failed ", 0, null);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while delete Activity: " + ex.Message);
+            }
+        }
     }
 }

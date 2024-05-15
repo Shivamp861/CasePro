@@ -1,10 +1,12 @@
-﻿using Domaincasepro.Commands;
+﻿using Azure;
+using Domaincasepro.Commands;
 using Domaincasepro.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Modelcasepro.RequestModel;
 using Modelcasepro.ViewModel;
 using System.Security.Cryptography;
+using System.Security.Policy;
 using System.Web.Helpers;
 
 namespace CasePro.Controllers
@@ -89,16 +91,32 @@ namespace CasePro.Controllers
 
         }
 
-        public IActionResult CreateActivity(int id, int? InstructorId = 0, bool flag = false)
+        public IActionResult CreateActivity(string title, string formattedDate, int id, int? InstructorId = 0, bool flag = false)
         {
             try
             {
-                ViewBag.flag = flag;
-                ViewBag.InstructorId = InstructorId;
-                return View(new Modelcasepro.ViewModel.Activity
+                if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(formattedDate))
                 {
-                    ActivityId = id
-                });
+                    // Redirect or return an error view indicating that the parameters are missing
+                    ViewBag.flag = flag;
+                    ViewBag.InstructorId = InstructorId;
+                    return View(new Modelcasepro.ViewModel.Activity
+                    {
+                        ActivityId = id,
+
+                    });
+                }
+                else
+                {
+                    ViewBag.Title = title;
+                    ViewBag.FormattedDate = formattedDate;
+                    return View(new Modelcasepro.ViewModel.Activity
+                    {
+                        ActivityId = 0,
+
+                    });
+                }
+
 
             }
             catch (Exception ex)
@@ -106,6 +124,7 @@ namespace CasePro.Controllers
                 throw new Exception("An error occurred: " + ex.Message);
             }
         }
+        
         [HttpPost]
         public IActionResult SaveTrailerTipping(TrailerTippingRequestModel TrailerData)
         {
@@ -560,6 +579,27 @@ namespace CasePro.Controllers
             {
                 throw new Exception("An error occurred while delete Activity: " + ex.Message);
             }
+        }
+        [HttpPost]
+        public IActionResult EditCalendarDragDrop(int eventId, DateTime newDate)
+        {
+            try
+            {
+                var response = _activityhandler.EditForDragDropCalander(eventId, newDate);
+                if (response.IsSuccess)
+                {
+                    return Json(new { success = true, activityId = response.ActivityId, errorMessage = response.Message });
+                }
+                else
+                {
+                    return Json(new { success = false, errorMessage = response.Message });
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while edit Activity: " + ex.Message);
+            }
+            return View();
         }
     }
 }

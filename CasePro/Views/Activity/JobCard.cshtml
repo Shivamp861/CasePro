@@ -56,10 +56,12 @@
             <div class="col-sm-4 col-md-4">
                 <div class="form-group clearfix">
                     <label for="activityType">Activity Type:</label>
-                    @Html.DropDownListFor(x => x.ActivityType,
+                    @if (ViewBag.FormattedDate != null)
+                    {
+                        @Html.DropDownListFor(x => x.ActivityType,
                     new List<SelectListItem>
                     {
-                    new SelectListItem { Text = "Select an activity type", Value = "" }, // Default option
+                    new SelectListItem { Text = ViewBag.Title, Value = ViewBag.Title }, // Set the value of ViewBag.Title as the default option
                     new SelectListItem { Text = "Site Installation", Value = "Site Installation" },
                     new SelectListItem { Text = "Site Uplift", Value = "Site Uplift" },
                     new SelectListItem { Text = "Yard Loading", Value = "Yard Loading" },
@@ -67,20 +69,43 @@
                     },
                     new { @class = "form-control", id = "activityType" }
                     )
+                    }
+                    else
+                    {
+                        @Html.DropDownListFor(x => x.ActivityType,
+                    new List<SelectListItem>
+                    {
+                    new SelectListItem { Text = "select activity Type", Value = "" }, // Set the value of ViewBag.Title as the default option
+                    new SelectListItem { Text = "Site Installation", Value = "Site Installation" },
+                    new SelectListItem { Text = "Site Uplift", Value = "Site Uplift" },
+                    new SelectListItem { Text = "Yard Loading", Value = "Yard Loading" },
+                    new SelectListItem { Text = "Yard Tipping", Value = "Yard Tipping" }
+                    },
+                    new { @class = "form-control", id = "activityType" }
+                    )
+                    }
                     <span id="activityTypeError" class="text-danger"></span>
                 </div>
             </div>
             <div class="col-sm-4 col-md-4">
                 <div class="form-group clearfix">
                     <label for="Date">Date Raised:</label>
-                    @Html.TextBoxFor(x => x.DateRaised, "{0:yyyy-MM-ddTHH:mm}", new { @class = "form-control", type = "datetime-local", id = "Date" })
-                <span id="DateError" class="text-danger"></span>
+                    @if (ViewBag.FormattedDate != null)
+                    {
+                        @Html.TextBox("Date", ViewBag.FormattedDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date", id = "Date" })
+                    }
+                    else
+                    {
+                        @Html.TextBoxFor(x => x.DateRaised, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date", id = "Date" })
+
+                    }
+                    <span id="DateError" class="text-danger"></span>
                 </div>
             </div>
             <div class="col-sm-4 col-md-4">
                 <div class="form-group clearfix">
                     <label for="RaisedBy">Raised By:</label>
-                    @Html.TextBoxFor(x => x.RaisedBy, new { @class = "form-control", value="", id="RaisedBy"})
+                    @Html.TextBoxFor(x => x.RaisedBy, new { @class = "form-control", value = "", id = "RaisedBy" })
                     <span id="RaiseError" class="text-danger"></span>
                 </div>
             </div>
